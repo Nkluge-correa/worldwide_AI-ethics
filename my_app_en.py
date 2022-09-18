@@ -1,4 +1,3 @@
-
 import dash
 import pandas as pd
 import plotly.express as px
@@ -11,7 +10,7 @@ from dash import Dash, dcc, html, Output, Input, State, dash_table
 app = dash.Dash(__name__,
                 meta_tags=[
                     {'name': 'viewport', 'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}],
-                external_stylesheets=[dbc.themes.CYBORG])
+                external_stylesheets=[dbc.themes.DARKLY])
 
 server = app.server
 app.title = 'Worldwide AI Ethics 🌐'
@@ -22,7 +21,7 @@ fig = go.Figure(data=go.Choropleth(
     locations=df['Code'],
     z=df['Nº of Publications'],
     text=df['Countries'],
-    colorscale='deep',
+    colorscale='inferno',
     autocolorscale=False,
     reversescale=True,
     marker_line_color='darkgray',
@@ -30,9 +29,8 @@ fig = go.Figure(data=go.Choropleth(
 ))
 
 fig.update_layout(
-    font_family='Lato',
     font_color='white',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     geo=dict(
         showframe=False,
         showcoastlines=False,
@@ -40,10 +38,11 @@ fig.update_layout(
         bgcolor='rgba(0,0,0,0)'
     ),
     margin={'r': 0, 't': 10, 'l': 0, 'b': 0},
-    legend=dict(title_font_family='Lato', font_size=18),
+    legend=dict(font_size=18),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)'
 )
+
 
 df10 = pd.read_excel('meta_en.xlsx', 'meta_gender')
 x_tick_text = list(df10['Authors'])
@@ -55,17 +54,18 @@ fig10 = go.Figure(go.Bar(
     width=[0.8, 0.8],
     hovertemplate="%{y}: %{x} <extra></extra>",
     marker=dict(
+        color='rgba(255, 136, 0, 0.8)',
         line=dict(
+            color='rgba(255, 136, 0, 1.0)',
             width=1))))
 fig10.update_traces(textposition='outside')
 fig10.update_yaxes(showgrid=False, visible=True,
-                   showticklabels=True, tickfont=dict(family='Lato', size=16))
+                   showticklabels=True, tickfont=dict(size=16))
 fig10.update_xaxes(showgrid=False, showline=False, visible=True,
-                   showticklabels=True, tickfont=dict(family='Lato', size=16))
+                   showticklabels=True, tickfont=dict(size=16))
 fig10.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     margin=dict(l=20, r=20, t=30, b=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -77,7 +77,7 @@ fig10.update_layout(
 
 df5 = pd.read_excel('meta_en.xlsx', 'meta_year')
 labels = '<i>Documents</br>published<br>in 2014</i>'
-colors = '#636efa'
+colors = '#ff8800'
 mode_size = 16
 line_size = 6
 x_data = list(df5['Years'])
@@ -102,11 +102,10 @@ fig5.update_layout(
         showline=True,
         showgrid=False,
         showticklabels=True,
-        linecolor='rgb(204, 204, 204)',
+        linecolor='#ff8800',
         linewidth=2,
         ticks='outside',
         tickfont=dict(
-            family='Lato',
             size=16,
             color='white',
         ),
@@ -119,7 +118,6 @@ fig5.update_layout(
         showticklabels=True,
         side='right',
         tickfont=dict(
-            family='Lato',
             size=16,
             color='white',
         ),
@@ -127,26 +125,23 @@ fig5.update_layout(
     showlegend=False,
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
 )
 annotations = []
 annotations.append(dict(xref='paper', x=0.05, y=y_data[0],
                         xanchor='right', yanchor='middle',
                         text=labels,
-                        font=dict(family='Lato',
-                                  size=16),
+                        font=dict(size=14),
                         showarrow=False))
 annotations.append(dict(xref='paper', x=0.95, y=y_data[-1],
                         xanchor='left', yanchor='middle',
                         text='',
-                        font=dict(family='Lato',
-                                  size=16),
+                        font=dict(size=14),
                         showarrow=False))
 fig5.update_layout(annotations=annotations,
-                   font=dict(family='Lato'),
                    font_color='white',
                    hovermode='x',
-                   hoverlabel=dict(font_family='Lato', font_size=20),
+                   hoverlabel=dict(font_size=20),
                    margin={'r': 20, 't': 20, 'l': 20, 'b': 20})
 
 
@@ -160,15 +155,16 @@ fig4 = go.Figure(go.Bar(
     orientation='h',
     hovertemplate="%{y}: %{x} <extra></extra>",
     marker=dict(
-                line=dict(
-                    width=1))))
+        color='rgba(255, 136, 0, 0.8)',
+        line=dict(
+            color='rgba(255, 136, 0, 1.0)',
+            width=1))))
 fig4.update_traces(textposition='outside')
-fig4.update_yaxes(tickfont=dict(family='Lato', size=16))
-fig4.update_xaxes(visible=True, tickfont=dict(family='Lato', size=16))
+fig4.update_yaxes(tickfont=dict(size=16))
+fig4.update_xaxes(visible=True, tickfont=dict(size=16))
 fig4.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     yaxis=dict(
         showgrid=False,
         showline=False,
@@ -197,15 +193,16 @@ fig3 = go.Figure(go.Bar(
     orientation='h',
     hovertemplate="%{y}: %{x} <extra></extra>",
     marker=dict(
-                line=dict(
-                    width=1))))
+        color='rgba(255, 136, 0, 0.8)',
+        line=dict(
+            color='rgba(255, 136, 0, 1.0)',
+            width=1))))
 fig3.update_traces(textposition='outside')
-fig3.update_yaxes(tickfont=dict(family='Lato', size=16))
-fig3.update_xaxes(visible=True, tickfont=dict(family='Lato', size=16))
+fig3.update_yaxes(tickfont=dict(size=16))
+fig3.update_xaxes(visible=True, tickfont=dict(size=16))
 fig3.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     yaxis=dict(
         showgrid=False,
         showline=False,
@@ -235,17 +232,19 @@ fig6 = go.Figure(go.Bar(
     hovertemplate="%{x}: %{y} <extra></extra>",
     width=[0.5, 0.5, 0.5],
     marker=dict(
+        color='rgba(255, 136, 0, 0.8)',
         line=dict(
+            color='rgba(255, 136, 0, 1.0)',
             width=1))))
 fig6.update_traces(textposition='outside')
 fig6.update_yaxes(showgrid=False, visible=True,
-                  showticklabels=True, tickfont=dict(family='Lato', size=16))
+                  showticklabels=True, tickfont=dict(size=16))
 fig6.update_xaxes(showgrid=False, showline=False, visible=True,
-                  showticklabels=True, tickfont=dict(family='Lato', size=16))
+                  showticklabels=True, tickfont=dict(size=16))
 fig6.update_layout(
-    font_family='Lato',
+
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     margin=dict(l=20, r=20, t=30, b=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -265,17 +264,18 @@ fig8 = go.Figure(go.Bar(
     hovertemplate="%{x}: %{y} <extra></extra>",
     width=[0.5, 0.5, 0.5],
     marker=dict(
+        color='rgba(255, 136, 0, 0.8)',
         line=dict(
+            color='rgba(255, 136, 0, 1.0)',
             width=1))))
 fig8.update_traces(textposition='outside')
 fig8.update_yaxes(showgrid=False, visible=True,
-                  showticklabels=True, tickfont=dict(family='Lato', size=16))
+                  showticklabels=True, tickfont=dict(size=16))
 fig8.update_xaxes(showgrid=False, showline=False, visible=True,
-                  showticklabels=True, tickfont=dict(family='Lato', size=16))
+                  showticklabels=True, tickfont=dict(size=16))
 fig8.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     margin=dict(l=20, r=20, t=30, b=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -295,17 +295,18 @@ fig9 = go.Figure(go.Bar(
     hovertemplate="%{x}: %{y} <extra></extra>",
     width=[0.5, 0.5, 0.5],
     marker=dict(
+        color='rgba(255, 136, 0, 0.8)',
         line=dict(
+            color='rgba(255, 136, 0, 1.0)',
             width=1))))
 fig9.update_traces(textposition='outside')
 fig9.update_yaxes(showgrid=False, visible=True,
-                  showticklabels=True, tickfont=dict(family='Lato', size=16))
+                  showticklabels=True, tickfont=dict(size=16))
 fig9.update_xaxes(showgrid=False, showline=False, visible=True,
-                  showticklabels=True, tickfont=dict(family='Lato', size=16))
+                  showticklabels=True, tickfont=dict(size=16))
 fig9.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     margin=dict(l=20, r=20, t=30, b=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -325,17 +326,18 @@ fig7 = go.Figure(go.Bar(
     hovertemplate="%{x}: %{y} <extra></extra>",
     width=[0.5, 0.5, 0.5],
     marker=dict(
+        color='rgba(255, 136, 0, 0.8)',
         line=dict(
+            color='rgba(255, 136, 0, 1.0)',
             width=1))))
 fig7.update_traces(textposition='outside')
 fig7.update_yaxes(showgrid=False, visible=True,
-                  showticklabels=True, tickfont=dict(family='Lato', size=16))
+                  showticklabels=True, tickfont=dict(size=16))
 fig7.update_xaxes(showgrid=False, showline=False, visible=True,
-                  showticklabels=True, tickfont=dict(family='Lato', size=16))
+                  showticklabels=True, tickfont=dict(size=16))
 fig7.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     margin=dict(l=20, r=20, t=30, b=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -343,7 +345,6 @@ fig7.update_layout(
     barmode='group',
     bargroupgap=0.8
 )
-
 df2 = pd.read_excel('meta_en.xlsx', 'meta_names')
 names = []
 for i in range(0, len(df2['Document Title'])):
@@ -370,15 +371,15 @@ table = html.Div(children=[
         page_current=0,
         page_size=50,
         style_cell={
-            'text-align': 'justify', 'text-justify': 'inter-word', 'font-family': 'Lato', 'fontSize': 16, 'padding': '10px',
-            'backgroundColor': '#060606'
+            'text-align': 'justify', 'text-justify': 'inter-word', 'fontSize': 16, 'padding': '10px',
+            'backgroundColor': '#222222'
         },
         style_data={
             'whiteSpace': 'normal',
             'height': 'auto'
         },
         style_header={
-            'backgroundColor': '#060606',
+            'backgroundColor': '#222222',
             'fontWeight': 'bold',
             'text-align': 'left',
             'fontSize': 16
@@ -397,19 +398,19 @@ table_2 = html.Div(children=[
         columns=[{'id': x, 'name': x, 'presentation': 'markdown'} if x ==
                  'Document Title' else {'id': x, 'name': x} for x in df2_table.columns],
         style_table={'text-align': 'justify', 'text-justify': 'inter-word',
-                     'height': '600px', 'overflowY': 'scroll'},
+                     'height': '400px', 'overflowY': 'scroll'},
         page_current=0,
         page_size=50,
         style_cell={
-            'text-align': 'justify', 'text-justify': 'inter-word', 'font-family': 'Lato', 'fontSize': 16, 'padding': '10px',
-            'backgroundColor': '#060606'
+            'text-align': 'justify', 'text-justify': 'inter-word', 'fontSize': 16, 'padding': '10px',
+            'backgroundColor': '#222222'
         },
         style_data={
             'whiteSpace': 'normal',
             'height': 'auto'
         },
         style_header={
-            'backgroundColor': '#060606',
+            'backgroundColor': '#222222',
             'fontWeight': 'bold',
             'text-align': 'left',
             'fontSize': 16
@@ -425,13 +426,13 @@ for column in df11.columns:
     fig11.add_trace(go.Scatter(x=df11.index, y=df11[column],
                                line=dict(width=3), name=column, mode='lines',
                                hoverlabel=dict(namelength=-1),
-                               hovertemplate='Nº of Submissions (' +
+                               hovertemplate='Nº de Submissões (' +
                                column + '): %{y} <extra></extra>',
                                showlegend=True))
 fig11.update_yaxes(showgrid=True, gridcolor='lightgray',
-                   showticklabels=True, tickfont=dict(family='Lato', size=12))
+                   showticklabels=True, tickfont=dict(size=12))
 fig11.update_xaxes(showgrid=False, showline=False, visible=True,
-                   showticklabels=True, tickfont=dict(family='Lato', size=12))
+                   showticklabels=True, tickfont=dict(size=12))
 fig11.update_layout(
     xaxis=dict(
         showline=True,
@@ -442,7 +443,6 @@ fig11.update_layout(
         tickangle=45,
         ticks='outside',
         tickfont=dict(
-            family='Lato',
             size=12,
             color='white',
         ),
@@ -455,7 +455,6 @@ fig11.update_layout(
         showticklabels=True,
         side='left',
         tickfont=dict(
-            family='Lato',
             size=12,
             color='white',
         ),
@@ -463,9 +462,8 @@ fig11.update_layout(
     showlegend=True,
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    hoverlabel=dict(font_family='Lato', font_size=20),
-    title='Nº of Arxiv Submissions by Category',
-    font_family='Lato',
+    hoverlabel=dict(font_size=20),
+    title='Nº de Submissões no Arxiv por Categoria',
     font_color='white',
     hovermode='x',
     margin={'r': 20, 't': 70, 'l': 20, 'b': 20}
@@ -478,13 +476,13 @@ for column in df12.columns:
     fig12.add_trace(go.Scatter(x=df12.index, y=df12[column],
                                line=dict(width=3), name=column, mode='lines',
                                hoverlabel=dict(namelength=-1),
-                               hovertemplate='Nº of Submissions (' +
+                               hovertemplate='Nº de Submissões (' +
                                column + '): %{y} <extra></extra>',
                                showlegend=True))
 fig12.update_yaxes(showgrid=True, gridcolor='lightgray',
-                   showticklabels=True, tickfont=dict(family='Lato', size=12))
+                   showticklabels=True, tickfont=dict(size=12))
 fig12.update_xaxes(showgrid=False, showline=False, visible=True,
-                   showticklabels=True, tickfont=dict(family='Lato', size=12))
+                   showticklabels=True, tickfont=dict(size=12))
 fig12.update_layout(
     xaxis=dict(
         showline=True,
@@ -495,7 +493,6 @@ fig12.update_layout(
         tickangle=45,
         ticks='outside',
         tickfont=dict(
-            family='Lato',
             size=12,
             color='white',
         ),
@@ -508,7 +505,6 @@ fig12.update_layout(
         showticklabels=True,
         side='left',
         tickfont=dict(
-            family='Lato',
             size=12,
             color='white',
         ),
@@ -516,9 +512,8 @@ fig12.update_layout(
     showlegend=True,
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    hoverlabel=dict(font_family='Lato', font_size=20),
-    title='Nº of Arxiv Submissions in Computer Science',
-    font_family='Lato',
+    hoverlabel=dict(font_size=20),
+    title='Nº de Submissões no Arxiv em Ciências da Computação',
     font_color='white',
     hovermode='x',
     margin={'r': 20, 't': 70, 'l': 20, 'b': 20}
@@ -528,11 +523,10 @@ df13 = pd.read_excel('meta_en.xlsx', 'Accountability_gram')
 
 fig13 = px.bar(df13, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Accountability/Liability',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig13.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -543,11 +537,10 @@ df14 = pd.read_excel('meta_en.xlsx', 'Beneficence_gram')
 
 fig14 = px.bar(df14, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Beneficence/Non-Maleficence',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig14.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -558,11 +551,10 @@ df15 = pd.read_excel('meta_en.xlsx', 'Children_gram')
 
 fig15 = px.bar(df15, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Children & Adolescents Rights',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig15.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -573,11 +565,10 @@ df16 = pd.read_excel('meta_en.xlsx', 'Dignity_gram')
 
 fig16 = px.bar(df16, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Dignity/Human Rights',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig16.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -588,11 +579,10 @@ df17 = pd.read_excel('meta_en.xlsx', 'Diversity_gram')
 
 fig17 = px.bar(df17, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Diversity/Inclusion/Pluralism/Accessibility',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig17.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -603,11 +593,10 @@ df18 = pd.read_excel('meta_en.xlsx', 'Freedom_gram')
 
 fig18 = px.bar(df18, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Freedom/Autonomy/Democratic Values/Technological Sovereignty',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig18.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -618,11 +607,10 @@ df19 = pd.read_excel('meta_en.xlsx', 'Formation_gram')
 
 fig19 = px.bar(df19, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Human Formation/Education',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig19.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -633,11 +621,10 @@ df21 = pd.read_excel('meta_en.xlsx', 'Centeredness_gram')
 
 fig21 = px.bar(df21, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Human-Centeredness/Alignment',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig21.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -648,11 +635,10 @@ df22 = pd.read_excel('meta_en.xlsx', 'Property_gram')
 
 fig22 = px.bar(df22, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Intellectual Property',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig22.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -663,11 +649,10 @@ df23 = pd.read_excel('meta_en.xlsx', 'Justice_gram')
 
 fig23 = px.bar(df23, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Justice/Equity/Fairness/Non-discrimination',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig23.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -678,26 +663,23 @@ df24 = pd.read_excel('meta_en.xlsx', 'Labor_gram')
 
 fig24 = px.bar(df24, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Labor Rights',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig24.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
 )
 
-
 df25 = pd.read_excel('meta_en.xlsx', 'Open_gram')
 
 fig25 = px.bar(df25, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Open source/Fair Competition/Cooperation',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig25.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -708,11 +690,10 @@ df26 = pd.read_excel('meta_en.xlsx', 'Privacy_gram')
 
 fig26 = px.bar(df26, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Privacy',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig26.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -723,11 +704,10 @@ df27 = pd.read_excel('meta_en.xlsx', 'Reliability_gram')
 
 fig27 = px.bar(df27, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Reliability/Safety/Security/Trustworthiness',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig27.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -738,11 +718,10 @@ df28 = pd.read_excel('meta_en.xlsx', 'Sustainability_gram')
 
 fig28 = px.bar(df28, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Sustainability',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig28.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -753,11 +732,10 @@ df29 = pd.read_excel('meta_en.xlsx', 'Transparency_gram')
 
 fig29 = px.bar(df29, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Transparency/Explainability/Auditability',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig29.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -768,11 +746,10 @@ df30 = pd.read_excel('meta_en.xlsx', 'Truthfulness_gram')
 
 fig30 = px.bar(df30, x='Top four-grams', y='Word Count',
                title=f'Top-20 Words (four-grams) in principle: Truthfulness',
-               color='Word Count', color_continuous_scale='deep')
+               color='Word Count', color_continuous_scale='inferno')
 fig30.update_layout(
-    font_family='Lato',
     template='plotly_dark',
-    hoverlabel=dict(font_family='Lato', font_size=20),
+    hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     uniformtext_minsize=16,
@@ -786,45 +763,55 @@ with open('info_en.txt', encoding='utf8') as file_in:
 
 modal_abstract = html.Div(
     [
-        dbc.Button('Abstract', id='open-fs', outline=True, color='primary'),
+        dbc.Button('Abstract', id='open-fs', outline=True, color='warning'),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '## **Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance**'), style={'font-family': 'Lato'})),
+                    '## Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance ⚖️'), style={})),
                 dbc.ModalBody([
-                    html.Span([dcc.Markdown(info[0])], style={'font-family': 'Lato',
-                                                              'font-size': 18,
-                                                              'text-align': 'justify',
-                                                              'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[0], style={'font-size': 18,
+                                                 'text-align': 'justify',
+                                                 'text-justify': 'inter-word'}), html.Br(),
                     dcc.Graph(id='arxiv_sub', figure=fig11), html.Br(),
-                    html.Span([dcc.Markdown(info[72])], style={'font-family': 'Lato',
-                                                               'font-size': 18,
-                                                               'text-align': 'justify',
-                                                               'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[72], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
                     dcc.Graph(id='arxiv_CS', figure=fig12), html.Br(),
-                    html.Span([dcc.Markdown(info[73])], style={'font-family': 'Lato',
-                                                               'font-size': 18,
-                                                               'text-align': 'justify',
-                                                               'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[73], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
                     html.Hr(),
-                    html.Span([dcc.Markdown('### **Cite as:**'), dcc.Markdown(info[1])], style={'font-family': 'Lato',
-                                                                                                'font-style': 'bold',
-                                                                                                'text-align': 'justify',
-                                                                                                'text-justify': 'inter-word'}),
+                    dcc.Markdown('### Cite as: 🤗'),
+                    dcc.Markdown('''
+
+                    ````bash
+
+                    @article{correa2022worldwide,
+                        title={Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance},
+                        author={Corr{\^e}a, Nicholas Kluge and Galv{\~a}o, Camila and Santos, James William and Del Pino, 
+                                Carolina and Pinto, Edson Pontes and Barbosa, Camila and Massmann, Diogo and Mambrini, 
+                                Rodrigo and Galv{\~a}o, Luiza and Terem, Edmund},
+                        journal={arXiv preprint arXiv:2206.11922},
+                        year={2022}
+                    }
+                    ````
+                    ''', style={'font-size': 18,
+                                'text-align': 'justify',
+                                'text-justify': 'inter-word'}),
                     html.Hr(),
-                    dcc.Markdown('Form more information, contact [airespucrs@airespucrs.org](mailto:airespucrs@airespucrs.org).',
+                    dcc.Markdown('- Form more information, contact [airespucrs@airespucrs.org](mailto:airespucrs@airespucrs.org).',
                                  style={'text-decoration': 'none',
                                         'font-size': 18,
                                         'font-family': 'Lato',
                                         'text-align': 'justify',
                                         'text-justify': 'inter-word'}),
-                    dcc.Markdown('Access the full Dash (Power BI version) [here](https://www.airespucrs.org/worldwide-ai-ethics).',
+                    dcc.Markdown('- Access the full Dash (Power BI version) [here](https://www.airespucrs.org/worldwide-ai-ethics).',
                                  style={'text-decoration': 'none',
                                         'font-family': 'Lato',
                                         'font-size': 18,
                                         'text-align': 'justify',
                                         'text-justify': 'inter-word'}),
-                    dcc.Markdown('Access the full article (preprint) [here](https://doi.org/10.48550/arXiv.2206.11922).',
+                    dcc.Markdown('- Access the full article (preprint) [here](https://doi.org/10.48550/arXiv.2206.11922).',
                                  style={'text-decoration': 'none',
                                         'font-family': 'Lato',
                                         'font-size': 18,
@@ -837,7 +824,7 @@ modal_abstract = html.Div(
                         id='close-fs',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -852,23 +839,27 @@ modal_abstract = html.Div(
 modal_map = html.Div(
     [
         dbc.Button(
-            'Publications by Country', id='open-body-scroll', outline=True, color='primary', n_clicks=0
+            'Publications by Country 🏳️‍🌈', id='open-body-scroll', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Publications by Country**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[2]), html.Br(), dcc.Markdown(info[3])], style={'font-family': 'Lato',
-                                                                                                'text-align': 'justify',
-                                                                                                'font-size': 18,
-                                                                                                'text-justify': 'inter-word'}),
+                    '### Publications by Country 🏳️‍🌈'), style={})),
+                dbc.ModalBody([
+                    dcc.Markdown(info[2], style={'font-size': 18,
+                                                 'text-align': 'justify',
+                                                 'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[3], style={'font-size': 18,
+                                                 'text-align': 'justify',
+                                                 'text-justify': 'inter-word'})
+                ]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -888,23 +879,27 @@ modal_map = html.Div(
 modal_gender = html.Div(
     [
         dbc.Button(
-            'Authors by Gender', id='open-body-scroll-1', outline=True, color='primary', n_clicks=0
+            'Gender 🧍‍♂️ ♂ ☿ ♀ 💃', id='open-body-scroll-1', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Authors by Gender**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[4]), html.Br(), dcc.Markdown(info[5])], style={'font-family': 'Lato',
-                                                                                                'text-align': 'justify',
-                                                                                                'font-size': 18,
-                                                                                                'text-justify': 'inter-word'}),
+                    '### Authors by Gender 🧍‍♂️ ♂ ☿ ♀ 💃'), style={})),
+                dbc.ModalBody([
+                    dcc.Markdown(info[4], style={'font-size': 18,
+                                                 'text-align': 'justify',
+                                                 'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[5], style={'font-size': 18,
+                                                 'text-align': 'justify',
+                                                 'text-justify': 'inter-word'})
+                ]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll-1',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -924,23 +919,27 @@ modal_gender = html.Div(
 modal_years = html.Div(
     [
         dbc.Button(
-            'Nº of Published Documents by Year', id='open-body-scroll-2', outline=True, color='primary', n_clicks=0
+            'Published Documents by Year ⌛', id='open-body-scroll-2', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Nº of Published Documents by Year**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[6]), html.Br(), dcc.Markdown(info[7])], style={'font-family': 'Lato',
-                                                                                                'text-align': 'justify',
-                                                                                                'font-size': 18,
-                                                                                                'text-justify': 'inter-word'}),
+                    '### Nº of Published Documents by Year ⌛'), style={})),
+                dbc.ModalBody([
+                    dcc.Markdown(info[6], style={'font-size': 18,
+                                                 'text-align': 'justify',
+                                                 'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[7], style={'font-size': 18,
+                                                 'text-align': 'justify',
+                                                 'text-justify': 'inter-word'})
+                ]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll-2',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -960,66 +959,106 @@ modal_years = html.Div(
 modal_principles = html.Div(
     [
         dbc.Button(
-            'Nº of Citations by Principle', id='open-body-scroll-3', outline=True, color='primary', n_clicks=0
+            'Citations by Principle ⚖️', id='open-body-scroll-3', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Nº of Citations by Principle**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[8]), html.Br(),
-                               dcc.Markdown(info[9]), html.Br(),
-                               dcc.Markdown(info[10]), html.Br(),
-                               dcc.Markdown(info[19]), html.Br(),
-                               dcc.Markdown(info[20]),
-                               dcc.Graph(id='account',
-                                         figure=fig13), html.Br(),
-                               dcc.Markdown(info[21]),
-                               dcc.Graph(id='benef', figure=fig14), html.Br(),
-                               dcc.Markdown(info[22]),
-                               dcc.Graph(id='child', figure=fig15), html.Br(),
-                               dcc.Markdown(info[23]),
-                               dcc.Graph(id='digni', figure=fig16), html.Br(),
-                               dcc.Markdown(info[24]),
-                               dcc.Graph(id='diver', figure=fig17), html.Br(),
-                               dcc.Markdown(info[25]),
-                               dcc.Graph(id='free', figure=fig18), html.Br(),
-                               dcc.Markdown(info[26]),
-                               dcc.Graph(id='educa', figure=fig19), html.Br(),
-                               dcc.Markdown(info[27]),
-                               dcc.Graph(id='align', figure=fig21), html.Br(),
-                               dcc.Markdown(info[28]),
-                               dcc.Graph(id='intellec',
-                                         figure=fig22), html.Br(),
-                               dcc.Markdown(info[29]),
-                               dcc.Graph(id='justice',
-                                         figure=fig23), html.Br(),
-                               dcc.Markdown(info[30]),
-                               dcc.Graph(id='labor', figure=fig24), html.Br(),
-                               dcc.Markdown(info[31]),
-                               dcc.Graph(id='open', figure=fig25), html.Br(),
-                               dcc.Markdown(info[32]),
-                               dcc.Graph(id='privacy',
-                                         figure=fig26), html.Br(),
-                               dcc.Markdown(info[33]),
-                               dcc.Graph(id='reliab', figure=fig27), html.Br(),
-                               dcc.Markdown(info[34]),
-                               dcc.Graph(id='sustaina',
-                                         figure=fig28), html.Br(),
-                               dcc.Markdown(info[35]),
-                               dcc.Graph(id='trans', figure=fig29), html.Br(),
-                               dcc.Markdown(info[36]),
-                               dcc.Graph(id='truth', figure=fig30), html.Br(),
-                               ], style={'font-family': 'Lato',
-                                         'text-align': 'justify',
-                                         'font-size': 18,
-                                         'text-justify': 'inter-word'}),
+                    '### Nº of Citations by Principle ⚖️'), style={})),
+                dbc.ModalBody([
+                    dcc.Markdown(info[8], style={'font-size': 18,
+                                                 'text-align': 'justify',
+                                                 'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[9], style={'font-size': 18,
+                                                 'text-align': 'justify',
+                                                 'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[10], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[19], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[20], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='account',
+                              figure=fig13), html.Br(),
+                    dcc.Markdown(info[21], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='benef', figure=fig14), html.Br(),
+                    dcc.Markdown(info[22], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='child', figure=fig15), html.Br(),
+                    dcc.Markdown(info[23], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='digni', figure=fig16), html.Br(),
+                    dcc.Markdown(info[24], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='diver', figure=fig17), html.Br(),
+                    dcc.Markdown(info[25], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='free', figure=fig18), html.Br(),
+                    dcc.Markdown(info[26], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='educa', figure=fig19), html.Br(),
+                    dcc.Markdown(info[27], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='align', figure=fig21), html.Br(),
+                    dcc.Markdown(info[28], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='intellec',
+                              figure=fig22), html.Br(),
+                    dcc.Markdown(info[29], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='justice',
+                              figure=fig23), html.Br(),
+                    dcc.Markdown(info[30], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='labor', figure=fig24), html.Br(),
+                    dcc.Markdown(info[31], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='open', figure=fig25), html.Br(),
+                    dcc.Markdown(info[32], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='privacy',
+                              figure=fig26), html.Br(),
+                    dcc.Markdown(info[33], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='reliab', figure=fig27), html.Br(),
+                    dcc.Markdown(info[34], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='sustaina',
+                              figure=fig28), html.Br(),
+                    dcc.Markdown(info[35], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='trans', figure=fig29), html.Br(),
+                    dcc.Markdown(info[36], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Graph(id='truth', figure=fig30), html.Br(),
+                ]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll-3',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -1039,23 +1078,30 @@ modal_principles = html.Div(
 modal_institution = html.Div(
     [
         dbc.Button(
-            'Nº of Publications by Institution Type', id='open-body-scroll-4', outline=True, color='primary', n_clicks=0
+            'Institution Type 👩‍💼', id='open-body-scroll-4', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Nº of Publications by Institution Type**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[11]), html.Br(), dcc.Markdown(info[12]), html.Br(), dcc.Markdown(info[13])], style={'font-family': 'Lato',
-                                                                                                                                     'text-align': 'justify',
-                                                                                                                                     'font-size': 18,
-                                                                                                                                     'text-justify': 'inter-word'}),
+                    '### Nº of Publications by Institution Type 👩‍💼'), style={})),
+                dbc.ModalBody([
+                    dcc.Markdown(info[11], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[12], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[13], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'})
+                ]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll-4',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -1075,27 +1121,36 @@ modal_institution = html.Div(
 modal_nature = html.Div(
     [
         dbc.Button(
-            'Nº of Publications by Type (Nature/Content)', id='open-body-scroll-5', size='lg', outline=True, color='primary', n_clicks=0
+            'Nature/Content 📝', id='open-body-scroll-5', size='lg', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Nº of Publications by Type (Nature/Content)**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[14]), html.Br(),
-                               dcc.Markdown(info[15]),
-                               dcc.Markdown(info[16]),
-                               dcc.Markdown(info[17]), html.Br(),
-                               dcc.Markdown(info[18])], style={'font-family': 'Lato',
-                                                               'text-align': 'justify',
-                                                               'font-size': 18,
-                                                               'text-justify': 'inter-word'}),
+                    '### Nº of Publications by Type (Nature/Content) 📝'), style={})),
+                dbc.ModalBody([
+                    dcc.Markdown(info[14], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[15], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[16], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[17], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[18], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'})
+                ]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll-5',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -1115,27 +1170,36 @@ modal_nature = html.Div(
 modal_regulation = html.Div(
     [
         dbc.Button(
-            'Nº of Publications by Type (Form of Regulation)', id='open-body-scroll-6', size='lg', outline=True, color='primary', n_clicks=0
+            'Type of Regulation 👩‍⚖️', id='open-body-scroll-6', size='lg', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Nº of Publications by Type (Form of Regulation)**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[37]), html.Br(),
-                               dcc.Markdown(info[38]),
-                               dcc.Markdown(info[39]),
-                               dcc.Markdown(info[40]), html.Br(),
-                               dcc.Markdown(info[41])], style={'font-family': 'Lato',
-                                                               'font-size': 18,
-                                                               'text-align': 'justify',
-                                                               'text-justify': 'inter-word'}),
+                    '### Nº of Publications by Type (Form of Regulation) 👩‍⚖️'), style={})),
+                dbc.ModalBody([
+                    dcc.Markdown(info[37], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[38], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[39], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[40], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[41], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'})
+                ]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll-6',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -1155,27 +1219,36 @@ modal_regulation = html.Div(
 modal_impact = html.Div(
     [
         dbc.Button(
-            'Nº of Publications by Type (Impact Scope)', id='open-body-scroll-7', size='lg', outline=True, color='primary', n_clicks=0
+            'Impact Scope 💥', id='open-body-scroll-7', size='lg', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Nº of Publications by Type (Impact Scope)**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[42]), html.Br(),
-                               dcc.Markdown(info[43]),
-                               dcc.Markdown(info[44]),
-                               dcc.Markdown(info[45]), html.Br(),
-                               dcc.Markdown(info[46])], style={'font-family': 'Lato',
-                                                               'font-size': 18,
-                                                               'text-align': 'justify',
-                                                               'text-justify': 'inter-word'}),
+                    '### Nº of Publications by Type (Impact Scope) 💥'), style={})),
+                dbc.ModalBody([
+                    dcc.Markdown(info[42], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[43], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[44], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[45], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[46], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'})
+                ]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll-7',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -1195,27 +1268,36 @@ modal_impact = html.Div(
 modal_normative = html.Div(
     [
         dbc.Button(
-            'Nº of Publications by Type (Normative Strength)', id='open-body-scroll-8', size='lg', outline=True, color='primary', n_clicks=0
+            'Normative Strength 💪', id='open-body-scroll-8', size='lg', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Nº of Publications by Type (Normative Strength)**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[47]), html.Br(),
-                               dcc.Markdown(info[48]),
-                               dcc.Markdown(info[49]), html.Br(),
-                               dcc.Markdown(info[50]), html.Br(),
-                               dcc.Markdown(info[51])], style={'font-family': 'Lato',
-                                                               'text-align': 'justify',
-                                                               'font-size': 18,
-                                                               'text-justify': 'inter-word'}),
+                    '### Nº of Publications by Type (Normative Strength) 💪'), style={})),
+                dbc.ModalBody([
+                    dcc.Markdown(info[47], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[48], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[49], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[50], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[51], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'})
+                ]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll-8',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -1235,23 +1317,22 @@ modal_normative = html.Div(
 modal_table = html.Div(
     [
         dbc.Button(
-            'Publications (URL & Abstract)', id='open-body-scroll-9', outline=True, color='primary', n_clicks=0
+            'URL & Abstract 🌐📝', id='open-body-scroll-9', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Publications (URL & Abstract)**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[52])], style={'font-family': 'Lato',
-                                                               'text-align': 'justify',
-                                                               'font-size': 18,
-                                                               'text-justify': 'inter-word'}),
+                    '### URL & Abstract 🌐📝'), style={})),
+                dbc.ModalBody([dcc.Markdown(info[52], style={'font-size': 18,
+                                                             'text-align': 'justify',
+                                                             'text-justify': 'inter-word'})]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll-9',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -1270,41 +1351,78 @@ modal_table = html.Div(
 modal_definition = html.Div(
     [
         dbc.Button(
-            'Publications (Principles Definitions)', id='open-body-scroll-10', outline=True, color='primary', n_clicks=0
+            'Ethical Principles ⚖️🧭🤔 📙🧠⚕️', id='open-body-scroll-10', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Publications (Principles Definitions)**'), style={'font-family': 'Lato'})),
-                dbc.ModalBody([dcc.Markdown(info[53]), html.Br(),
-                               dcc.Markdown(info[54]),
-                               dcc.Markdown(info[55]), html.Br(),
-                               dcc.Markdown(info[56]),
-                               dcc.Markdown(info[57]), html.Br(),
-                               dcc.Markdown(info[58]), html.Br(),
-                               dcc.Markdown(info[59]), html.Br(),
-                               dcc.Markdown(info[60]),
-                               dcc.Markdown(info[61]), html.Br(),
-                               dcc.Markdown(info[62]),
-                               dcc.Markdown(info[63]), html.Br(),
-                               dcc.Markdown(info[64]), html.Br(),
-                               dcc.Markdown(info[65]), html.Br(),
-                               dcc.Markdown(info[66]),
-                               dcc.Markdown(info[67]),
-                               dcc.Markdown(info[68]),
-                               dcc.Markdown(info[69]),
-                               dcc.Markdown(info[70]), html.Br(),
-                               dcc.Markdown(info[71]), ], style={'font-family': 'Lato',
-                                                                 'text-align': 'justify',
-                                                                 'font-size': 18,
-                                                                 'text-justify': 'inter-word'}),
+                    '### **Publications (Principles Definitions) ⚖️🧭🤔 📙🧠⚕️**'), style={'font-family': 'Lato'})),
+                dbc.ModalBody([
+                    dcc.Markdown(info[53], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[54], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[55], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[56], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[57], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[58], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[59], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[60], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[61], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[62], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[63], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[64], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[65], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[66], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[67], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[68], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[69], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                    dcc.Markdown(info[70], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown(info[71], style={'font-size': 18,
+                                                  'text-align': 'justify',
+                                                  'text-justify': 'inter-word'}),
+                ]),
                 dbc.ModalFooter(
                     dbc.Button(
                         'Close',
                         id='close-body-scroll-10',
                         className='ms-auto',
                         n_clicks=0,
-                        color='primary'
+                        color='warning'
                     )
                 ),
             ],
@@ -1362,12 +1480,12 @@ aires_link = html.A(
 app.layout = dbc.Container(
     fluid=True,
     children=[
-        html.H1('Worldwide AI Ethics 🌐', style={'font-style': 'bold',
-                                                'margin-top': '15px',
-                                                'margin-left': '15px',
-                                                'display': 'inline-block'}),
+        html.H1('Worldwide AI Ethics ⚖️', style={'margin-top': '15px',
+                                                 'margin-left': '15px',
+                                                 'display': 'inline-block'}),
+        html.Div([modal_abstract], style={
+                 'display': 'inline-block', 'float': 'right', 'margin-top': '35px'}),
 
-        modal_abstract,
         html.Hr(),
         dbc.Row([
             dbc.Col([

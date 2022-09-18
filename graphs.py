@@ -45,10 +45,10 @@ fig = go.Figure(go.Bar(
     width=[0.8, 0.8],
     hovertemplate="%{y}: %{x} <extra></extra>",
     marker=dict(
-        color='rgba(183,69,0, 0.8)',
+        color='rgba((255, 136, 0, 0.8)',
         line=dict(
-            color='rgba(255,207,3, 1.0)',
-            width=4))))
+            color='rgba((255, 136, 0, 1.0)',
+            width=2))))
 fig.update_traces(textposition='inside')
 fig.update_yaxes(showgrid=True, gridcolor='lightgray', visible=True,
                  showticklabels=True, tickfont=dict(family='Lato', size=40))
