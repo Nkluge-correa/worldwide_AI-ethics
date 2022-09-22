@@ -6,7 +6,7 @@ _[Full article here.](https://arxiv.org/abs/2206.11922)_
 
 ## Dash Teamplate 🐱‍💻
 
-![demo-dash-app](assets\gif_demo.gif)
+![demo-dash-app](assets/gif_demo.gif)
 
 Here you can find the source code used to create our _Worldwide AI Ethics_ dashboard. This panel was created using the [Dash](https://dash.plotly.com/dash-enterprise) library. All the tables that feed our dashboard (`data(en).rar`), images (`png_files(en).rar`), and HTML-plotly graphs (`html_files(en).rar`) are also available in two languages (_Portuguese and English_). Auxiliary notebooks for creating the graphs (`make_graphs.ipynb`) and processing the text in the tables (`principle_mining.ipynb`) are also available. To render the dashes in your browser, simply run the `my_app_en.py` (_english_) or the `my_app_pt.py` (_portuguese_) script.
 
