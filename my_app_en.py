@@ -3,12 +3,12 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output, State
-from dash import Dash, dcc, html, Output, Input, State, dash_table
+from dash import dcc, html, Output, Input, State, dash_table
 
 
 dff = pd.read_excel('arxiv_submissions_data_en.xlsx',
                     'Arxiv').set_index('Date')
+
 fig = go.Figure(layout={'template': 'plotly_dark'})
 for column in dff.columns:
     fig.add_trace(go.Scatter(x=dff.index, y=dff[column],
@@ -58,6 +58,7 @@ fig.update_layout(
 
 dff = pd.read_excel('arxiv_submissions_data_en.xlsx',
                     'Arxiv(CS)').set_index('Date')
+
 fig1 = go.Figure(layout={'template': 'plotly_dark'})
 for column in dff.columns:
     fig1.add_trace(go.Scatter(x=dff.index, y=dff[column],
@@ -113,7 +114,7 @@ modal_article = html.Div(
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
                     '## Worldwide AI Ethics: a review of *200* guidelines and recommendations for AI governance ⚖️'), style={})),
                 dbc.ModalBody([
-                    dcc.Markdown('''Since the end of our last *“AI winter,”* 1987 – 1993, AI research and its industry have seen massive growth, either in developed technologies, investment, media attention, or new tasks that autonomous systems are nowadays able to perform. By looking at the history of submissions in ArXiv ([between 2009 and 2021](https://arxiv.org/about/reports/submission_category_by_year)), an open-access repository of electronic preprints and postprints, starting from 2018, **Computer Science-related papers have been the most common sort of submitted material.** ''', style={'font-size': 18,
+                    dcc.Markdown('''Since the end of our last *“AI winter,”* 1987 - 1993, AI research and its industry have seen massive growth, either in developed technologies, investment, media attention, or new tasks that autonomous systems are nowadays able to perform. By looking at the history of submissions in ArXiv ([between 2009 and 2021](https://arxiv.org/about/reports/submission_category_by_year)), an open-access repository of electronic preprints and postprints, starting from 2018, **Computer Science-related papers have been the most common sort of submitted material.** ''', style={'font-size': 18,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          'text-align': 'justify',
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          'text-justify': 'inter-word'}), html.Br(),
                     dcc.Graph(id='arxiv_sub', figure=fig), html.Br(),
@@ -128,7 +129,7 @@ modal_article = html.Div(
                     dcc.Markdown('### Cite as: 🤗'),
                     dcc.Markdown('''
 
-                    ````bash
+                    ````markdown
 
                     @article{correa2022worldwide,
                         title={Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance},
@@ -165,23 +166,19 @@ modal_article = html.Div(
             id='modal-fs',
             fullscreen=True,
         ),
-    ], style={
-        'margin-left': '5px',
-        'margin-bottom': '10px',
-    },
+    ], style={'display': 'inline-block', 'margin-right': '15px'},
 )
 
 dff = pd.read_excel('meta_en.xlsx', 'meta_text')
-abstract = list(dff['Abstract'])
+
 names = []
 for i in range(len(dff['Document Title'])):
-    x = dff['Document Title'][i]
-    y = dff['Document URL'][i]
+    x, y = dff['Document Title'][i], dff['Document URL'][i]
     names.append(f'[{x}]({y})')
 
 df = pd.DataFrame({
     'Documents': names,
-    'Abstract': abstract
+    'Abstract': list(dff['Abstract'])
 })
 
 table = dash_table.DataTable(
@@ -193,7 +190,7 @@ table = dash_table.DataTable(
     } for row in df.to_dict('records')],
     css=[{
         'selector': '.dash-table-tooltip',
-        'rule': 'background-color:  #1e1e1e; color: white; bottom: auto;'
+        'rule': 'background-color:  #272b30; color: white; bottom: auto;'
     }],
     tooltip_delay=0,
     tooltip_duration=None,
@@ -202,18 +199,18 @@ table = dash_table.DataTable(
     page_current=0,
     page_size=200,
     style_cell={
-        'text-align': 'center', 'text-justify': 'inter-word', 'fontSize': 12, 'padding': '10px',
-        'backgroundColor': '#222222'
+        'text-align': 'center', 'text-justify': 'inter-word', 'fontSize': 14, 'padding': '10px',
+        'backgroundColor': '#272b30'
     },
     style_data={
         'whiteSpace': 'normal',
         'height': 'auto'
     },
     style_header={
-        'backgroundColor': '#222222',
+        'backgroundColor': '#272b30',
         'fontWeight': 'bold',
         'text-align': 'center',
-        'fontSize': 20
+        'fontSize': 22
     },
 )
 
@@ -896,12 +893,12 @@ fig6.update_layout(
 modal_years = html.Div(
     [
         dbc.Button(
-            'Published Documents by Year ⌛', id='open-body-scroll-years', outline=True, color='warning', n_clicks=0
+            'Published Documents by Year 📅', id='open-body-scroll-years', outline=True, color='warning', n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### Nº of Published Documents by Year ⌛'), style={})),
+                    '### Nº of Published Documents by Year 📅'), style={})),
                 dbc.ModalBody([
                     dcc.Markdown('''With respect to the year of publication of the documents from our sample, one can see that **the majority of documents (129 = 64,5%) Were published between the years 2017 and 2019.** What we may call the *"AI ethics boom"* would be the **significant production of documents in the year 2018**, which represents **30,5% (61)** of our entire sample.''', style={'font-size': 18,
                                                                                                                                                                                                                                                                                                                                                                                                            'text-align': 'justify',
@@ -1429,7 +1426,7 @@ modal_divergence = html.Div(
                     dcc.Markdown('''Many other differences can be found in our sample, for example:''', style={'font-size': 18,
                                                                                                                'text-align': 'justify',
                                                                                                                'text-justify': 'inter-word'}), html.Br(),
-                    dcc.Markdown('''- “[Tieto’s AI ethics guidelines](https://www.tietoevry.com/en/newsroom/all-news-and-releases/press-releases/2018/10/tieto-strengthens-commitment-to-ethical-use-of-ai/)” takes a different take on explainability, saying its systems *“can be explained and explain itself”*, potting some of the responsibility of explainability in the **AI system itself**, making it a “stakeholder” in the accountability chain (a curious approach); ''', style={'font-size': 18,
+                    dcc.Markdown('''- “[Tieto's AI ethics guidelines](https://www.tietoevry.com/en/newsroom/all-news-and-releases/press-releases/2018/10/tieto-strengthens-commitment-to-ethical-use-of-ai/)” takes a different take on explainability, saying its systems *“can be explained and explain itself”*, potting some of the responsibility of explainability in the **AI system itself**, making it a “stakeholder” in the accountability chain (a curious approach); ''', style={'font-size': 18,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               'text-align': 'justify',
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               'text-justify': 'inter-word'}),
                     dcc.Markdown('''- “[The Toronto Declaration](https://www.torontodeclaration.org/declaration-text/english/)” gives an extensive and nonexhaustive definition of what *“discrimination”* means under international laws, while most other documents resume themselves in only citing the concept, leaving open to interpretation the types of *“discrimination that is permissible”*;''', style={'font-size': 18,
@@ -1438,7 +1435,7 @@ modal_divergence = html.Div(
                     dcc.Markdown('''- In “[Artificial Intelligence and Machine Learning: Policy Paper](https://www.internetsociety.org/resources/doc/2017/artificial-intelligence-and-machine-learning-policy-paper/)”, fairness is related to the idea of *“AI provides socio-economic opportunities for all”* (**benefits**), in “[Trustworthy AI in Aotearoa: AI Principles](https://aiforum.org.nz/wp-content/uploads/2020/03/Trustworthy-AI-in-Aotearoa-March-2020.pdf)” fairness is also defined as *“AI systems do not unjustly harm”* (**impacts**), which we can relate to the **difference between certain notions of algorithmic fairness** (predictive parity vs equalized odds); ''', style={'font-size': 18,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           'text-align': 'justify',
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           'text-justify': 'inter-word'}),
-                    dcc.Markdown('''- While some documents (e.g., “[Telefónica´s Approach to the Responsible Use of AI](https://www.telefonica.com/en/wp-content/uploads/sites/5/2021/08/ia-responsible-governance.pdf)”) state how privacy and security are essential for AI systems developments, only some (e.g., “[Big Data, Artificial Intelligence, Machine Learning, and Data Protection](https://ico.org.uk/media/for-organisations/documents/2013559/big-data-ai-ml-and-data-protection.pdf)”) specify what *“good privacy criteria”* are (e.g., **data minimization**).''', style={'font-size': 18,
+                    dcc.Markdown('''- While some documents (e.g., “[Telefónica's Approach to the Responsible Use of AI](https://www.telefonica.com/en/wp-content/uploads/sites/5/2021/08/ia-responsible-governance.pdf)”) state how privacy and security are essential for AI systems developments, only some (e.g., “[Big Data, Artificial Intelligence, Machine Learning, and Data Protection](https://ico.org.uk/media/for-organisations/documents/2013559/big-data-ai-ml-and-data-protection.pdf)”) specify what *“good privacy criteria”* are (e.g., **data minimization**).''', style={'font-size': 18,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              'text-align': 'justify',
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              'text-justify': 'inter-word'}),
                     dcc.Markdown('''- While most documents interpret accountability/liability as *“developers being responsible for their projects”* (e.g., “[Declaration of Ethical Principles for AI in Latin America](https://ia-latam.com/etica-ia-latam/)”), **some documents also put this responsibility on users**, and even algorithms “themselves” (e.g., “[The Ethics of Code: Developing AI for Business with Five Core Principles](https://www.sage.com/~/media/group/files/business-builders/business-builders-ethics-of-code.pdf?la=en)”).''', style={'font-size': 18,
@@ -1484,22 +1481,15 @@ offcanvas = html.Div(
             placement='end',
             is_open=False,
         ),
-    ], style={
-        'margin-left': '5px',
-        'margin-bottom': '10px',
-        'margin-right': '5px',
-        'display': 'inline-block',
-        'margin-top': '15px',
-        'float': 'right'
-    }
+    ], style={'display': 'inline-block', 'margin-left': '15px'}
 )
 
 badges = html.Span([
     dbc.Badge("❤️ Open-Source", href="https://github.com/Nkluge-correa/worldwide_AI-ethics",
               color="dark", className="text-decoration-none"),
-    dbc.Badge("🐍 Made with Python", href="https://www.python.org/",
-              color="dark", className="text-decoration-none"),
     dbc.Badge("🤖 AIRES at PUCRS", href="https://en.airespucrs.org/",
+              color="dark", className="text-decoration-none"),
+    dbc.Badge("🐍 Made with Python", href="https://www.python.org/",
               color="dark", className="text-decoration-none"),
     dbc.Badge("👨‍💻 Made by Nkluge-correa", href="https://nkluge-correa.github.io/",
               color="dark", className="text-decoration-none")
@@ -1510,9 +1500,8 @@ download_data = html.Div([
                outline=False, color='secondary'),
     dcc.Download(id="download-data")
 ], style={
-    'margin-left': '25px',
-    'margin-top': '10px',
-    'margin-bottom': '5px',
+    'margin-right': '5px',
+    'margin-left': '5px',
     'display': 'inline-block'})
 
 download_html = html.Div([
@@ -1520,9 +1509,8 @@ download_html = html.Div([
                outline=False, color='secondary'),
     dcc.Download(id="download-html")
 ], style={
-    'margin-left': '10px',
-    'margin-top': '10px',
-    'margin-bottom': '5px',
+    'margin-right': '5px',
+    'margin-left': '5px',
     'display': 'inline-block'})
 
 download_png = html.Div([
@@ -1530,16 +1518,15 @@ download_png = html.Div([
                outline=False, color='secondary'),
     dcc.Download(id="download-png")
 ], style={
-    'margin-left': '10px',
-    'margin-top': '10px',
-    'margin-bottom': '5px',
+    'margin-right': '5px',
+    'margin-left': '5px',
     'display': 'inline-block'})
 
 
 app = dash.Dash(__name__,
                 meta_tags=[
                     {'name': 'viewport', 'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}],
-                external_stylesheets=[dbc.themes.DARKLY])
+                external_stylesheets=[dbc.themes.SLATE])
 
 server = app.server
 app.title = 'Worldwide AI Ethics 🌐'
@@ -1548,14 +1535,12 @@ app.title = 'Worldwide AI Ethics 🌐'
 app.layout = dbc.Container(
     fluid=True,
     children=[
-        html.H4('Worldwide AI Ethics 🌍🌎🌏', style={'margin-top': '15px',
-                                                  'margin-left': '15px',
-                                                  'display': 'inline-block'}),
+        html.H1('Worldwide AI Ethics 🌍🌎🌏', style={'textAlign': 'center',
+                                                  'margin-top': '20px'}),
         html.Div([badges], style={
-                 'display': 'inline-block', 'margin-left': '15px', 'margin-top': '15px'}),
-        offcanvas,
-        html.Div([modal_article], style={
-                 'display': 'inline-block', 'float': 'right', 'margin-top': '15px'}),
+                 'textAlign': 'center'}),
+        html.Div([modal_article, offcanvas], style={
+                 'textAlign': 'center', 'margin-top': '20px'}),
         html.Hr(),
         dbc.Row([
             dbc.Col([
@@ -1614,7 +1599,7 @@ app.layout = dbc.Container(
         dbc.Row([
             dbc.Col([
                 download_data, download_html, download_png
-            ], md=12, style={'margin-top': '10px', 'margin-bottom': '30px'})
+            ], md=12, style={'textAlign': 'center', 'margin-top': '10px', 'margin-bottom': '30px'})
         ])
 
 

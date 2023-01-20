@@ -12,17 +12,15 @@ Here you can find the source code used to create our _Worldwide AI Ethics_ dashb
 
 ## Requirements 🛠️
 
-```python
-plotly==5.7.0
-dash==2.3.1
-dash-bootstrap-components==1.1.0
-dash-auth==1.4.1
-dash-daq==0.5.0
-dash-labs==1.0.4
-gunicorn==20.1.0
-unidecode==1.3.4
-openpyxl==3.0.9
-pandas==1.4.2
+```bash
+
+plotly
+dash
+dash-bootstrap-components
+unidecode
+openpyxl
+pandas
+
 ```
 
 ## How to cite this study😊

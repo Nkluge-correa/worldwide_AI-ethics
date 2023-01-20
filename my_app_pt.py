@@ -3,11 +3,11 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output, State
-from dash import Dash, dcc, html, Output, Input, State, dash_table
+from dash import dcc, html, Output, Input, State, dash_table
 
 dff = pd.read_excel('arxiv_submissions_data_pt.xlsx',
                     'Arxiv').set_index('Date')
+
 fig = go.Figure(layout={'template': 'plotly_dark'})
 for column in dff.columns:
     fig.add_trace(go.Scatter(x=dff.index, y=dff[column],
@@ -57,6 +57,7 @@ fig.update_layout(
 
 dff = pd.read_excel('arxiv_submissions_data_pt.xlsx',
                     'Arxiv(CS)').set_index('Date')
+
 fig1 = go.Figure(layout={'template': 'plotly_dark'})
 for column in dff.columns:
     fig1.add_trace(go.Scatter(x=dff.index, y=dff[column],
@@ -127,7 +128,7 @@ modal_article = html.Div(
                     dcc.Markdown('### Citar como: 🤗'),
                     dcc.Markdown('''
 
-                    ````bash
+                    ````markdown
 
                     @article{correa2022worldwide,
                         title={Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance},
@@ -164,14 +165,11 @@ modal_article = html.Div(
             id='modal-fs',
             fullscreen=True,
         ),
-    ], style={
-        'margin-left': '5px',
-        'margin-bottom': '10px',
-    },
+    ], style={'display': 'inline-block', 'margin-right': '15px'},
 )
 
 dff = pd.read_excel('meta_pt.xlsx', 'meta_text')
-abstract = list(dff['Abstract'])
+
 names = []
 for i in range(len(dff['Document Title'])):
     x, y = dff['Document Title'][i], dff['Document URL'][i]
@@ -179,7 +177,7 @@ for i in range(len(dff['Document Title'])):
 
 df = pd.DataFrame({
     'Documentos': names,
-    'Abstract': abstract
+    'Abstract': list(dff['Abstract'])
 })
 
 table = dash_table.DataTable(
@@ -191,7 +189,7 @@ table = dash_table.DataTable(
     } for row in df.to_dict('records')],
     css=[{
         'selector': '.dash-table-tooltip',
-        'rule': 'background-color:  #1e1e1e; color: white; bottom: auto;'
+        'rule': 'background-color: #272b30; color: white; bottom: auto;'
     }],
     tooltip_delay=0,
     tooltip_duration=None,
@@ -200,18 +198,18 @@ table = dash_table.DataTable(
     page_current=0,
     page_size=200,
     style_cell={
-        'text-align': 'center', 'text-justify': 'inter-word', 'fontSize': 12, 'padding': '10px',
-        'backgroundColor': '#222222'
+        'text-align': 'center', 'text-justify': 'inter-word', 'fontSize': 14, 'padding': '10px',
+        'backgroundColor': '#272b30'
     },
     style_data={
         'whiteSpace': 'normal',
         'height': 'auto'
     },
     style_header={
-        'backgroundColor': '#222222',
+        'backgroundColor': '#272b30',
         'fontWeight': 'bold',
         'text-align': 'center',
-        'fontSize': 20
+        'fontSize': 22
     },
 )
 
@@ -1481,14 +1479,7 @@ offcanvas = html.Div(
             placement='end',
             is_open=False,
         ),
-    ], style={
-        'margin-left': '5px',
-        'margin-bottom': '10px',
-        'margin-right': '5px',
-        'display': 'inline-block',
-        'margin-top': '15px',
-        'float': 'right'
-    }
+    ], style={'display': 'inline-block', 'margin-left': '15px'}
 )
 
 badges = html.Span([
@@ -1507,9 +1498,8 @@ download_data = html.Div([
                outline=False, color='secondary'),
     dcc.Download(id="download-data")
 ], style={
-    'margin-left': '25px',
-    'margin-top': '10px',
-    'margin-bottom': '5px',
+    'margin-right': '5px',
+    'margin-left': '5px',
     'display': 'inline-block'})
 
 download_html = html.Div([
@@ -1517,9 +1507,8 @@ download_html = html.Div([
                outline=False, color='secondary'),
     dcc.Download(id="download-html")
 ], style={
-    'margin-left': '10px',
-    'margin-top': '10px',
-    'margin-bottom': '5px',
+    'margin-right': '5px',
+    'margin-left': '5px',
     'display': 'inline-block'})
 
 download_png = html.Div([
@@ -1527,15 +1516,14 @@ download_png = html.Div([
                outline=False, color='secondary'),
     dcc.Download(id="download-png")
 ], style={
-    'margin-left': '10px',
-    'margin-top': '10px',
-    'margin-bottom': '5px',
+    'margin-right': '5px',
+    'margin-left': '5px',
     'display': 'inline-block'})
 
 app = dash.Dash(__name__,
                 meta_tags=[
                     {'name': 'viewport', 'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}],
-                external_stylesheets=[dbc.themes.DARKLY])
+                external_stylesheets=[dbc.themes.SLATE])
 
 server = app.server
 app.title = 'Worldwide AI Ethics 🌐'
@@ -1544,14 +1532,12 @@ app.title = 'Worldwide AI Ethics 🌐'
 app.layout = dbc.Container(
     fluid=True,
     children=[
-        html.H4('Worldwide AI Ethics 🌍🌎🌏', style={'margin-top': '15px',
-                                                  'margin-left': '15px',
-                                                  'display': 'inline-block'}),
+        html.H1('Worldwide AI Ethics 🌍🌎🌏', style={'textAlign': 'center',
+                                                  'margin-top': '20px'}),
         html.Div([badges], style={
-                 'display': 'inline-block', 'margin-left': '15px', 'margin-top': '15px'}),
-        offcanvas,
-        html.Div([modal_article], style={
-                 'display': 'inline-block', 'float': 'right', 'margin-top': '15px'}),
+                 'textAlign': 'center'}),
+        html.Div([modal_article, offcanvas], style={
+                 'textAlign': 'center', 'margin-top': '20px'}),
         html.Hr(),
         dbc.Row([
             dbc.Col([
@@ -1571,7 +1557,6 @@ app.layout = dbc.Container(
                         modal_gender,
                         dcc.Graph(id='gender', figure=fig4)
                     ], md=4),
-
                 ]),
                 html.Hr(),
                 dbc.Row([
@@ -1610,7 +1595,7 @@ app.layout = dbc.Container(
         dbc.Row([
             dbc.Col([
                 download_data, download_html, download_png
-            ], md=12, style={'margin-top': '10px', 'margin-bottom': '30px'})
+            ], md=12, style={'textAlign': 'center', 'margin-top': '10px', 'margin-bottom': '30px'})
         ])
 
 
