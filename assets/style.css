@@ -1,21 +1,25 @@
 /* unvisited link */
 a:link {
-  color: #ff8800;
+  color: #dc3d87;
+  text-decoration: none;
 }
 
 /* visited link */
 a:visited {
-  color: #ff8800;
+  color: #dc3d87;
+  text-decoration: none;
 }
 
 /* mouse over link */
 a:hover {
-  color: #ff8800;
+  color: #dc3d87;
+  text-decoration: none;
 }
 
 /* selected link */
 a:active {
-  color: red;
+  color: #dc3d87;
+  text-decoration: none;
 }
 
 /* Graph Control Objects ––––––––––––––––––––––––––––––––––––––––––––––––––*/
@@ -33,42 +37,24 @@ a:active {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #272b30 !important;  
+  background: #3a3f44 !important;  
   border-radius: 10px !important;
   display: block !important;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #ff8800;
+  background: #e9ecef !important; 
   border-radius: 3px; 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff8800 !important; 
+  background: #e9ecef !important; 
 }
 
 /* width */
 ::-webkit-scrollbar {
   width: 10px !important;
   display: block !important;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #272b30 !important;  
-  border-radius: 10px !important;
-  display: block !important;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #ff8800;
-  border-radius: 3px; 
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background:  #ff8800 !important; 
 }
