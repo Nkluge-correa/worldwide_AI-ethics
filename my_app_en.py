@@ -130,9 +130,8 @@ modal_article = html.Div(
                     dcc.Graph(id='arxiv_CS', figure=fig1), html.Br(),
                     dcc.Markdown('''Besides the number of papers being produced, we have never had more capital being invested in AI-related companies and startups, either by governments or Venture Capital firms **(more than 90 billion USD$ in 2021 in the US alone)**, and AI-related patents being registered (Zhang et al., [2022](https://aiindex.stanford.edu/report/)). This rapid expansion of the AI field/industry also came with another boom, the *"AI Ethics boom,"* where a never before seen demand for regulation and normative guidance of these technologies has been put forward. Drawing on the work done by past meta-analysts in the field, **this study presents a systematic review of 200 documents related to AI ethics and governance.** We present a collection of **typologies used to classify our sample**, all condensed in an **interactive and open-access online tool**, coupled with a critical analysis of *"what is being said"* and *"who is saying it"* in our AI ethics global landscape.''', style={'font-size': FONT_SIZE,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   'text-align': 'justify',
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  'text-justify': 'inter-word'}),
-                    html.Hr(),
-                    dcc.Markdown('### Cite as: 🤗'),
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown('### Cite as 🤗'),
                     dcc.Markdown('''
 
                     ````markdown
@@ -149,7 +148,6 @@ modal_article = html.Div(
                     ''', style={'font-size': FONT_SIZE,
                                 'text-align': 'justify',
                                 'text-justify': 'inter-word'}),
-                    html.Hr(),
                     html.Div([
                         html.H4([
                             dbc.Badge("📧 Contact Us", href="mailto:airespucrs@airespucrs.org",
@@ -1549,7 +1547,6 @@ app.layout = dbc.Container(
                  'textAlign': 'center'}),
         html.Div([modal_article, offcanvas], style={
                  'textAlign': 'center', 'margin-top': '20px'}),
-        html.Hr(),
         dbc.Row([
             dbc.Col([
                     table
@@ -1570,7 +1567,6 @@ app.layout = dbc.Container(
                     ], md=4),
 
                 ]),
-                html.Hr(),
                 dbc.Row([
                     dbc.Col([
                         modal_principles,
@@ -1581,7 +1577,6 @@ app.layout = dbc.Container(
                         dcc.Graph(id='years', figure=fig6)
                     ], md=8),
                 ]),
-                html.Hr(),
                 dbc.Row([
                     dbc.Col([
                         modal_nature,
@@ -1603,7 +1598,6 @@ app.layout = dbc.Container(
 
             ], md=10),
         ]),
-        html.Hr(),
         dbc.Row([
             dbc.Col([
                 download_data, download_html, download_png

@@ -129,9 +129,8 @@ modal_article = html.Div(
                     dcc.Graph(id='arxiv_CS', figure=fig1), html.Br(),
                     dcc.Markdown('Além do número de publicações sendo produzidos, nunca tivemos mais capital sendo investido em empresas e startups, seja por governos ou fundos de *venture capital*. **( mais de 90 bilhões de USD$ em 2021 só nos EUA)**, e patentes relacionadas à IA sendo registradas (Zhang et al., [2022](https://aiindex.stanford.edu/report/)). Esta rápida expansão do campo/indústria da IA também veio com outro boom, o *"boom da ética da IA",* onde uma exigência nunca antes vista de regulamentação e orientação normativa de tais tecnologias foi manifestada. Baseando-se no trabalho realizado por outros meta-analistas do campo, **este estudo apresenta uma revisão sistemática de 200 documentos relacionados à ética e governança da IA.** Nós apresentamos uma coleção de **tipologias usadas para classificar nossa amostra**, tudo condensado em uma ferramenta on-line **interativa e de acesso aberto**, juntamente com uma análise crítica daquilo que *"está sendo dito"* e *"quem o está dizendo"* em nosso panorama global da ética da IA.', style={'font-size': FONT_SIZE,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        'text-align': 'justify',
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       'text-justify': 'inter-word'}),
-                    html.Hr(),
-                    dcc.Markdown('### Citar como: 🤗'),
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       'text-justify': 'inter-word'}), html.Br(),
+                    dcc.Markdown('### Citar como 🤗'),
                     dcc.Markdown('''
 
                     ````markdown
@@ -148,7 +147,6 @@ modal_article = html.Div(
                     ''', style={'font-size': FONT_SIZE,
                                 'text-align': 'justify',
                                 'text-justify': 'inter-word'}),
-                    html.Hr(),
                     html.Div([
                         html.H4([
                             dbc.Badge("📧 Contate-nos", href="mailto:airespucrs@airespucrs.org",
@@ -1546,7 +1544,6 @@ app.layout = dbc.Container(
                  'textAlign': 'center'}),
         html.Div([modal_article, offcanvas], style={
                  'textAlign': 'center', 'margin-top': '20px'}),
-        html.Hr(),
         dbc.Row([
             dbc.Col([
                     table
@@ -1566,7 +1563,6 @@ app.layout = dbc.Container(
                         dcc.Graph(id='gender', figure=fig4)
                     ], md=4),
                 ]),
-                html.Hr(),
                 dbc.Row([
                     dbc.Col([
                         modal_principles,
@@ -1577,7 +1573,6 @@ app.layout = dbc.Container(
                         dcc.Graph(id='years', figure=fig6)
                     ], md=8),
                 ]),
-                html.Hr(),
                 dbc.Row([
                     dbc.Col([
                         modal_nature,
@@ -1599,7 +1594,6 @@ app.layout = dbc.Container(
 
             ], md=10),
         ]),
-        html.Hr(),
         dbc.Row([
             dbc.Col([
                 download_data, download_html, download_png
