@@ -113,11 +113,12 @@ fig1.update_layout(
 
 modal_article = html.Div(
     [
-        dbc.Button('Artigo 📰', id='open-fs', outline=False, color=OPEN_BUTTON),
+        dbc.Button(['Artigo ', html.I(className="bi bi-file-text-fill")],
+                   id='open-fs', outline=False, color=OPEN_BUTTON),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '## Worldwide AI Ethics: a review of *200* guidelines and recommendations for AI governance ⚖️'), style={})),
+                    '## Worldwide AI Ethics: a review of *200* guidelines and recommendations for AI governance  🌐', ), style={})),
                 dbc.ModalBody([
                     dcc.Markdown('Desde o final do nosso último *“inverno da IA",* 1987 – 1993, a pesquisa em IA e sua indústria têm visto um crescimento maciço, seja em tecnologias desenvolvidas, investimentos, atenção da mídia ou novas tarefas que sistemas autônomos são hoje, capazes de realizar. Se olharmos para a história das submissões no ArXiv ([entre 2009 e 2021](https://arxiv.org/about/reports/submission_category_by_year)), um repositório de preprints e publicações eletrônicas de acesso aberto, a partir de 2018, **trabalhos relacionados à Ciência da Computação têm sido o tipo mais comum de material submetido.**', style={'font-size': FONT_SIZE,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             'text-align': 'justify',
@@ -149,20 +150,22 @@ modal_article = html.Div(
                                 'text-justify': 'inter-word'}),
                     html.Div([
                         html.H4([
-                            dbc.Badge("📧 Contate-nos", href="mailto:airespucrs@airespucrs.org",
+                            dbc.Badge([html.I(className="bi bi-envelope"), "  Contate-nos"], href="mailto:airespucrs@airespucrs.org",
                                       color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
-                            dbc.Badge("📊 Power BI Version", href="https://www.airespucrs.org/worldwide-ai-ethics",
+                            dbc.Badge([html.I(className="bi bi-bar-chart-fill"), "  Power BI Version"], href="https://www.airespucrs.org/worldwide-ai-ethics",
                                       color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
-                            dbc.Badge("📰 Artigo Completo", href="https://doi.org/10.48550/arXiv.2206.11922",
+                            dbc.Badge([html.I(className="bi bi-file-pdf-fill"), "  Artigo Completo"], href="https://doi.org/10.48550/arXiv.2206.11922",
                                       color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
                         ])
                     ], style={'text-align': 'center'}),
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
                         id='close-fs',
                         className='ms-auto',
+                        outline=True,
+                        size='xl',
                         n_clicks=0,
                         color=CLOSE_BUTTON
                     )
@@ -257,7 +260,7 @@ fig2.update_layout(
 modal_map = html.Div(
     [
         dbc.Button(
-            'Publicações por País 🏳️‍🌈', id='open-body-scroll-map', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Publicações por País ', html.I(className="bi bi-flag-fill")], id='open-body-scroll-map', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Modal(
             [
@@ -273,9 +276,11 @@ modal_map = html.Div(
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
                         id='close-body-scroll-map',
                         className='ms-auto',
+                        outline=True,
+                        size='xl',
                         n_clicks=0,
                         color=CLOSE_BUTTON
                     )
@@ -338,12 +343,12 @@ fig3.update_layout(
 modal_institution = html.Div(
     [
         dbc.Button(
-            'Instituições 👩‍💼', id='open-body-scroll-institution', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Instituições ', html.I(className="bi bi-building")], id='open-body-scroll-institution', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### Nº de Publicações por Tipo de Instituição 👩‍💼'), style={})),
+                    '### Nº de Publicações por Tipo de Instituição 🏢'), style={})),
                 dbc.ModalBody([
                     dcc.Markdown("Com exceção de instituições como **IBM (5)**, **Microsoft (4)**, e **UNESCO (3)**, **a maioria das outras instituições não têm mais do que dois documentos publicados**. Observamos também que **a maior parte de nossa amostra foi produzida por instituições governamentais e corporações privadas (48%)**,  seguidas por **ONGs (17%)**, **Organizações Sem Fins Lucrativos (16%)**, e **Instituições Acadêmicas (12,5%)**. ", style={'font-size': FONT_SIZE,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                            'text-align': 'justify',
@@ -357,11 +362,13 @@ modal_institution = html.Div(
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
                         id='close-body-scroll-institution',
                         className='ms-auto',
                         n_clicks=0,
-                        color=CLOSE_BUTTON
+                        color=CLOSE_BUTTON,
+                        outline=True,
+                        size='xl',
                     )
                 ),
             ],
@@ -416,7 +423,10 @@ fig4.update_layout(
 modal_gender = html.Div(
     [
         dbc.Button(
-            'Gênero 🧍‍♂️ ♂ ☿ ♀ 💃', id='open-body-scroll-gender', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Gênero ', html.I(className="bi bi-gender-ambiguous"),
+             html.I(className="bi bi-gender-female"),
+             html.I(className="bi bi-gender-male"),
+             html.I(className="bi bi-gender-trans")], id='open-body-scroll-gender', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Modal(
             [
@@ -432,11 +442,13 @@ modal_gender = html.Div(
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
                         id='close-body-scroll-gender',
                         className='ms-auto',
                         n_clicks=0,
-                        color=CLOSE_BUTTON
+                        color=CLOSE_BUTTON,
+                        outline=True,
+                        size='xl',
                     )
                 ),
             ],
@@ -717,12 +729,12 @@ figq.update_layout(
 modal_principles = html.Div(
     [
         dbc.Button(
-            'Citações por Princípio ⚖️', id='open-body-scroll-principle', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Citações por Princípio ', html.I(className="bi bi-search")], id='open-body-scroll-principle', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### Nº de Citações por Princípio ⚖️'), style={})),
+                    '### Nº de Citações por Princípio 🔍'), style={})),
                 dbc.ModalBody([
                     dcc.Markdown("Os **cinco principais princípios** defendidos nos documentos de nossa amostra são semelhantes aos resultados obtidos por Jobin et al. ([2019](https://www.nature.com/articles/s42256-019-0088-2)) e Hagendorff ([2020](https://link.springer.com/article/10.1007/s11023-020-09517-8)), **com o acréscimo de Confiabilidade/Segurança/Confiança/Fiabilidade (78%)**, que também são citados como um dos cinco principais na metanálise de Fjeld et al. ([2020](https://dash.harvard.edu/handle/1/42160420)) **(80%)**. Como cada documento apresenta sua própria passagem sobre cada princípio, se existiam, por exemplo, 134 documentos que citam o princípio de privacidade, coletamos 134 definições/recomendações diferentes envolvendo este princípio. Todos sendo acessíveis em nosso [Power BI dashboard](https://www.airespucrs.org/worldwide-ai-ethics).", style={'font-size': FONT_SIZE,
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             'text-align': 'justify',
@@ -812,7 +824,9 @@ modal_principles = html.Div(
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
+                        outline=True,
+                        size='xl',
                         id='close-body-scroll-principle',
                         className='ms-auto',
                         n_clicks=0,
@@ -897,7 +911,7 @@ fig6.update_layout(
 modal_years = html.Div(
     [
         dbc.Button(
-            'Nº de Publicações por Ano 📅', id='open-body-scroll-years', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Nº de Publicações por Ano ', html.I(className="bi bi-calendar-fill")], id='open-body-scroll-years', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Modal(
             [
@@ -913,7 +927,9 @@ modal_years = html.Div(
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
+                        outline=True,
+                        size='xl',
                         id='close-body-scroll-years',
                         className='ms-auto',
                         n_clicks=0,
@@ -972,7 +988,7 @@ fig7.update_layout(
 modal_nature = html.Div(
     [
         dbc.Button(
-            'Natureza/Conteúdo 📝', id='open-body-scroll-nature', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Natureza/Conteúdo ', html.I(className="bi bi-file-earmark-text-fill")], id='open-body-scroll-nature', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Modal(
             [
@@ -997,7 +1013,9 @@ modal_nature = html.Div(
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
+                        outline=True,
+                        size='xl',
                         id='close-body-scroll-nature',
                         className='ms-auto',
                         n_clicks=0,
@@ -1057,12 +1075,12 @@ fig8.update_layout(
 modal_regulation = html.Div(
     [
         dbc.Button(
-            'Regulação 👩‍⚖️', id='open-body-scroll-regulation', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Regulação ', html.I(className="bi bi-rulers")], id='open-body-scroll-regulation', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### Nº de Publicações por Tipo (Regulação) 👩‍⚖️'), style={})),
+                    '### Nº de Publicações por Tipo (Regulação) 📏'), style={})),
                 dbc.ModalBody([
                     dcc.Markdown("Este tipo está relacionado com a forma de regulamentação que o documento propõe. Para isso, foram definidas **três categorias** (estas categorias foram *definidas como mutuamente exclusivas*):", style={'font-size': FONT_SIZE,
                                                                                                                                                                                                                                             'text-align': 'justify',
@@ -1082,7 +1100,9 @@ modal_regulation = html.Div(
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
+                        outline=True,
+                        size='xl',
                         id='close-body-scroll-regulation',
                         className='ms-auto',
                         n_clicks=0,
@@ -1142,12 +1162,12 @@ fig9.update_layout(
 modal_normative = html.Div(
     [
         dbc.Button(
-            'Força Normativa 💪', id='open-body-scroll-normative', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Força Normativa ', html.I(className="bi bi-lightning-fill")], id='open-body-scroll-normative', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### Nº de Publicações por Tipo (Força Normativa) 💪'), style={})),
+                    '### Nº de Publicações por Tipo (Força Normativa) ⚡'), style={})),
                 dbc.ModalBody([
                     dcc.Markdown("Este tipo está relacionado à força normativa do mecanismo de regulamentação proposto pelo documento. Para isso, foram definidas **duas categorias** (estas categorias *não foram definidas como mutuamente exclusivas*):", style={'font-size': FONT_SIZE,
                                                                                                                                                                                                                                                                     'text-align': 'justify',
@@ -1167,7 +1187,9 @@ modal_normative = html.Div(
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
+                        outline=True,
+                        size='xl',
                         id='close-body-scroll-normative',
                         className='ms-auto',
                         n_clicks=0,
@@ -1227,7 +1249,7 @@ fig10.update_layout(
 modal_impact = html.Div(
     [
         dbc.Button(
-            'Escopo de Impacto 💥', id='open-body-scroll-impact', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Escopo de Impacto ', html.I(className="bi bi-asterisk")], id='open-body-scroll-impact', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Modal(
             [
@@ -1252,7 +1274,9 @@ modal_impact = html.Div(
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
+                        outline=True,
+                        size='xl',
                         id='close-body-scroll-impact',
                         className='ms-auto',
                         n_clicks=0,
@@ -1384,7 +1408,7 @@ accordion = html.Div(
 modal_divergence = html.Div(
     [
         dbc.Button(
-            'Divergências 🤔', id='open-body-scroll-divergence', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Divergências ', html.I(className="bi bi-arrow-left-right")], id='open-body-scroll-divergence', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Modal(
             [
@@ -1451,7 +1475,9 @@ modal_divergence = html.Div(
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
-                        'Fechar',
+                        html.I(className="bi bi-x-circle-fill"),
+                        outline=True,
+                        size='xl',
                         id='close-body-scroll-divergence',
                         className='ms-auto',
                         n_clicks=0,
@@ -1475,7 +1501,7 @@ offcanvas = html.Div(
     [
 
         dbc.Button(
-            'Princípios Éticos ⚖️', id='open-offcanvas', outline=False, color=OPEN_BUTTON, n_clicks=0
+            ['Princípios Éticos ', html.I(className="bi bi-search-heart")], id='open-offcanvas', outline=False, color=OPEN_BUTTON, n_clicks=0
         ),
         dbc.Offcanvas(
             [modal_divergence, accordion],
@@ -1489,18 +1515,18 @@ offcanvas = html.Div(
 )
 
 badges = html.Span([
-    dbc.Badge("❤️ Open-Source", href="https://github.com/Nkluge-correa/worldwide_AI-ethics",
+    dbc.Badge([html.I(className="bi bi-heart-fill"), "  Open-Source"], href="https://github.com/Nkluge-correa/worldwide_AI-ethics",
               color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
-    dbc.Badge("🤖 AIRES na PUCRS", href="https://en.airespucrs.org/",
+    dbc.Badge([html.I(className="bi bi-robot"), "  AIRES na PUCRS"], href="https://en.airespucrs.org/",
               color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
-    dbc.Badge("🐍 Made with Python", href="https://www.python.org/",
+    dbc.Badge([html.I(className="bi bi-filetype-py"), "  Made with Python"], href="https://www.python.org/",
               color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
-    dbc.Badge("👨‍💻 Made by Nkluge-correa", href="https://nkluge-correa.github.io/",
+    dbc.Badge([html.I(className="bi bi-github"), "  Made by Nkluge-correa"], href="https://nkluge-correa.github.io/",
               color="dark", className="text-decoration-none", style={'margin-right': '5px'})
 ])
 
 download_data = html.Div([
-    dbc.Button('Download dos Dados', id='btn_data',
+    dbc.Button([html.I(className="bi bi-download"), '  Dados'], id='btn_data',
                outline=False, color='secondary'),
     dcc.Download(id="download-data")
 ], style={
@@ -1509,7 +1535,7 @@ download_data = html.Div([
     'display': 'inline-block'})
 
 download_html = html.Div([
-    dbc.Button('Download dos arquivos HTML', id='btn_html',
+    dbc.Button([html.I(className="bi bi-download"), '  HTML'], id='btn_html',
                outline=False, color='secondary'),
     dcc.Download(id="download-html")
 ], style={
@@ -1518,7 +1544,7 @@ download_html = html.Div([
     'display': 'inline-block'})
 
 download_png = html.Div([
-    dbc.Button('Download dos arquivos PNG', id='btn_png',
+    dbc.Button([html.I(className="bi bi-download"), '  PNG'], id='btn_png',
                outline=False, color='secondary'),
     dcc.Download(id="download-png")
 ], style={
@@ -1529,7 +1555,7 @@ download_png = html.Div([
 app = dash.Dash(__name__,
                 meta_tags=[
                     {'name': 'viewport', 'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}],
-                external_stylesheets=[dbc.themes.SLATE])
+                external_stylesheets=[dbc.themes.SLATE, dbc.icons.BOOTSTRAP])
 
 server = app.server
 app.title = 'Worldwide AI Ethics 🌐'
