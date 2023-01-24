@@ -431,7 +431,7 @@ modal_gender = html.Div(
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### Autores por Gênero 🧍‍♂️ ♂ ☿ ♀ 💃'), style={})),
+                    '### Autores por Gênero ♂ ☿ ♀ '), style={})),
                 dbc.ModalBody([
                     dcc.Markdown('Ao remover documentos com autores não especificados, contamos um total de **561 autores homens (66,6%)** e **281 autoras mulheres (33,3%).** A predominância do gênero masculino é **uma tendência que pode ser encontrada em praticamente todas as regiões e países do mundo, independentemente do tipo de instituição.**', style={'font-size': FONT_SIZE,
                                                                                                                                                                                                                                                                                                                                                                       'text-align': 'justify',
@@ -1413,7 +1413,7 @@ modal_divergence = html.Div(
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '### **Divergências nas Definições 🤔**'), style={})),
+                    '### Divergências nas Definições 🤔'), style={})),
                 dbc.ModalBody([
                     dcc.Markdown("Aqui podemos ver casos de *'divergência na definição de princípios'*, ou seja, **formas divergentes de definição de princípios éticos**. A título de exemplo, vejamos nosso princípio mais citado: **Transparência/Explicabilidade/Auditoria.**", style={'font-size': FONT_SIZE,
                                                                                                                                                                                                                                                                                            'text-align': 'justify',
