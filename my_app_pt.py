@@ -1510,6 +1510,7 @@ offcanvas = html.Div(
             title="Princípios Éticos 🌈👨‍👨‍👦‍👦🕊️✊🏿👷♻️",
             placement='end',
             is_open=False,
+            style={'width': '50vw'}
         ),
     ], style={'display': 'inline-block', 'margin-left': '15px'}
 )
