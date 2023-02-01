@@ -1,25 +1,21 @@
 /* unvisited link */
 a:link {
   color: #dc3d87;
-  text-decoration: none;
 }
 
 /* visited link */
 a:visited {
   color: #dc3d87;
-  text-decoration: none;
 }
 
 /* mouse over link */
 a:hover {
   color: #dc3d87;
-  text-decoration: none;
 }
 
 /* selected link */
 a:active {
   color: #dc3d87;
-  text-decoration: none;
 }
 
 /* Graph Control Objects ––––––––––––––––––––––––––––––––––––––––––––––––––*/
@@ -37,20 +33,20 @@ a:active {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #3a3f44 !important;  
+  background: #272b30 !important;  
   border-radius: 10px !important;
   display: block !important;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #e9ecef !important; 
+  background: #272b30 !important; 
   border-radius: 3px; 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #e9ecef !important; 
+  background: #272b30 !important; 
 }
 
 /* width */
