@@ -46,7 +46,7 @@ a:active {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #272b30 !important; 
+  background: #272b30!important; 
 }
 
 /* width */
@@ -54,3 +54,4 @@ a:active {
   width: 10px !important;
   display: block !important;
 }
+
