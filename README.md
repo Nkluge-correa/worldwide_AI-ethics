@@ -22,7 +22,7 @@ pandas
 
 ```
 
-## How to cite this study😊
+## Cite as 🤗
 
 ```latex
 @article{correa2022worldwide,
