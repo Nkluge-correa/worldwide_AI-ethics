@@ -573,7 +573,7 @@ fig5.update_layout(
     plot_bgcolor='rgba(0,0,0,0)',
 )
 
-df = pd.read_parquet('data/accountability_gram')
+df = pd.read_parquet('data/Accountability_gram')
 
 fig_a = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -585,8 +585,7 @@ fig_a.update_layout(
     uniformtext_minsize=16,
 )
 
-
-df = pd.read_parquet('data/beneficence_gram')
+df = pd.read_parquet('data/Beneficence_gram')
 
 fig_b = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -599,7 +598,7 @@ fig_b.update_layout(
 )
 
 
-df = pd.read_parquet('data/children_rights_gram')
+df = pd.read_parquet('data/Children_gram')
 
 fig_c = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -612,7 +611,7 @@ fig_c.update_layout(
 )
 
 
-df = pd.read_parquet('data/dignity_gram')
+df = pd.read_parquet('data/Dignity_gram')
 
 fig_d = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -625,7 +624,7 @@ fig_d.update_layout(
 )
 
 
-df = pd.read_parquet('data/diversity_gram')
+df = pd.read_parquet('data/Diversity_gram')
 
 fig_e = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -638,7 +637,7 @@ fig_e.update_layout(
 )
 
 
-df = pd.read_parquet('data/autonomy_gram')
+df = pd.read_parquet('data/Freedom_gram')
 
 fig_f = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -651,7 +650,7 @@ fig_f.update_layout(
 )
 
 
-df = pd.read_parquet('data/human_formation_gram')
+df = pd.read_parquet('data/Formation_gram')
 
 fig_g = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -664,7 +663,7 @@ fig_g.update_layout(
 )
 
 
-df = pd.read_parquet('data/human_centeredness_gram')
+df = pd.read_parquet('data/Centeredness_gram')
 
 fig_h = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -677,7 +676,7 @@ fig_h.update_layout(
 )
 
 
-df = pd.read_parquet('data/intellectual_property_gram')
+df = pd.read_parquet('data/Property_gram')
 
 fig_i = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -690,7 +689,7 @@ fig_i.update_layout(
 )
 
 
-df = pd.read_parquet('data/fairness_gram')
+df = pd.read_parquet('data/Justice_gram')
 
 fig_j = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -703,7 +702,7 @@ fig_j.update_layout(
 )
 
 
-df = pd.read_parquet('data/labor_rights_gram')
+df = pd.read_parquet('data/Labor_gram')
 
 fig_k = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -715,7 +714,7 @@ fig_k.update_layout(
     uniformtext_minsize=16,
 )
 
-df = pd.read_parquet('data/cooperation_gram')
+df = pd.read_parquet('data/Open_gram')
 
 fig_l = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -728,7 +727,7 @@ fig_l.update_layout(
 )
 
 
-df = pd.read_parquet('data/privacy_gram')
+df = pd.read_parquet('data/Privacy_gram')
 
 fig_m = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -741,7 +740,7 @@ fig_m.update_layout(
 )
 
 
-df = pd.read_parquet('data/reliability_gram')
+df = pd.read_parquet('data/Reliability_gram')
 
 fig_n = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -754,7 +753,7 @@ fig_n.update_layout(
 )
 
 
-df = pd.read_parquet('data/sustainability_gram')
+df = pd.read_parquet('data/Sustainability_gram')
 
 fig_o = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -767,7 +766,7 @@ fig_o.update_layout(
 )
 
 
-df = pd.read_parquet('data/transparency_gram')
+df = pd.read_parquet('data/Transparency_gram')
 
 fig_p = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -780,7 +779,7 @@ fig_p.update_layout(
 )
 
 
-df = pd.read_parquet('data/truthfulness_gram')
+df = pd.read_parquet('data/Truthfulness_gram')
 
 fig_q = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
