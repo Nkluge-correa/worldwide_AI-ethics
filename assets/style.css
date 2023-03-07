@@ -1,3 +1,132 @@
+/* Loading */
+
+._dash-loading {
+  margin: auto;
+  color: transparent;
+  width: 0;
+  height: 0;
+  text-align: center;
+}
+
+._dash-loading::after {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  color: #dc3d87;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner-border 0.75s linear infinite;
+  animation: spinner-border 0.75s linear infinite;
+  margin-top: 12rem;
+}
+
+/* Body */
+body { 
+  margin: 0;
+  width: 100%; 
+}
+
+.title-style {
+  display: inline-block;
+  vertical-align: middle
+}
+
+.title-icon-style {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 1rem
+}
+
+.glossary-text-style {
+  font-size: 22;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.modal-body-text-style {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.card-style {
+  margin-top: 15px; 
+  border: 0;
+}
+
+.card-body-style {
+  color: #aaaaaa;
+  overflow-y: scroll;
+  height: 400px;
+  text-align: justify;
+  text-justify: inter-word;
+  padding: '5px'
+}
+
+.card-header-style {
+  font-weight: bold;
+  text-align: center;
+  color: #dc3d87
+}
+
+/* Nav Bar */
+
+.icon-button {
+  border: none;
+  font-weight: bold;
+  margin-left: 5px;
+  margin-top: 20px;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+}
+
+.icon-button:hover {
+  color: #f4f5f5;
+  cursor: pointer;
+}
+
+.nav-header {
+  color: #dc3d87 !important;
+  font-weight: bold !important;
+  width: 19rem !important;
+  padding-left: 0 !important;
+}
+
+.nav-link {
+  color: #dc3d87;
+  font-size: larger;
+  font-weight: bold;
+  width: 19rem;
+  padding-left: 0
+}
+
+.nav-link:hover {
+  background-color: #141618;
+  border: 0;
+}
+
+.nav-link:active {
+  background-color: #141618;
+  border: 0;
+}
+
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 20rem;
+  padding: 2rem 1rem;
+  background-color: #3a3f44;
+}
+
+.off-canvas {
+  width: 20rem;
+}
+
 /* unvisited link */
 a:link {
   color: #dc3d87;
@@ -40,13 +169,15 @@ a:active {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #272b30 !important; 
+  background: #3a3f44 !important; 
   border-radius: 3px; 
+  opacity: 0.5;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #272b30!important; 
+  background: #3a3f44!important; 
+  opacity: 0.5;
 }
 
 /* width */
@@ -54,4 +185,3 @@ a:active {
   width: 10px !important;
   display: block !important;
 }
-
