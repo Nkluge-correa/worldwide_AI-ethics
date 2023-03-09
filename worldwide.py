@@ -16,6 +16,7 @@ COLOR_GRAPHS_HEX = '#923146'
 FONT_SIZE = 22
 FONT_SIZE_CARD = 18
 FONT_SIZE_HEADER = 30
+FONT_SIZE_N_GRAMS = 18
 
 app = dash.Dash(__name__,
                 meta_tags=[
@@ -35,10 +36,7 @@ for column in df.columns:
                              hovertemplate='Nº of Submissions (' +
                              column + '): %{y} <extra></extra>',
                              showlegend=True))
-fig.update_yaxes(showgrid=True, gridcolor='lightgray',
-                 showticklabels=True, tickfont=dict(size=12))
-fig.update_xaxes(showgrid=False, showline=False, visible=True,
-                 showticklabels=True, tickfont=dict(size=12))
+
 fig.update_layout(
     xaxis=dict(
         showline=True,
@@ -84,10 +82,7 @@ for column in df.columns:
                               hovertemplate='Nº of Submissions (' +
                               column + '): %{y} <extra></extra>',
                               showlegend=True))
-fig1.update_yaxes(showgrid=True, gridcolor='lightgray',
-                  showticklabels=True, tickfont=dict(size=12))
-fig1.update_xaxes(showgrid=False, showline=False, visible=True,
-                  showticklabels=True, tickfont=dict(size=12))
+
 fig1.update_layout(
     xaxis=dict(
         showline=True,
@@ -127,7 +122,7 @@ documents_dive = pd.read_parquet('data/documents_dive')
 
 modal_article = html.Div(
     [
-        html.A(['Article ', html.I(className='bi bi-file-text-fill')],
+        html.A(['Article ', html.I(className='bi bi-info-circle')],
                id="open-body-abstract", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Modal(
             [
@@ -238,7 +233,7 @@ modal_article = html.Div(
 df = pd.read_parquet('data/titles_abstracts')
 
 df = pd.DataFrame({
-    'Documents': [f'[{df.document_title[i]}]({df.document_url[i]})' for i in range(len(df.document_title))],
+    'Documents': [f'**[{df.document_title[i]}]({df.document_url[i]})**' for i in range(len(df.document_title))],
     'Abstract': df.abstract
 })
 
@@ -256,7 +251,7 @@ table = dash_table.DataTable(
     tooltip_delay=0,
     tooltip_duration=None,
     style_table={'text-align': 'justify', 'text-justify': 'inter-word',
-                 'height': '1020px', 'overflowY': 'scroll'},
+                 'height': '2550px', 'overflowY': 'scroll'},
     page_current=0,
     page_size=200,
     style_cell={
@@ -283,7 +278,7 @@ fig2 = go.Figure(data=go.Choropleth(
     z=df.n_of_publications,
     text=df.countries,
     colorscale='oryel',
-    showscale=False,
+    showscale=True,
     autocolorscale=False,
     reversescale=True,
     marker_line_color='darkgray',
@@ -291,7 +286,7 @@ fig2 = go.Figure(data=go.Choropleth(
 ))
 
 fig2.update_layout(
-    height=200,
+    title="<b><i>Number of Publications by Country</i></b>",
     font_color='white',
     hoverlabel=dict(bgcolor='black', font_size=20),
     geo=dict(
@@ -314,7 +309,7 @@ fig2.update_layout(
 
 modal_map = html.Div(
     [
-        html.A(['Publications by Country ', html.I(className='bi bi-flag-fill')],
+        html.A([html.I(className='bi bi-info-circle')],
                id="open-body-map", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Modal(
             [
@@ -363,23 +358,24 @@ fig3 = go.Figure(go.Bar(
         line=dict(
             color=COLOR_GRAPH_RGB,
             width=1))))
-fig3.update_traces(textposition='none')
-fig3.update_yaxes(tickfont=dict(size=12))
-fig3.update_xaxes(visible=True, tickfont=dict(size=12))
+
 fig3.update_layout(
-    height=200,
+    title="<b><i>Number of Publications by Institution Type</i></b>",
     template='plotly_dark',
     hoverlabel=dict(font_size=18),
     yaxis=dict(
-        showgrid=False,
+        showgrid=True,
         showline=False,
-        showticklabels=True
+        showticklabels=True,
+        tickfont=dict(size=12)
     ),
     xaxis=dict(
+        visible=True,
         zeroline=False,
         showline=False,
         showticklabels=True,
-        showgrid=False,
+        showgrid=True,
+        tickfont=dict(size=12)
     ),
 
     margin=dict(
@@ -394,7 +390,7 @@ fig3.update_layout(
 
 modal_institution = html.Div(
     [
-        html.A(['Institution ', html.I(className='bi bi-building')],
+        html.A([html.I(className='bi bi-info-circle')],
                id="open-body-institution", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Modal(
             [
@@ -446,34 +442,40 @@ fig4 = go.Figure(go.Bar(
         line=dict(
             color=COLOR_GRAPH_RGB,
             width=1))))
-fig4.update_traces(textposition='none')
-fig4.update_yaxes(showgrid=False, visible=True,
-                  showticklabels=True, tickfont=dict(size=12))
-fig4.update_xaxes(showgrid=False, showline=False, visible=True,
-                  showticklabels=True, tickfont=dict(size=12))
+
 fig4.update_layout(
-    height=200,
+    title={
+        'text': "<b><i>Gender Distribution of Authors</i></b>",
+        'y': 1.,
+        'x': 0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'},
     template='plotly_dark',
     hoverlabel=dict(font_size=18),
-    margin=dict(
-        l=0,
-        r=0,
-        b=0,
-        t=30,
+    margin=dict(l=0, r=0, b=0, t=30),
+    yaxis=dict(
+        showgrid=True,
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(size=12)
+    ),
+    xaxis=dict(
+        visible=True,
+        zeroline=False,
+        showline=False,
+        showticklabels=True,
+        showgrid=True,
+        tickfont=dict(size=12)
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_mode='hide',
     barmode='group',
     bargroupgap=0.8
 )
 
 modal_gender = html.Div(
     [
-        html.A(['Gender ', html.I(className="bi bi-gender-ambiguous"),
-                html.I(className="bi bi-gender-female"),
-                html.I(className="bi bi-gender-male"),
-                html.I(className="bi bi-gender-trans")],
+        html.A([html.I(className="bi bi-info-circle")],
                id="open-body-gender", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Modal(
             [
@@ -527,31 +529,30 @@ fig5 = go.Figure(go.Bar(
         line=dict(
             color=COLOR_GRAPH_RGB,
             width=1))))
-fig5.update_traces(textposition='none')
-fig5.update_yaxes(tickfont=dict(size=12))
-fig5.update_xaxes(visible=True, tickfont=dict(size=12))
+
 fig5.update_layout(
-    height=300,
+    title={
+        'text': "<b><i>Principle's Distribution</i></b>",
+        'y': 1.,
+        'x': 0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'},
     template='plotly_dark',
     hoverlabel=dict(font_size=18),
     yaxis=dict(
-        showgrid=False,
+        showgrid=True,
         showline=False,
-        showticklabels=True
+        showticklabels=True,
+        tickfont=dict(size=12)
     ),
     xaxis=dict(
         zeroline=False,
         showline=False,
         showticklabels=True,
-        showgrid=False,
+        showgrid=True,
+        tickfont=dict(size=12)
     ),
-
-    margin=dict(
-        l=0,
-        r=0,
-        b=0,
-        t=30,
-    ),
+    margin=dict(l=0, r=0, b=0, t=30,),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
 )
@@ -565,7 +566,7 @@ fig_a.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 df = pd.read_parquet('data/Beneficence_gram')
@@ -577,7 +578,7 @@ fig_b.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -590,7 +591,7 @@ fig_c.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -616,7 +617,7 @@ fig_e.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -629,7 +630,7 @@ fig_f.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -642,7 +643,7 @@ fig_g.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -668,7 +669,7 @@ fig_i.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -681,7 +682,7 @@ fig_j.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -694,7 +695,7 @@ fig_k.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 df = pd.read_parquet('data/Open_gram')
@@ -706,7 +707,7 @@ fig_l.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -719,7 +720,7 @@ fig_m.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -732,7 +733,7 @@ fig_n.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -745,7 +746,7 @@ fig_o.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -758,7 +759,7 @@ fig_p.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 
@@ -771,12 +772,12 @@ fig_q.update_layout(
     hoverlabel=dict(font_size=20),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=FONT_SIZE_N_GRAMS,
 )
 
 modal_principles = html.Div(
     [
-        html.A(['Citations by Principle ', html.I(className="bi bi-search")],
+        html.A([html.I(className="bi bi-info-circle")],
                id="open-body-principle", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Modal(
             [
@@ -794,92 +795,92 @@ modal_principles = html.Div(
                     dcc.Markdown('''
                     ### **`Accountability/Liability`** 
                     
-                    "_Accountability refers to the idea that developers and deployers of AI technologies should be compliant with regulatory bodies, also meaning that such actors should be accountable for their actions and the impacts caused by their technologies_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_Accountability refers to the idea that developers and deployers of AI technologies should be compliant with regulatory bodies, also meaning that such actors should be accountable for their actions and the impacts caused by their technologies_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='account',
                               figure=fig_a), html.Br(),
                     dcc.Markdown('''
                     ### **`Beneficence/Non-Maleficence`**
                     
-                    "_Beneficence and non-maleficence are concepts that come from bioethics and medical ethics. In AI ethics, these principles state that human welfare (and harm aversion) should be the goal of AI-empowered technologies. Sometimes, this principle is also tied to the idea of Sustainability, stating that AI should be beneficial not only to human civilization but to our natural environment and other living creatures_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_Beneficence and non-maleficence are concepts that come from bioethics and medical ethics. In AI ethics, these principles state that human welfare (and harm aversion) should be the goal of AI-empowered technologies. Sometimes, this principle is also tied to the idea of Sustainability, stating that AI should be beneficial not only to human civilization but to our natural environment and other living creatures_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='benef', figure=fig_b), html.Br(),
                     dcc.Markdown('''
                     ### **`Children & Adolescents Rights`** 
                     
-                    "_The idea that the rights of children and adolescents must be respected by AI technologies. AI stakeholders should safeguard, respect, and be aware of the fragilities associated with young people_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_The idea that the rights of children and adolescents must be respected by AI technologies. AI stakeholders should safeguard, respect, and be aware of the fragilities associated with young people_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='child', figure=fig_c), html.Br(),
                     dcc.Markdown('''
                     ### **`Dignity/Human Rights`** 
                      
-                    "_This principle is based on the idea that all individuals deserve proper treatment and respect. In AI ethics, the respect for human dignity is often tied to human rights (i.e., [Universal Declaration of Human Rights](https://www.un.org/en/about-us/universal-declaration-of-human-rights))_." ''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_This principle is based on the idea that all individuals deserve proper treatment and respect. In AI ethics, the respect for human dignity is often tied to human rights (i.e., [Universal Declaration of Human Rights](https://www.un.org/en/about-us/universal-declaration-of-human-rights))_.**" ''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='digni', figure=fig_d), html.Br(),
                     dcc.Markdown('''
                     ### **`Diversity/Inclusion/Pluralism/Accessibility`** 
                     
-                    "_This set of principles advocates the idea that the development and use of AI technologies should be done in an inclusive and accessible way, respecting the different ways that the human entity may come to express itself (gender, ethnicity, race, sexual orientation, disabilities, etc.). This meta-principle is strongly tied to another set of principles: Justice/Equity/Fairness/Non-discrimination_." ''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_This set of principles advocates the idea that the development and use of AI technologies should be done in an inclusive and accessible way, respecting the different ways that the human entity may come to express itself (gender, ethnicity, race, sexual orientation, disabilities, etc.). This meta-principle is strongly tied to another set of principles: Justice/Equity/Fairness/Non-discrimination_.**" ''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='diver', figure=fig_e), html.Br(),
                     dcc.Markdown('''
                     ### **`Freedom/Autonomy/Democratic Values/Technological Sovereignty`** 
                     
-                    "_This set of principles advocates the idea that the autonomy of human decision-making must be preserved during human-AI interactions, whether that choice is individual, or the freedom to choose together, such as the inviolability of democratic rights and values, also being linked to technological self-sufficiency of Nations/States_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_This set of principles advocates the idea that the autonomy of human decision-making must be preserved during human-AI interactions, whether that choice is individual, or the freedom to choose together, such as the inviolability of democratic rights and values, also being linked to technological self-sufficiency of Nations/States_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='free', figure=fig_f), html.Br(),
                     dcc.Markdown('''
                     ### **`Human Formation/Education`** 
                     
-                    "_Such principles defend the idea that human formation and education must be prioritized in our technological advances. AI technologies require a considerable level of expertise to be produced and operated, and such knowledge should be accessible to all. This principle seems to be strongly tied to Labor Rights. The vast majority of documents concerned with workers and the work-life point to the need for re-educating and re-skilling the workforce as a mitigation strategy against technological unemployment_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_Such principles defend the idea that human formation and education must be prioritized in our technological advances. AI technologies require a considerable level of expertise to be produced and operated, and such knowledge should be accessible to all. This principle seems to be strongly tied to Labor Rights. The vast majority of documents concerned with workers and the work-life point to the need for re-educating and re-skilling the workforce as a mitigation strategy against technological unemployment_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='educa', figure=fig_g), html.Br(),
                     dcc.Markdown('''
                     ### **`Human-Centeredness/Alignment`**
                      
-                    "_Such principles advocate the idea that AI systems should be centered on and aligned with human values. AI technologies should be tailored to align with our values (e.g., value-sensitive design). This principle is also used as a "catch-all" category, many times being defined as a collection of "principles that are valued by humans" (e.g., freedom, privacy, non-discrimination, etc.)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_Such principles advocate the idea that AI systems should be centered on and aligned with human values. AI technologies should be tailored to align with our values (e.g., value-sensitive design). This principle is also used as a "catch-all" category, many times being defined as a collection of "principles that are valued by humans" (e.g., freedom, privacy, non-discrimination, etc.)_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='align', figure=fig_h), html.Br(),
                     dcc.Markdown('''
                     ### **`Intellectual Property`** 
                     
-                    "_This principle seeks to ground the property rights over AI products and/or processes of knowledge generated by individuals, whether tangible or intangible_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_This principle seeks to ground the property rights over AI products and/or processes of knowledge generated by individuals, whether tangible or intangible_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='intellec',
                               figure=fig_i), html.Br(),
                     dcc.Markdown('''
                     ### **`Justice/Equity/Fairness/Non-discrimination`**
                     
-                    "_This set of principles upholds the idea of non-discrimination and bias mitigation (discriminatory algorithmic biases AI systems can be subject to). It defends the idea that, regardless of the different sensitive attributes that may characterize an individual, all should be treated fairly_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_This set of principles upholds the idea of non-discrimination and bias mitigation (discriminatory algorithmic biases AI systems can be subject to). It defends the idea that, regardless of the different sensitive attributes that may characterize an individual, all should be treated fairly_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='justice',
                               figure=fig_j), html.Br(),
                     dcc.Markdown('''
                     ### **`Labor Rights`** 
                     
-                    "_Labor rights are legal and human rights related to the labor relations between workers and employers. In AI ethics, this principle emphasizes that workers' rights should be preserved regardless of whether labor relations are being mediated/augmented by AI technologies or not. One of the main preoccupations pointed out when this principle is presented is the mitigation of technological unemployment (e.g., through Human Formation/Education)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_Labor rights are legal and human rights related to the labor relations between workers and employers. In AI ethics, this principle emphasizes that workers' rights should be preserved regardless of whether labor relations are being mediated/augmented by AI technologies or not. One of the main preoccupations pointed out when this principle is presented is the mitigation of technological unemployment (e.g., through Human Formation/Education)_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='labor', figure=fig_k), html.Br(),
                     dcc.Markdown('''
                     ### **`Open source/Fair Competition/Cooperation`** 
                      
-                    "_This set of principles advocates different means by which joint actions can be established and cultivated between AI stakeholders to achieve common goals. It also advocates for the free and open exchange of valuable AI assets (e.g., data, knowledge, patent rights, human resources) to mitigate possible AI/technology monopolies_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_This set of principles advocates different means by which joint actions can be established and cultivated between AI stakeholders to achieve common goals. It also advocates for the free and open exchange of valuable AI assets (e.g., data, knowledge, patent rights, human resources) to mitigate possible AI/technology monopolies_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='open', figure=fig_l), html.Br(),
                     dcc.Markdown('''
                     ### **`Privacy`** 
                     
-                    "_The idea of privacy can be defined as the individual's right to expose oneself voluntarily, and to the extent desired, to the world. In AI ethics, this principle upholds the right of a person to control the exposure and availability of personal information when mined as training data for AI systems. This principle is also related to concepts such as data minimization, anonymity, informed consent, and other data protection-related concepts_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_The idea of privacy can be defined as the individual's right to expose oneself voluntarily, and to the extent desired, to the world. In AI ethics, this principle upholds the right of a person to control the exposure and availability of personal information when mined as training data for AI systems. This principle is also related to concepts such as data minimization, anonymity, informed consent, and other data protection-related concepts_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='privacy',
                               figure=fig_m), html.Br(),
                     dcc.Markdown('''
                     ### **`Reliability/Safety/Security/Trustworthiness`** 
                     
-                    "_This set of principles upholds the idea that AI technologies should be reliable, in the sense that their use can be verifiably attested as safe and robust, promoting user trust and better acceptance of AI technologies_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_This set of principles upholds the idea that AI technologies should be reliable, in the sense that their use can be verifiably attested as safe and robust, promoting user trust and better acceptance of AI technologies_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='reliab', figure=fig_n), html.Br(),
                     dcc.Markdown('''
                     ### **`Sustainability`** 
                     
-                    "_This principle can be understood as a form of "intergenerational justice," where the well-being of future generations must also be counted during AI development. In AI ethics, sustainability refers to the idea that the development of AI technologies should be carried out with an awareness of their long-term implications, such as environmental costs and non-human life preservation/well-being_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_This principle can be understood as a form of "intergenerational justice," where the well-being of future generations must also be counted during AI development. In AI ethics, sustainability refers to the idea that the development of AI technologies should be carried out with an awareness of their long-term implications, such as environmental costs and non-human life preservation/well-being_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='sustaina',
                               figure=fig_o), html.Br(),
                     dcc.Markdown('''
                     ### **`Transparency/Explainability/Auditability`** 
                     
-                    "_This set of principles supports the idea that the use and development of AI technologies should be done transparently for all interested stakeholders. Transparency can be related to the transparency of an organization or the transparency of an algorithm. This set of principles is also related to the idea that such information should be understandable to nonexperts, and when necessary, subject to being audited_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_This set of principles supports the idea that the use and development of AI technologies should be done transparently for all interested stakeholders. Transparency can be related to the transparency of an organization or the transparency of an algorithm. This set of principles is also related to the idea that such information should be understandable to nonexperts, and when necessary, subject to being audited_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='trans', figure=fig_p), html.Br(),
                     dcc.Markdown('''
                     **`Truthfulness`** 
                     
-                    "_This principle upholds the idea that AI technologies must provide truthful information. It is also related to the idea that people should not be deceived when interacting with AI systems. This principle is strongly related to the mitigation of automated means of disinformation_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "**_This principle upholds the idea that AI technologies must provide truthful information. It is also related to the idea that people should not be deceived when interacting with AI systems. This principle is strongly related to the mitigation of automated means of disinformation_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='truth', figure=fig_q), html.Br(),
                 ]),
                 dbc.ModalFooter(
@@ -917,6 +918,7 @@ fig6 = go.Figure(data=go.Scatter(x=df.years, y=df.n_of_published_documents, mode
                                  connectgaps=True,
                                  hovertemplate='<b>Nº of Publications</b>: %{y} <extra></extra>'
                                  ))
+
 fig6.add_trace(go.Scatter(
     x=[df.years[0], df.years[8]],
     y=[df.n_of_published_documents[0],
@@ -925,29 +927,27 @@ fig6.add_trace(go.Scatter(
     marker=dict(color=COLOR_GRAPHS_HEX, size=16),
     hoverinfo='skip'
 ))
+
 fig6.update_layout(
     xaxis=dict(
         showline=True,
-        showgrid=False,
+        showgrid=True,
         showticklabels=True,
         linecolor=COLOR_GRAPHS_HEX,
         linewidth=2,
         ticks='outside',
         tickfont=dict(
             size=12,
-            color='white',
         ),
     ),
     yaxis=dict(
         showgrid=True,
-        gridcolor='lightgray',
         zeroline=False,
         showline=False,
         showticklabels=True,
         side='right',
         tickfont=dict(
             size=12,
-            color='white',
         ),
     ),
     showlegend=False,
@@ -957,9 +957,9 @@ fig6.update_layout(
 )
 
 fig6.update_layout(
-    height=300,
-    font_color='white',
-    hovermode='x',
+    title="<b><i>Published Documents Timeline</i></b>",
+    template='plotly_dark',
+    hovermode='x unified',
     hoverlabel=dict(font_size=14),
     margin=dict(
         l=0,
@@ -971,8 +971,7 @@ fig6.update_layout(
 
 modal_years = html.Div(
     [
-        html.A(['Published Documents by Year ', html.I(
-                className="bi bi-calendar-fill")],
+        html.A([html.I(className="bi bi-info-circle")],
                id="open-body-years", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Modal(
             [
@@ -1024,31 +1023,40 @@ fig7 = go.Figure(go.Bar(
         line=dict(
             color=COLOR_GRAPH_RGB,
             width=1))))
-fig7.update_traces(textposition='none')
-fig7.update_yaxes(showgrid=False, visible=True,
-                  showticklabels=True, tickfont=dict(size=12))
-fig7.update_xaxes(showgrid=False, showline=False, visible=True,
-                  showticklabels=True, tickfont=dict(size=12))
+
 fig7.update_layout(
-    height=300,
+    title={
+        'text': "<b><i>Nature/Content</i></b>",
+        'y': 1.,
+        'x': 0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'},
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
-    margin=dict(
-        l=0,
-        r=0,
-        b=0,
-        t=30,
+    hoverlabel=dict(font_size=18),
+    margin=dict(l=0, r=0, b=20, t=30),
+    yaxis=dict(
+        showgrid=True,
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(size=12)
+    ),
+    xaxis=dict(
+        visible=True,
+        zeroline=False,
+        showline=False,
+        showticklabels=True,
+        showgrid=True,
+        tickfont=dict(size=12)
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     barmode='group',
-    bargroupgap=0.8,
+    bargroupgap=0.8
 )
 
 modal_nature = html.Div(
     [
-        html.A(['Nature/Content ',
-                html.I(className="bi bi-file-earmark-text-fill")],
+        html.A([html.I(className="bi bi-info-circle")],
                id="open-body-nature", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Modal(
             [
@@ -1112,20 +1120,30 @@ fig8 = go.Figure(go.Bar(
         line=dict(
             color=COLOR_GRAPH_RGB,
             width=1))))
-fig8.update_traces(textposition='none')
-fig8.update_yaxes(showgrid=False, visible=True,
-                  showticklabels=True, tickfont=dict(size=12))
-fig8.update_xaxes(showgrid=False, showline=False, visible=True,
-                  showticklabels=True, tickfont=dict(size=12))
+
 fig8.update_layout(
-    height=300,
+    title={
+        'text': "<b><i>Regulation</i></b>",
+        'y': 1.,
+        'x': 0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'},
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
-    margin=dict(
-        l=0,
-        r=0,
-        b=0,
-        t=30,
+    hoverlabel=dict(font_size=18),
+    margin=dict(l=0, r=0, b=20, t=30),
+    yaxis=dict(
+        showgrid=True,
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(size=12)
+    ),
+    xaxis=dict(
+        visible=True,
+        zeroline=False,
+        showline=False,
+        showticklabels=True,
+        showgrid=True,
+        tickfont=dict(size=12)
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -1135,7 +1153,7 @@ fig8.update_layout(
 
 modal_regulation = html.Div(
     [
-        html.A(['Regulation ', html.I(className="bi bi-rulers")],
+        html.A([html.I(className="bi bi-info-circle")],
                id="open-body-regulation", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Modal(
             [
@@ -1198,20 +1216,30 @@ fig9 = go.Figure(go.Bar(
         line=dict(
             color=COLOR_GRAPH_RGB,
             width=1))))
-fig9.update_traces(textposition='none')
-fig9.update_yaxes(showgrid=False, visible=True,
-                  showticklabels=True, tickfont=dict(size=12))
-fig9.update_xaxes(showgrid=False, showline=False, visible=True,
-                  showticklabels=True, tickfont=dict(size=12))
+
 fig9.update_layout(
-    height=300,
+    title={
+        'text': "<b><i>Normative Strength</i></b>",
+        'y': 1.,
+        'x': 0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'},
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
-    margin=dict(
-        l=0,
-        r=0,
-        b=0,
-        t=30,
+    hoverlabel=dict(font_size=18),
+    margin=dict(l=0, r=0, b=20, t=30),
+    yaxis=dict(
+        showgrid=True,
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(size=12)
+    ),
+    xaxis=dict(
+        visible=True,
+        zeroline=False,
+        showline=False,
+        showticklabels=True,
+        showgrid=True,
+        tickfont=dict(size=12)
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -1221,7 +1249,7 @@ fig9.update_layout(
 
 modal_normative = html.Div(
     [
-        html.A(['Normative Strength ', html.I(className="bi bi-lightning-fill")],
+        html.A([html.I(className="bi bi-info-circle")],
                id="open-body-normative", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Modal(
             [
@@ -1283,31 +1311,40 @@ fig10 = go.Figure(go.Bar(
         line=dict(
             color=COLOR_GRAPH_RGB,
             width=1))))
-fig10.update_traces(textposition='none')
-fig10.update_yaxes(showgrid=False, visible=True,
-                   showticklabels=True, tickfont=dict(size=12))
-fig10.update_xaxes(showgrid=False, showline=False, visible=True,
-                   showticklabels=True, tickfont=dict(size=12))
+
 fig10.update_layout(
-    height=300,
+    title={
+        'text': "<b><i>Impact Scope</i></b>",
+        'y': 1.,
+        'x': 0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'},
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
-    margin=dict(
-        l=0,
-        r=0,
-        b=0,
-        t=30,
+    hoverlabel=dict(font_size=18),
+    margin=dict(l=0, r=0, b=20, t=30),
+    yaxis=dict(
+        showgrid=True,
+        showline=False,
+        showticklabels=True,
+        tickfont=dict(size=12)
+    ),
+    xaxis=dict(
+        visible=True,
+        zeroline=False,
+        showline=False,
+        showticklabels=True,
+        showgrid=True,
+        tickfont=dict(size=12)
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
     barmode='group',
     bargroupgap=0.8
 )
 
 modal_impact = html.Div(
     [
-        html.A(['Impact Scope ', html.I(className="bi bi-asterisk")],
+        html.A([html.I(className="bi bi-info-circle")],
                id="open-body-impact", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Modal(
             [
@@ -1364,77 +1401,88 @@ accordion = html.Div(
         dbc.Accordion(
             [
                 dbc.AccordionItem(
-                    [dcc.Markdown(x)
+                    [dcc.Markdown(f'**{x}**')
                      for x in df.accountability.dropna(axis=0)],
                     title="Accountability 👩🏾‍⚖️",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.beneficence.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.beneficence.dropna(axis=0)],
                     title="Beneficence ⚕️",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x)
+                    [dcc.Markdown(f"**{x}**")
                      for x in df.children_rights.dropna(axis=0)],
                     title="Children's Rights 👶",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.dignity.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.dignity.dropna(axis=0)],
                     title="Human Rights ✊🏿",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.diversity.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.diversity.dropna(axis=0)],
                     title="Diversity 🌈",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.autonomy.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.autonomy.dropna(axis=0)],
                     title="Autonomy 🕊️",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x)
+                    [dcc.Markdown(f"**{x}**")
                      for x in df.human_formation.dropna(axis=0)],
                     title="Human Formation 📚",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x)
+                    [dcc.Markdown(f"**{x}**")
                      for x in df.human_centeredness.dropna(axis=0)],
                     title="Human-Centeredness 👨‍👨‍👦‍👦",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x)
+                    [dcc.Markdown(f"**{x}**")
                      for x in df.intellectual_property.dropna(axis=0)],
                     title="Intellectual Property 🧠",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.fairness.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.fairness.dropna(axis=0)],
                     title="Fairness ⚖️",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.labor_rights.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.labor_rights.dropna(axis=0)],
                     title="Labor Rights 👷",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.cooperation.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.cooperation.dropna(axis=0)],
                     title="Cooperation 🤝",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.privacy.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.privacy.dropna(axis=0)],
                     title="Privacy 🔒",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.reliability.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.reliability.dropna(axis=0)],
                     title="Reliability 💪",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x)
+                    [dcc.Markdown(f"**{x}**")
                      for x in df.sustainability.dropna(axis=0)],
                     title="Sustainability ♻️",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.transparency.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.transparency.dropna(axis=0)],
                     title="Transparency 🕵",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(x) for x in df.truthfulness.dropna(axis=0)],
+                    [dcc.Markdown(f"**{x}**")
+                     for x in df.truthfulness.dropna(axis=0)],
                     title="Truthfulness 🤥",
                 ),
             ],
@@ -1519,7 +1567,7 @@ modal_divergence = html.Div(
 
 offcanvas = html.Div(
     [
-        html.A(['Principles ', html.I(className="bi bi-search-heart")],
+        html.A([html.I(className="bi bi-search-heart")],
                id="open-offcanvas", n_clicks=0, className="icon-button", style={'font-size': 20}),
         dbc.Offcanvas(
             [modal_divergence, accordion],
@@ -1573,6 +1621,7 @@ app.layout = dbc.Container(
                         'margin-bottom': '20px'}),
         html.Div([modal_article], style={
                  'textAlign': 'center', 'margin-top': '20px', 'margin-bottom': '15px'}),
+        html.Br(),
         dbc.Row([
             dbc.Col([
                     table
@@ -1582,26 +1631,32 @@ app.layout = dbc.Container(
                     dbc.Col([
                         modal_map,
                         dcc.Graph(id='map', figure=fig2)
-                    ], md=4),
+                    ], md=12),
+                ]),
+                html.Br(),
+                dbc.Row([
                     dbc.Col([
                         modal_institution,
                         dcc.Graph(id='institution', figure=fig3)
-                    ], md=4),
+                    ], md=12),
+                ]),
+                html.Br(),
+                dbc.Row([
                     dbc.Col([
                         modal_gender,
                         dcc.Graph(id='gender', figure=fig4)
                     ], md=4),
-
-                ], style={}),
-                dbc.Row([
                     dbc.Col([
                         html.Div([modal_principles, offcanvas]),
                         dcc.Graph(id='principles', figure=fig5)
-                    ], md=4),
+                    ], md=8),
+                ], style={}),
+                html.Br(),
+                dbc.Row([
                     dbc.Col([
                         modal_years,
                         dcc.Graph(id='years', figure=fig6)
-                    ], md=8),
+                    ], md=12),
                 ], style={'margin-top': '15px'}),
                 dbc.Row([
                     dbc.Col([
@@ -1618,12 +1673,13 @@ app.layout = dbc.Container(
                     ], md=3),
                     dbc.Col([
                         modal_impact,
-                        dcc.Graph(id='genergrgder', figure=fig10)
+                        dcc.Graph(id='impact', figure=fig10)
                     ], md=3),
                 ], style={'margin-top': '15px'}),
 
             ], md=10),
         ], style={'margin-left': '5px'}),
+        html.Br(),
         dbc.Row([
             dbc.Col([
                 download_data, download_html, download_png
@@ -1659,15 +1715,15 @@ def display_documents_dive(value):
 
     info_document = documents_dive.loc[value]
     document_details = f'''
-    **Name of the Document**: {info_document.document_name} \n
-    **Origin**: {info_document.country}\n
-    **Institution**: {info_document.institutions}\n
-    **Document Size**: {info_document.document_size}\n
-    **Gender Distribution**: {info_document.authors_gender}\n
-    **Document Nature**: {info_document.document_nature}\n
-    **Type of Regulation Proposed**: {info_document.document_regulation}\n
-    **Normative Strength**: {info_document.document_normative}\n
-    **Impact Scope**: {info_document.document_impact}\n
+    **Name of the Document**: {info_document.document_name}. \n
+    **Origin**: {info_document.country}.\n
+    **Institution**: {info_document.institutions}.\n
+    **Document Size**: {info_document.document_size}.\n
+    **Gender Distribution**: {info_document.authors_gender}.\n
+    **Document Nature**: {info_document.document_nature}.\n
+    **Type of Regulation Proposed**: {info_document.document_regulation}.\n
+    **Normative Strength**: {info_document.document_normative}.\n
+    **Impact Scope**: {info_document.document_impact}.\n
     '''
 
     return (document_details,
