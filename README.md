@@ -4,7 +4,7 @@ In the last decade, a great number of organizations have produced documents inte
 
 _[Full article here.](https://arxiv.org/abs/2206.11922)_
 
-## Dash Teamplate 🐱‍💻
+## Dash Template 🐱‍💻
 
 ![demo-dash-app](assets/gif_demo.gif)
 
