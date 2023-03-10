@@ -1,6 +1,6 @@
 import dash
 import time
-import json
+import pickle
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -274,8 +274,9 @@ table = dash_table.DataTable(
     },
 )
 
-with open('data/countries_in_dataset.geojson') as fp:
-    countries = json.load(fp)
+with open('data/countries_in_dataset.pickle', 'rb') as fp:
+    countries = pickle.load(fp)
+    fp.close()
 
 df = pd.read_parquet('data/countries')
 
