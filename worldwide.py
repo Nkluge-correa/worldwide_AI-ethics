@@ -1,5 +1,6 @@
 import dash
 import time
+import json
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -131,14 +132,16 @@ modal_article = html.Div(
                 dbc.ModalBody([
                     dcc.Markdown(
                         '''**Since the end of our last "_AI winter_," 1987 - 1993, AI research and its industry have seen massive growth, either in developed technologies, investment, media attention, or new tasks that autonomous systems are nowadays able to perform. By looking at the history of submissions in ArXiv ([between 2009 and 2021](https://arxiv.org/about/reports/submission_category_by_year)), an open-access repository of electronic preprints and postprints, starting from 2018, Computer Science-related papers have been the most common sort of submitted material.** ''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
-                    dcc.Graph(id='arxiv_sub', figure=fig), html.Br(),
+                    dcc.Graph(id='arxiv_sub', className='hidden-mobile',
+                              figure=fig), html.Br(),
                     dcc.Markdown('''**Also, when we examine the category of Computer Science alone, "_Computer Vision and Pattern Recognition_," "_Machine Learning_," and "_Computation and Language_" are the most submitted types of sub-categories. Note that all of these are areas where Machine Learning is notably established as its current paradigm.** ''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
-                    dcc.Graph(id='arxiv_CS', figure=fig1), html.Br(),
+                    dcc.Graph(id='arxiv_CS', className='hidden-mobile',
+                              figure=fig1), html.Br(),
                     dcc.Markdown(
                         '''**Besides the number of papers being produced, we have never had more capital being invested in AI-related companies and startups, either by governments or Venture Capital firms (more than 90 billion USD$ in 2021 in the US alone), and AI-related patents being registered (Zhang et al., [2022](https://aiindex.stanford.edu/report/)). This rapid expansion of the AI field/industry also came with another boom, the "_AI Ethics boom_," where a never before seen demand for regulation and normative guidance of these technologies has been put forward. Drawing on the work done by past meta-analysts in the field, this study presents a systematic review of 200 documents related to AI ethics and governance. We present a collection of typologies used to classify our sample, all condensed in an interactive and open-access online tool, coupled with a critical analysis of "_what is being said_" and "_who is saying it_" in our AI ethics global landscape.**''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
                     dcc.Markdown(
-                        '## Explore the Worldwide Dataset 🔎'), html.Br(),
+                        '## _Explore the Worldwide Dataset_ 🔎'), html.Br(),
                     dcc.Dropdown(id='documents',
                                  options=documents_dive.index,
                                  value=documents_dive.index[0], clearable=False,
@@ -271,39 +274,28 @@ table = dash_table.DataTable(
     },
 )
 
+with open('data/countries_in_dataset.geojson') as fp:
+    countries = json.load(fp)
+
 df = pd.read_parquet('data/countries')
 
-fig2 = go.Figure(data=go.Choropleth(
-    locations=df.code,
-    z=df.n_of_publications,
-    text=df.countries,
-    colorscale='oryel',
-    showscale=True,
-    autocolorscale=False,
-    reversescale=True,
-    marker_line_color='darkgray',
-    marker_line_width=0.5,
-))
+fig2 = go.Figure(go.Choroplethmapbox(geojson=countries, locations=df.code, z=df.n_of_publications,
+                                     colorscale="oryel", zmin=0, zmax=12, showscale=False,
+                                     marker_opacity=0.5, marker_line_width=0))
 
 fig2.update_layout(
-    title="<b><i>Number of Publications by Country</i></b>",
+    mapbox_style="carto-darkmatter",
+    mapbox_zoom=1.2,
+    mapbox_center={"lat": 0., "lon": 0.},
+    geo=dict(bgcolor='rgba(0,0,0,0)'),
+    title="<b><i>Publications by Country</i></b>",
     font_color='white',
     hoverlabel=dict(bgcolor='black', font_size=20),
-    geo=dict(
-        showframe=False,
-        showcoastlines=False,
-        projection_type='equirectangular',
-        bgcolor='rgba(0,0,0,0)'
-    ),
-    margin=dict(
-        l=0,
-        r=0,
-        b=0,
-        t=30,
-    ),
+    margin=dict(l=0, r=0, b=0, t=30, pad=4,
+                autoexpand=True),
     legend=dict(font_size=18),
     paper_bgcolor='rgba(0,0,0,0)',
-    plot_bgcolor='rgba(0,0,0,0)'
+    plot_bgcolor='rgba(0,0,0,0)',
 )
 
 
@@ -360,7 +352,7 @@ fig3 = go.Figure(go.Bar(
             width=1))))
 
 fig3.update_layout(
-    title="<b><i>Number of Publications by Institution Type</i></b>",
+    title="<b><i>Publications by Institutions</i></b>",
     template='plotly_dark',
     hoverlabel=dict(font_size=18),
     yaxis=dict(
@@ -445,7 +437,7 @@ fig4 = go.Figure(go.Bar(
 
 fig4.update_layout(
     title={
-        'text': "<b><i>Gender Distribution of Authors</i></b>",
+        'text': "<b><i>Gender Distribution</i></b>",
         'y': 1.,
         'x': 0.5,
         'xanchor': 'center',
@@ -796,92 +788,104 @@ modal_principles = html.Div(
                     ### **`Accountability/Liability`** 
                     
                     "**_Accountability refers to the idea that developers and deployers of AI technologies should be compliant with regulatory bodies, also meaning that such actors should be accountable for their actions and the impacts caused by their technologies_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='account',
+                    dcc.Graph(id='account', className='hidden-mobile',
                               figure=fig_a), html.Br(),
                     dcc.Markdown('''
                     ### **`Beneficence/Non-Maleficence`**
                     
                     "**_Beneficence and non-maleficence are concepts that come from bioethics and medical ethics. In AI ethics, these principles state that human welfare (and harm aversion) should be the goal of AI-empowered technologies. Sometimes, this principle is also tied to the idea of Sustainability, stating that AI should be beneficial not only to human civilization but to our natural environment and other living creatures_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='benef', figure=fig_b), html.Br(),
+                    dcc.Graph(id='benef', className='hidden-mobile',
+                              figure=fig_b), html.Br(),
                     dcc.Markdown('''
                     ### **`Children & Adolescents Rights`** 
                     
                     "**_The idea that the rights of children and adolescents must be respected by AI technologies. AI stakeholders should safeguard, respect, and be aware of the fragilities associated with young people_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='child', figure=fig_c), html.Br(),
+                    dcc.Graph(id='child', className='hidden-mobile',
+                              figure=fig_c), html.Br(),
                     dcc.Markdown('''
                     ### **`Dignity/Human Rights`** 
                      
                     "**_This principle is based on the idea that all individuals deserve proper treatment and respect. In AI ethics, the respect for human dignity is often tied to human rights (i.e., [Universal Declaration of Human Rights](https://www.un.org/en/about-us/universal-declaration-of-human-rights))_.**" ''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='digni', figure=fig_d), html.Br(),
+                    dcc.Graph(id='digni', className='hidden-mobile',
+                              figure=fig_d), html.Br(),
                     dcc.Markdown('''
                     ### **`Diversity/Inclusion/Pluralism/Accessibility`** 
                     
                     "**_This set of principles advocates the idea that the development and use of AI technologies should be done in an inclusive and accessible way, respecting the different ways that the human entity may come to express itself (gender, ethnicity, race, sexual orientation, disabilities, etc.). This meta-principle is strongly tied to another set of principles: Justice/Equity/Fairness/Non-discrimination_.**" ''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='diver', figure=fig_e), html.Br(),
+                    dcc.Graph(id='diver', className='hidden-mobile',
+                              figure=fig_e), html.Br(),
                     dcc.Markdown('''
                     ### **`Freedom/Autonomy/Democratic Values/Technological Sovereignty`** 
                     
                     "**_This set of principles advocates the idea that the autonomy of human decision-making must be preserved during human-AI interactions, whether that choice is individual, or the freedom to choose together, such as the inviolability of democratic rights and values, also being linked to technological self-sufficiency of Nations/States_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='free', figure=fig_f), html.Br(),
+                    dcc.Graph(id='free', className='hidden-mobile',
+                              figure=fig_f), html.Br(),
                     dcc.Markdown('''
                     ### **`Human Formation/Education`** 
                     
                     "**_Such principles defend the idea that human formation and education must be prioritized in our technological advances. AI technologies require a considerable level of expertise to be produced and operated, and such knowledge should be accessible to all. This principle seems to be strongly tied to Labor Rights. The vast majority of documents concerned with workers and the work-life point to the need for re-educating and re-skilling the workforce as a mitigation strategy against technological unemployment_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='educa', figure=fig_g), html.Br(),
+                    dcc.Graph(id='educa', className='hidden-mobile',
+                              figure=fig_g), html.Br(),
                     dcc.Markdown('''
                     ### **`Human-Centeredness/Alignment`**
                      
                     "**_Such principles advocate the idea that AI systems should be centered on and aligned with human values. AI technologies should be tailored to align with our values (e.g., value-sensitive design). This principle is also used as a "catch-all" category, many times being defined as a collection of "principles that are valued by humans" (e.g., freedom, privacy, non-discrimination, etc.)_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='align', figure=fig_h), html.Br(),
+                    dcc.Graph(id='align', className='hidden-mobile',
+                              figure=fig_h), html.Br(),
                     dcc.Markdown('''
                     ### **`Intellectual Property`** 
                     
                     "**_This principle seeks to ground the property rights over AI products and/or processes of knowledge generated by individuals, whether tangible or intangible_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='intellec',
+                    dcc.Graph(id='intellec', className='hidden-mobile',
                               figure=fig_i), html.Br(),
                     dcc.Markdown('''
                     ### **`Justice/Equity/Fairness/Non-discrimination`**
                     
                     "**_This set of principles upholds the idea of non-discrimination and bias mitigation (discriminatory algorithmic biases AI systems can be subject to). It defends the idea that, regardless of the different sensitive attributes that may characterize an individual, all should be treated fairly_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='justice',
+                    dcc.Graph(id='justice',  className='hidden-mobile',
                               figure=fig_j), html.Br(),
                     dcc.Markdown('''
                     ### **`Labor Rights`** 
                     
                     "**_Labor rights are legal and human rights related to the labor relations between workers and employers. In AI ethics, this principle emphasizes that workers' rights should be preserved regardless of whether labor relations are being mediated/augmented by AI technologies or not. One of the main preoccupations pointed out when this principle is presented is the mitigation of technological unemployment (e.g., through Human Formation/Education)_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='labor', figure=fig_k), html.Br(),
+                    dcc.Graph(id='labor', className='hidden-mobile',
+                              figure=fig_k), html.Br(),
                     dcc.Markdown('''
                     ### **`Open source/Fair Competition/Cooperation`** 
                      
                     "**_This set of principles advocates different means by which joint actions can be established and cultivated between AI stakeholders to achieve common goals. It also advocates for the free and open exchange of valuable AI assets (e.g., data, knowledge, patent rights, human resources) to mitigate possible AI/technology monopolies_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='open', figure=fig_l), html.Br(),
+                    dcc.Graph(id='open', className='hidden-mobile',
+                              figure=fig_l), html.Br(),
                     dcc.Markdown('''
                     ### **`Privacy`** 
                     
                     "**_The idea of privacy can be defined as the individual's right to expose oneself voluntarily, and to the extent desired, to the world. In AI ethics, this principle upholds the right of a person to control the exposure and availability of personal information when mined as training data for AI systems. This principle is also related to concepts such as data minimization, anonymity, informed consent, and other data protection-related concepts_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='privacy',
+                    dcc.Graph(id='privacy', className='hidden-mobile',
                               figure=fig_m), html.Br(),
                     dcc.Markdown('''
                     ### **`Reliability/Safety/Security/Trustworthiness`** 
                     
                     "**_This set of principles upholds the idea that AI technologies should be reliable, in the sense that their use can be verifiably attested as safe and robust, promoting user trust and better acceptance of AI technologies_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='reliab', figure=fig_n), html.Br(),
+                    dcc.Graph(id='reliab', className='hidden-mobile',
+                              figure=fig_n), html.Br(),
                     dcc.Markdown('''
                     ### **`Sustainability`** 
                     
                     "**_This principle can be understood as a form of "intergenerational justice," where the well-being of future generations must also be counted during AI development. In AI ethics, sustainability refers to the idea that the development of AI technologies should be carried out with an awareness of their long-term implications, such as environmental costs and non-human life preservation/well-being_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='sustaina',
+                    dcc.Graph(id='sustaina', className='hidden-mobile',
                               figure=fig_o), html.Br(),
                     dcc.Markdown('''
                     ### **`Transparency/Explainability/Auditability`** 
                     
                     "**_This set of principles supports the idea that the use and development of AI technologies should be done transparently for all interested stakeholders. Transparency can be related to the transparency of an organization or the transparency of an algorithm. This set of principles is also related to the idea that such information should be understandable to nonexperts, and when necessary, subject to being audited_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='trans', figure=fig_p), html.Br(),
+                    dcc.Graph(id='trans', className='hidden-mobile',
+                              figure=fig_p), html.Br(),
                     dcc.Markdown('''
                     **`Truthfulness`** 
                     
                     "**_This principle upholds the idea that AI technologies must provide truthful information. It is also related to the idea that people should not be deceived when interacting with AI systems. This principle is strongly related to the mitigation of automated means of disinformation_.**"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
-                    dcc.Graph(id='truth', figure=fig_q), html.Br(),
+                    dcc.Graph(id='truth', className='hidden-mobile',
+                              figure=fig_q), html.Br(),
                 ]),
                 dbc.ModalFooter(
                     dbc.Button(
@@ -930,11 +934,9 @@ fig6.add_trace(go.Scatter(
 
 fig6.update_layout(
     xaxis=dict(
-        showline=True,
+        showline=False,
         showgrid=True,
         showticklabels=True,
-        linecolor=COLOR_GRAPHS_HEX,
-        linewidth=2,
         ticks='outside',
         tickfont=dict(
             size=12,
@@ -957,7 +959,7 @@ fig6.update_layout(
 )
 
 fig6.update_layout(
-    title="<b><i>Published Documents Timeline</i></b>",
+    title="<b><i>Publication Timeline</i></b>",
     template='plotly_dark',
     hovermode='x unified',
     hoverlabel=dict(font_size=14),
@@ -1573,7 +1575,7 @@ offcanvas = html.Div(
             [modal_divergence, accordion],
             id="offcanvas",
             scrollable=True,
-            title="Ethical Principles 🌈👨‍👨‍👦‍👦🕊️✊🏿👷♻️",
+            title="Ethical Principles ✊🏿",
             placement='end',
             is_open=False,
             style={'width': '100vw', 'text-align': 'justify',
@@ -1619,13 +1621,20 @@ app.layout = dbc.Container(
                  style={'text-align': 'center',
                         'margin-top': '25px',
                         'margin-bottom': '20px'}),
+        html.Div([
+            html.Div([
+                dcc.Markdown('''
+                **_Worldwide AI Ethics is a systematic literature review done by AIRES researchers at PUCRS. Building on the work done by other meta-analysts, this study presents a systematic review of 200 documents related to AI ethics and governance, presenting a collection of typologies used to classify our sample, all condensed into an interactive, freely accessible online tool._**
+                ''', style={'text-align': 'center'})
+            ], style={'max-width': '800px'}),
+        ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
         html.Div([modal_article], style={
                  'textAlign': 'center', 'margin-top': '20px', 'margin-bottom': '15px'}),
         html.Br(),
         dbc.Row([
             dbc.Col([
-                    table
-                    ], md=2),
+                    table,
+                    ], md=2,  className='hidden-mobile'),
             dbc.Col([
                 dbc.Row([
                     dbc.Col([

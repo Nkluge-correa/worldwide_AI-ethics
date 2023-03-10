@@ -185,3 +185,11 @@ a:active {
   width: 10px !important;
   display: block !important;
 }
+
+/* Mobile Version */
+
+@media (max-width: 700px) {
+  .hidden-mobile {
+    display: none;
+  }
+}
