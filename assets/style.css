@@ -31,7 +31,8 @@ body {
 
 .title-style {
   display: inline-block;
-  vertical-align: middle
+  vertical-align: middle;
+  font-weight: bold;
 }
 
 .title-icon-style {
@@ -40,15 +41,10 @@ body {
   margin-left: 1rem
 }
 
-.glossary-text-style {
-  font-size: 22;
-  text-align: justify;
-  text-justify: inter-word;
-}
-
 .modal-body-text-style {
     text-align: justify;
     text-justify: inter-word;
+    font-weight: bold;
 }
 
 .card-style {
@@ -62,6 +58,7 @@ body {
   height: 400px;
   text-align: justify;
   text-justify: inter-word;
+  font-weight: bold;
   padding: '5px'
 }
 
