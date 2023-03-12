@@ -24,9 +24,47 @@
 }
 
 /* Body */
+
 body { 
   margin: 0;
   width: 100%; 
+}
+
+code {
+  font-weight: bold !important;
+}
+
+a:link {
+  color: #dc3d87;
+}
+
+a:visited {
+  color: #dc3d87;
+}
+
+a:hover {
+  color: #dc3d87;
+}
+
+a:active {
+  color: #dc3d87;
+}
+
+/* Pages */
+
+.icon-button {
+  border: none;
+  font-weight: bold;
+  margin-left: 5px;
+  margin-top: 20px;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+}
+
+.icon-button:hover {
+  color: #f4f5f5;
+  cursor: pointer;
 }
 
 .title-style {
@@ -39,6 +77,12 @@ body {
   display: inline-block;
   vertical-align: middle;
   margin-left: 1rem
+}
+
+.title-div {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
 .modal-body-text-style {
@@ -59,7 +103,7 @@ body {
   text-align: justify;
   text-justify: inter-word;
   font-weight: bold;
-  padding: '5px'
+  padding: 5px
 }
 
 .card-header-style {
@@ -68,81 +112,43 @@ body {
   color: #dc3d87
 }
 
-/* Nav Bar */
+.page-intro {
+  text-align: center; 
+  font-weight: bold
+}
 
-.icon-button {
-  border: none;
-  font-weight: bold;
-  margin-left: 5px;
+.page-intro-inner-div {
+  max-width: 800px;
+}
+
+.page-intro-outer-div {
+  width: 100%; 
+  display: flex; 
+  justify-content: center;
+}
+
+.middle-toggles {
+  text-align: center;
+  margin-top: 10px; 
+  margin-bottom: 10px;
+}
+
+.badges {
+  text-align: center;
+}
+
+.badges-div {
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
   margin-top: 20px;
-  width: 100%;
-  text-align: left;
-  text-decoration: none;
 }
 
-.icon-button:hover {
-  color: #f4f5f5;
-  cursor: pointer;
+.graph-div {
+  margin-bottom: 10px
 }
 
-.nav-header {
-  color: #dc3d87 !important;
-  font-weight: bold !important;
-  width: 19rem !important;
-  padding-left: 0 !important;
-}
-
-.nav-link {
-  color: #dc3d87;
-  font-size: larger;
-  font-weight: bold;
-  width: 19rem;
-  padding-left: 0
-}
-
-.nav-link:hover {
-  background-color: #141618;
-  border: 0;
-}
-
-.nav-link:active {
-  background-color: #141618;
-  border: 0;
-}
-
-.nav-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 20rem;
-  padding: 2rem 1rem;
-  background-color: #3a3f44;
-}
-
-.off-canvas {
-  width: 20rem;
-}
-
-/* unvisited link */
-a:link {
-  color: #dc3d87;
-}
-
-/* visited link */
-a:visited {
-  color: #dc3d87;
-}
-
-/* mouse over link */
-a:hover {
-  color: #dc3d87;
-}
-
-/* selected link */
-a:active {
-  color: #dc3d87;
-}
 
 /* Graph Control Objects ––––––––––––––––––––––––––––––––––––––––––––––––––*/
 

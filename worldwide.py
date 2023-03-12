@@ -11,11 +11,14 @@ OPEN_BUTTON = 'light'
 OUTLINE_BUTTON = True
 STYLE_BUTTON = {'border': 0, 'font-weight': 'bold'}
 CLOSE_BUTTON = 'primary'
+DOWNLOAD_BUTTON = {'margin-right': '5px',
+                   'margin-left': '5px',
+                   'display': 'inline-block'}
 COLOR_GRAPH_RGB = 'rgba(172, 50, 75, 1.0)'
 COLOR_GRAPHS_HEX = '#923146'
 FONT_SIZE = '1rem'
 FONT_SIZE_HEADER = '1.5rem'
-FONT_SIZE_N_GRAMS = 18
+LARGE_FONT_SIZE = 18
 
 app = dash.Dash(__name__,
                 meta_tags=[
@@ -27,13 +30,12 @@ app.title = 'Worldwide AI Ethics 🌎🌍🌏'
 
 df = pd.read_parquet('data/arxiv_submissions')
 
-fig = go.Figure(layout={'template': 'plotly_dark'})
+fig = go.Figure()
 for column in df.columns:
     fig.add_trace(go.Scatter(x=df.index, y=df[column],
                              line=dict(width=3), name=column, mode='lines',
                              hoverlabel=dict(namelength=-1),
-                             hovertemplate='Nº of Submissions (' +
-                             column + '): %{y} <extra></extra>',
+                             hovertemplate=column + ': %{y} <extra></extra>',
                              showlegend=True))
 
 fig.update_layout(
@@ -41,7 +43,6 @@ fig.update_layout(
         showline=True,
         showgrid=False,
         showticklabels=True,
-        linecolor='rgb(204, 204, 204)',
         linewidth=2,
         tickangle=45,
         ticks='inside',
@@ -62,24 +63,25 @@ fig.update_layout(
             color='white',
         ),
     ),
+    title='<b><i>Arxiv Submissions History (2009 to 2021)</i><b>',
+    template='plotly_dark',
     showlegend=True,
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     font_color='white',
     hovermode='x',
-    margin={'r': 20, 't': 70, 'l': 20, 'b': 20}
+    margin={'r': 0, 't': 30, 'l': 0, 'b': 0}
 )
 
 df = pd.read_parquet('data/arxiv_submissions_cs')
 
-fig1 = go.Figure(layout={'template': 'plotly_dark'})
+fig1 = go.Figure()
 for column in df.columns:
     fig1.add_trace(go.Scatter(x=df.index, y=df[column],
                               line=dict(width=3), name=column, mode='lines',
                               hoverlabel=dict(namelength=-1),
-                              hovertemplate='Nº of Submissions (' +
-                              column + '): %{y} <extra></extra>',
+                              hovertemplate=column + ': %{y} <extra></extra>',
                               showlegend=True))
 
 fig1.update_layout(
@@ -87,7 +89,6 @@ fig1.update_layout(
         showline=True,
         showgrid=False,
         showticklabels=True,
-        linecolor='rgb(204, 204, 204)',
         linewidth=2,
         tickangle=45,
         ticks='inside',
@@ -108,13 +109,15 @@ fig1.update_layout(
             color='white',
         ),
     ),
+    title='<b><i>Arxiv Submissions History in CS (2009 to 2021)</i><b>',
+    template='plotly_dark',
     showlegend=True,
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     font_color='white',
     hovermode='x',
-    margin={'r': 20, 't': 70, 'l': 20, 'b': 20}
+    margin={'r': 0, 't': 30, 'l': 0, 'b': 0}
 )
 
 documents_dive = pd.read_parquet('data/documents_dive')
@@ -158,7 +161,7 @@ modal_article = html.Div(
 
                                 ], color='#272b30', outline=False, inverse=True, className='card-style')
                             ])
-                        ], md=4, style={}),
+                        ], md=4),
                         dbc.Col([
                             dcc.Loading(id='loading_5', type='default', children=[
                                 dbc.Card([
@@ -171,7 +174,7 @@ modal_article = html.Div(
 
                                 ], color='#272b30', outline=True, inverse=True, className='card-style')
                             ])
-                        ], md=4, style={}),
+                        ], md=4),
                         dbc.Col([
                             dcc.Loading(id='loading_6', type='default', children=[
                                 dbc.Card([
@@ -184,7 +187,7 @@ modal_article = html.Div(
 
                                 ], color='#272b30', outline=True, inverse=True, className='card-style')
                             ])
-                        ], md=4, style={}),
+                        ], md=4),
                     ], justify='center'), html.Br(),
                     dcc.Markdown('### Cite as 🤗', style={
                                  'font-weight': 'bold'}), html.Br(),
@@ -206,7 +209,7 @@ modal_article = html.Div(
                         html.H4([
                             dbc.Badge([html.I(className="bi bi-heart-fill"), "  Open-Source"], href="https://github.com/Nkluge-correa/worldwide_AI-ethics",
                                       color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
-                            dbc.Badge([html.I(className="bi bi-bar-chart-fill"), "  Power BI Version"], href="https://en.airespucrs.org/worldwide-ai-ethics",
+                            dbc.Badge([html.I(className="bi bi-bar-chart-fill"), "  Power BI Version"], href="https://www.airespucrs.org/en/worldwide-ai-ethics",
                                       color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
                             dbc.Badge([html.I(className="bi bi-file-pdf-fill"), "  Full Article"], href="https://doi.org/10.48550/arXiv.2206.11922",
                                       color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
@@ -229,14 +232,14 @@ modal_article = html.Div(
             id='body-abstract',
             fullscreen=True,
         ),
-    ], style={},
+    ],
 )
 
 df = pd.read_parquet('data/titles_abstracts')
 
 df = pd.DataFrame({
-    'Documents': [f'[{df.document_title[i]}]({df.document_url[i]})' for i in range(len(df.document_title))],
-    'Abstract': df.abstract
+    'Documents': tuple([f'[{df.document_title[i]}]({df.document_url[i]})' for i in range(len(df.document_title))]),
+    'Abstract': tuple(df.abstract)
 })
 
 table = dash_table.DataTable(
@@ -252,24 +255,23 @@ table = dash_table.DataTable(
     }],
     tooltip_delay=0,
     tooltip_duration=None,
-    style_table={'text-align': 'justify', 'text-justify': 'inter-word',
-                 'height': '2550px', 'overflowY': 'scroll'},
+    style_table={'height': '2550px', 'overflow-y': 'scroll'},
     page_current=0,
     page_size=200,
     style_cell={
-        'text-align': 'center', 'text-justify': 'inter-word',
-        'fontSize': FONT_SIZE, 'padding': '10px', 'font-weight': 'bold',
-        'backgroundColor': '#272b30'
+        'text-align': 'justify', 'text-justify': 'inter-word',
+        'font-size': FONT_SIZE, 'padding': '10px',
+        'background-color': '#272b30'
     },
     style_data={
-        'whiteSpace': 'normal',
+        'white-space': 'normal',
         'height': 'auto'
     },
     style_header={
-        'backgroundColor': '#272b30',
-        'fontWeight': 'bold',
+        'background-color': '#272b30',
+        'font-weight': 'bold',
         'text-align': 'center',
-        'fontSize': FONT_SIZE_HEADER
+        'font-size': FONT_SIZE_HEADER
     },
 )
 
@@ -280,7 +282,7 @@ with open('data/countries_in_dataset.pickle', 'rb') as fp:
 
 df = pd.read_parquet('data/countries')
 
-fig2 = go.Figure(go.Choroplethmapbox(geojson=countries, locations=df.code, z=df.n_of_publications,
+fig2 = go.Figure(go.Choroplethmapbox(geojson=countries, locations=tuple(df.code), z=tuple(df.n_of_publications),
                                      colorscale="oryel", zmin=0, zmax=12, showscale=False,
                                      marker_opacity=0.5, marker_line_width=0))
 
@@ -294,11 +296,10 @@ fig2.update_layout(
     hoverlabel=dict(bgcolor='black', font_size=20),
     margin=dict(l=0, r=0, b=0, t=30, pad=4,
                 autoexpand=True),
-    legend=dict(font_size=18),
+    legend=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
 )
-
 
 modal_map = html.Div(
     [
@@ -332,18 +333,15 @@ modal_map = html.Div(
             scrollable=True,
             is_open=False,
         ),
-    ], style={
-        'margin-left': '10px',
-        'margin-bottom': '5px'},
-
+    ], className='info-graph-buttons'
 )
 
 df = pd.read_parquet('data/institutions')
 
 fig3 = go.Figure(go.Bar(
-    x=df.n_of_publications,
-    y=['<b>'+elem+'</b>' for elem in df.institution_type],
-    text=df.n_of_publications,
+    x=tuple(df.n_of_publications),
+    y=tuple(['<b>'+elem+'</b>' for elem in df.institution_type]),
+    text=tuple(df.n_of_publications),
     orientation='h',
     hovertemplate="%{y}: %{x} <extra></extra>",
     marker=dict(
@@ -388,7 +386,7 @@ modal_institution = html.Div(
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '## Nº of Publications by Institution Type 🏢', style={'font-weight': 'bold'}))),
+                    '## Publications by Institutions 🏢', style={'font-weight': 'bold'}))),
                 dbc.ModalBody([
                     dcc.Markdown('''Except for institutions like IBM ($5$), Microsoft ($4$), and UNESCO ($3$), most other institutions do not have more than two published documents. We can also see that the bulk of our sample was produced by governmental institutions and private corporations ($48\%$),  followed by CSO/NGO ($17\%$), non-profit organizations ($16\%$), and academic institutions ($12,5\%$).''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE}, mathjax=True), html.Br(),
@@ -415,20 +413,16 @@ modal_institution = html.Div(
             scrollable=True,
             is_open=False,
         ),
-    ], style={
-        'margin-left': '10px',
-        'margin-bottom': '5px',
-        'display': 'inline-block'},
-
+    ], className='info-graph-buttons'
 )
 
 df = pd.read_parquet('data/gender')
 
 fig4 = go.Figure(go.Bar(
-    x=['<b>'+elem+'</b>' for elem in df.authors],
-    y=df.number_of_authors,
-    text=df.number_of_authors,
-    width=[0.8, 0.8],
+    x=tuple(['<b>'+elem+'</b>' for elem in df.authors]),
+    y=tuple(df.number_of_authors),
+    text=tuple(df.number_of_authors),
+    width=(0.8, 0.8),
     hovertemplate="%{y}: %{x} <extra></extra>",
     marker=dict(
         color=COLOR_GRAPH_RGB,
@@ -502,19 +496,15 @@ modal_gender = html.Div(
             scrollable=True,
             is_open=False,
         ),
-    ], style={
-        'margin-left': '10px',
-        'margin-bottom': '5px',
-        'display': 'inline-block'},
-
+    ], className='info-graph-buttons'
 )
 
 df = pd.read_parquet('data/principles')
 
 fig5 = go.Figure(go.Bar(
-    x=df.n_of_citations,
-    y=['<b>'+elem+'</b>' for elem in df.principles],
-    text=df.n_of_citations,
+    x=tuple(df.n_of_citations),
+    y=tuple(['<b>'+elem+'</b>' for elem in df.principles]),
+    text=tuple(df.n_of_citations),
     orientation='h',
     hovertemplate="%{y}: %{x} <extra></extra>",
     marker=dict(
@@ -554,12 +544,15 @@ df = pd.read_parquet('data/Accountability_gram')
 
 fig_a = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_a.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 df = pd.read_parquet('data/Beneficence_gram')
@@ -568,10 +561,12 @@ fig_b = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
 fig_b.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -579,12 +574,15 @@ df = pd.read_parquet('data/Children_gram')
 
 fig_c = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_c.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -592,12 +590,15 @@ df = pd.read_parquet('data/Dignity_gram')
 
 fig_d = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_d.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -605,12 +606,15 @@ df = pd.read_parquet('data/Diversity_gram')
 
 fig_e = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_e.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -618,12 +622,15 @@ df = pd.read_parquet('data/Freedom_gram')
 
 fig_f = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_f.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -631,12 +638,15 @@ df = pd.read_parquet('data/Formation_gram')
 
 fig_g = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_g.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -644,12 +654,15 @@ df = pd.read_parquet('data/Centeredness_gram')
 
 fig_h = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_h.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=16,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -657,12 +670,15 @@ df = pd.read_parquet('data/Property_gram')
 
 fig_i = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_i.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -670,12 +686,15 @@ df = pd.read_parquet('data/Justice_gram')
 
 fig_j = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_j.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -683,24 +702,30 @@ df = pd.read_parquet('data/Labor_gram')
 
 fig_k = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_k.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 df = pd.read_parquet('data/Open_gram')
 
 fig_l = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_l.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -708,12 +733,15 @@ df = pd.read_parquet('data/Privacy_gram')
 
 fig_m = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_m.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -721,12 +749,15 @@ df = pd.read_parquet('data/Reliability_gram')
 
 fig_n = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_n.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -734,12 +765,15 @@ df = pd.read_parquet('data/Sustainability_gram')
 
 fig_o = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_o.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -747,12 +781,15 @@ df = pd.read_parquet('data/Transparency_gram')
 
 fig_p = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
+
 fig_p.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 
@@ -762,10 +799,12 @@ fig_q = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
 fig_q.update_layout(
     template='plotly_dark',
-    hoverlabel=dict(font_size=20),
+    hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    uniformtext_minsize=FONT_SIZE_N_GRAMS,
+    uniformtext_minsize=LARGE_FONT_SIZE,
+    xaxis_title=None,
+    yaxis_title=None
 )
 
 modal_principles = html.Div(
@@ -775,7 +814,7 @@ modal_principles = html.Div(
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '## Nº of Citations by Principle 🔍', style={'font-weight': 'bold'}))),
+                    '## Citations by Principle 🔍', style={'font-weight': 'bold'}))),
                 dbc.ModalBody([
                     dcc.Markdown('''The top five principles advocated in the documents of our sample are similar to the results shown by Jobin et al. ([2019](https://www.nature.com/articles/s42256-019-0088-2)) and Hagendorff ([2020](https://link.springer.com/article/10.1007/s11023-020-09517-8)), with the addition of Reliability/Safety/Security/Trustworthiness ($78\%$), which was also cited as top five in Fjeld et al. ([2020](https://dash.harvard.edu/handle/1/42160420)) meta analysis ($80\%$). Since each document presents its own passage about each principle, if there were, for example, $134$ documents that upheld privacy, we collected $134$ different definitions/recommendations involving this principle.''', className='modal-body-text-style', style={
                                  'font-size': FONT_SIZE}, mathjax=True), html.Br(),
@@ -882,7 +921,7 @@ modal_principles = html.Div(
                     dcc.Graph(id='trans', className='hidden-mobile', config={'displayModeBar': False},
                               figure=fig_p), html.Br(),
                     dcc.Markdown('''
-                    `Truthfulness` 
+                    ### `Truthfulness` 
                     
                     "_This principle upholds the idea that AI technologies must provide truthful information. It is also related to the idea that people should not be deceived when interacting with AI systems. This principle is strongly related to the mitigation of automated means of disinformation_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Graph(id='truth', className='hidden-mobile', config={'displayModeBar': False},
@@ -906,17 +945,13 @@ modal_principles = html.Div(
             scrollable=True,
             is_open=False,
         ),
-    ], style={
-        'margin-left': '10px',
-        'margin-top': '10px',
-        'margin-bottom': '5px',
-        'display': 'inline-block'},
-
+    ],
+    style={'display': 'inline-block'},
 )
 
 df = pd.read_parquet('data/time_line')
 
-fig6 = go.Figure(data=go.Scatter(x=df.years, y=df.n_of_published_documents, mode='lines+markers',
+fig6 = go.Figure(data=go.Scatter(x=tuple(df.years), y=tuple(df.n_of_published_documents), mode='lines+markers',
                                  name='',
                                  line=dict(color=COLOR_GRAPHS_HEX, width=6),
                                  marker=dict(size=12),
@@ -925,9 +960,9 @@ fig6 = go.Figure(data=go.Scatter(x=df.years, y=df.n_of_published_documents, mode
                                  ))
 
 fig6.add_trace(go.Scatter(
-    x=[df.years[0], df.years[8]],
-    y=[df.n_of_published_documents[0],
-       df.n_of_published_documents[8]],
+    x=(df.years[0], df.years[8]),
+    y=(df.n_of_published_documents[0],
+       df.n_of_published_documents[8]),
     mode='markers',
     marker=dict(color=COLOR_GRAPHS_HEX, size=16),
     hoverinfo='skip'
@@ -964,12 +999,7 @@ fig6.update_layout(
     template='plotly_dark',
     hovermode='x unified',
     hoverlabel=dict(font_size=14),
-    margin=dict(
-        l=0,
-        r=0,
-        b=0,
-        t=30,
-    )
+    margin=dict(l=0, r=0, b=0, t=30,)
 )
 
 modal_years = html.Div(
@@ -979,7 +1009,7 @@ modal_years = html.Div(
         dbc.Modal(
             [
                 dbc.ModalHeader(dbc.ModalTitle(dcc.Markdown(
-                    '## Nº of Published Documents by Year 📅', style={'font-weight': 'bold'}))),
+                    '## Publications Timeline 📅', style={'font-weight': 'bold'}))),
                 dbc.ModalBody([
                     dcc.Markdown('''With respect to the year of publication of the documents from our sample, one can see that the majority of documents ($129 = 64,5\%$) Were published between the years 2017 and 2019. What we may call the "_AI ethics boom_" would be the significant production of documents in the year 2018, which represents $30,5\%$ ($61$) of our entire sample.''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE}, mathjax=True), html.Br(),
@@ -1004,23 +1034,18 @@ modal_years = html.Div(
             scrollable=True,
             is_open=False,
         ),
-    ], style={
-        'margin-left': '10px',
-        'margin-top': '10px',
-        'margin-bottom': '5px',
-        'display': 'inline-block'},
-
+    ],
 )
 
 df = pd.read_parquet('data/document_nature')
 
 fig7 = go.Figure(go.Bar(
-    x=['<b>'+elem+'</b>' for elem in df.document_nature],
-    y=df.n_of_documents,
-    text=df.n_of_documents,
+    x=tuple(['<b>'+elem+'</b>' for elem in df.document_nature]),
+    y=tuple(df.n_of_documents),
+    text=tuple(df.n_of_documents),
     orientation='v',
     hovertemplate="%{x}: %{y} <extra></extra>",
-    width=[0.5, 0.5, 0.5],
+    width=(0.5, 0.5, 0.5),
     marker=dict(
         color=COLOR_GRAPH_RGB,
         line=dict(
@@ -1071,15 +1096,15 @@ modal_nature = html.Div(
                     dcc.Markdown('''
                     ### `Descriptive` 
                     
-                    Descriptive documents take the effort of presenting factual definitions related to AI technologies. These definitions serve to contextualize "_what we mean_" when we talk about AI, and how the vocabulary utilized in this field can be understood.''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "_Descriptive documents take the effort of presenting factual definitions related to AI technologies. These definitions serve to contextualize "what we mean" when we talk about AI, and how the vocabulary utilized in this field can be understood_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Normative` 
                     
-                    Normative documents present norms, ethical principles, recommendations, and imperative affirmations about what such technologies should, or should not, be used/developed for.''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "_Normative documents present norms, ethical principles, recommendations, and imperative affirmations about what such technologies should, or should not, be used/developed for_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Practical` 
                     
-                    Practical documents present development tools to implement ethical principles and norms, be they qualitative (e.g., Self-assessment surveys) or quantitative (e.g., Debiasing Algorithms for ML models).''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
+                    "_Practical documents present development tools to implement ethical principles and norms, be they qualitative (e.g., Self-assessment surveys) or quantitative (e.g., Debiasing Algorithms for ML models)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
                     dcc.Markdown('''The majority of our sample is comprised of normative samples ($96\%$), which a third of the time also presents descriptive contents ($55,5\%$), and more rarely, practical implementations $54 (27\%)$.''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE}, mathjax=True)
                 ]),
@@ -1101,23 +1126,18 @@ modal_nature = html.Div(
             scrollable=True,
             is_open=False,
         ),
-    ], style={
-        'margin-left': '10px',
-        'margin-top': '10px',
-        'margin-bottom': '5px',
-        'display': 'inline-block'},
-
+    ],
 )
 
 df = pd.read_parquet('data/document_regulation')
 
 fig8 = go.Figure(go.Bar(
-    x=['<b>'+elem+'</b>' for elem in df.document_regulation],
-    y=df.n_of_documents,
-    text=df.n_of_documents,
+    x=tuple(['<b>'+elem+'</b>' for elem in df.document_regulation]),
+    y=tuple(df.n_of_documents),
+    text=tuple(df.n_of_documents),
     orientation='v',
     hovertemplate="%{x}: %{y} <extra></extra>",
-    width=[0.5, 0.5, 0.5],
+    width=(0.5, 0.5, 0.5),
     marker=dict(
         color=COLOR_GRAPH_RGB,
         line=dict(
@@ -1168,15 +1188,15 @@ modal_regulation = html.Div(
                     dcc.Markdown('''
                     ### `Government-Regulation` 
                      
-                    This category is designed to encompass documents made by governmental institutions to regulate the use and development of AI, strictly (_Legally binding horizontal regulations_) or softly (_Legally non-binding guidelines_).''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "_This category is designed to encompass documents made by governmental institutions to regulate the use and development of AI, strictly (Legally binding horizontal regulations) or softly (Legally non-binding guidelines)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Self-Regulation/Voluntary Self-Commitment` 
                     
-                    This category is designed to encompass documents made by private organizations and other bodies that defend a form of Self-Regulation governed by the AI industry itself. It also encompasses voluntary self-commitment made by independent organizations (NGOs, Professional Associations, etc.).''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "_This category is designed to encompass documents made by private organizations and other bodies that defend a form of Self-Regulation governed by the AI industry itself. It also encompasses voluntary self-commitment made by independent organizations (NGOs, Professional Associations, etc.)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Recommendation` 
                     
-                    This category is designed to encompass documents that only suggest possible forms of governance and ethical principles that should guide organizations seeking to use, develop, or regulate AI technologies.''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
+                    "_This category is designed to encompass documents that only suggest possible forms of governance and ethical principles that should guide organizations seeking to use, develop, or regulate AI technologies_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
                     dcc.Markdown('''When we look at the form of regulation proposed by the documents of our sample, more than half ($56\%$) are only recommendations to different AI stakeholders, while $24\%$ present self-regulatory/voluntary self-commitment style guidelines, and only $20\%$ propose a form of regulation administered by a given state/country.''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE}, mathjax=True)
                 ]),
@@ -1197,23 +1217,18 @@ modal_regulation = html.Div(
             scrollable=True,
             is_open=False,
         ),
-    ], style={
-        'margin-left': '10px',
-        'margin-top': '10px',
-        'margin-bottom': '5px',
-        'display': 'inline-block'},
-
+    ],
 )
 
 df = pd.read_parquet('data/document_normative')
 
 fig9 = go.Figure(go.Bar(
-    x=['<b>'+elem+'</b>' for elem in df.document_normative],
-    y=df.n_of_documents,
-    text=df.n_of_documents,
+    x=tuple(['<b>'+elem+'</b>' for elem in df.document_normative]),
+    y=tuple(df.n_of_documents),
+    text=tuple(df.n_of_documents),
     orientation='v',
     hovertemplate="%{x}: %{y} <extra></extra>",
-    width=[0.5, 0.5, 0.5],
+    width=(0.5, 0.5, 0.5),
     marker=dict(
         color=COLOR_GRAPH_RGB,
         line=dict(
@@ -1264,11 +1279,11 @@ modal_normative = html.Div(
                     dcc.Markdown('''
                     ### `Legally non-binding guidelines` 
                     
-                    These documents propose an approach that intertwines AI principles with recommended practices for companies and other entities (i.e., soft law solutions).''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "_These documents propose an approach that intertwines AI principles with recommended practices for companies and other entities (i.e., soft law solutions)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Legally binding horizontal regulations`
                     
-                    These documents propose an approach that focuses on regulating specific uses of AI on legally binding horizontal regulations, like mandatory requirements and prohibitions.''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
+                    "_These documents propose an approach that focuses on regulating specific uses of AI on legally binding horizontal regulations, like mandatory requirements and prohibitions_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
                     dcc.Markdown('''This lack of convergence to a more "_government based_" form of regulation is reflected in the normative strength of these documents, where the vast majority (98%) only serve as "_soft laws_," i.e., guidelines that do not entail any form of a legal obligation, while only 4,5% present more strict forms of regulation. Since only governmental institutions can come up with legally binding norms (other forms of institutions lack this power), and governmental institutions produced only $24\%$ of our sample, some may argue that this imbalance lies in this fact.''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE}, mathjax=True), html.Br(),
                     dcc.Markdown('''However, filtering only the documents produced by governmental institutions, the disproportion does not go away, with only $18,7\%$ of documents proposing legally binding forms of regulation. The countries that seem to be spearheading this still weak trend are Canada, Germany, and the United Kingdom, with Australia, Norway, and the USA coming right behind.''',
@@ -1292,23 +1307,18 @@ modal_normative = html.Div(
             scrollable=True,
             is_open=False,
         ),
-    ], style={
-        'margin-left': '10px',
-        'margin-top': '10px',
-        'margin-bottom': '5px',
-        'display': 'inline-block'},
-
+    ],
 )
 
 df = pd.read_parquet('data/document_impact')
 
 fig10 = go.Figure(go.Bar(
-    x=['<b>'+elem+'</b>' for elem in df.document_impact],
-    y=df.n_of_documents,
-    text=df.n_of_documents,
+    x=tuple(['<b>'+elem+'</b>' for elem in df.document_impact]),
+    y=tuple(df.n_of_documents),
+    text=tuple(df.n_of_documents),
     orientation='v',
     hovertemplate="%{x}: %{y} <extra></extra>",
-    width=[0.5, 0.5, 0.5],
+    width=(0.5, 0.5, 0.5),
     marker=dict(
         color=COLOR_GRAPH_RGB,
         line=dict(
@@ -1359,15 +1369,15 @@ modal_impact = html.Div(
                     dcc.Markdown('''
                     ### `Short-Termism` 
                     
-                    This category is designed to encompass documents in which the scope of impact and preoccupation focus mainly on short-term problems, i.e., problems we are facing with current AI technologies (e.g., algorithmic discrimination, algorithmic opacity, privacy, legal accountability).''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "_This category is designed to encompass documents in which the scope of impact and preoccupation focus mainly on short-term problems, i.e., problems we are facing with current AI technologies (e.g., algorithmic discrimination, algorithmic opacity, privacy, legal accountability)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Long-Termism` 
                     
-                    This category is designed to encompass documents in which the scope of impact and preoccupation focus mainly on long-term problems, i.e., problems we may come to face with future AI systems. Since such technologies are not yet a reality, such risks can be classified as hypothetical or, at best, uncertain (e.g., sentient AI, misaligned AGI, super intelligent AI, AI-related existential risks).''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    "_This category is designed to encompass documents in which the scope of impact and preoccupation focus mainly on long-term problems, i.e., problems we may come to face with future AI systems. Since such technologies are not yet a reality, such risks can be classified as hypothetical or, at best, uncertain (e.g., sentient AI, misaligned AGI, super intelligent AI, AI-related existential risks)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Short-Termism & Long-Termism` 
                     
-                    This category is designed to encompass documents in which the scope of impact is both short and long-term, i.e., they present a "_mid-term_" scope of preoccupation. These documents address issues related to the Short-Termism category, while also pointing out the long-term impacts of our current AI adoption (e.g., AI interfering in democratic processes, autonomous weapons, existential risks, environmental sustainability, labor displacement, the need for updating our educational systems).''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
+                    "_This category is designed to encompass documents in which the scope of impact is both short and long-term, i.e., they present a "mid-term" scope of preoccupation. These documents address issues related to the Short-Termism category, while also pointing out the long-term impacts of our current AI adoption (e.g., AI interfering in democratic processes, autonomous weapons, existential risks, environmental sustainability, labor displacement, the need for updating our educational systems)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
                     dcc.Markdown('''Looking at the totality of our sample size, we see clearly that short-term ($47\%$) and "_mid-term_" (i.e., Short-Termism & Long-Termism = $52\%$) prevail over more long-term preoccupations ($2\%$). When we filter our sample by impact scope and institution type, it seems to us that private corporations think more about the short-term ($33\%$), governmental institutions about the short/long-term ($28\%$), and academic ($66\%$) and non-profit organizations ($33\%$) with the long-term impacts of AI technologies.''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE}, mathjax=True)
                 ]),
@@ -1389,12 +1399,7 @@ modal_impact = html.Div(
             scrollable=True,
             is_open=False,
         ),
-    ], style={
-        'margin-left': '10px',
-        'margin-top': '10px',
-        'margin-bottom': '5px',
-        'display': 'inline-block'},
-
+    ],
 )
 
 df = pd.read_parquet('data/principle_definition')
@@ -1404,88 +1409,88 @@ accordion = html.Div(
         dbc.Accordion(
             [
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.accountability.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.accountability.dropna(axis=0)]),
                     title="Accountability 👩🏾‍⚖️",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.beneficence.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.beneficence.dropna(axis=0)]),
                     title="Beneficence ⚕️",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.children_rights.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.children_rights.dropna(axis=0)]),
                     title="Children's Rights 👶",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.dignity.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.dignity.dropna(axis=0)]),
                     title="Human Rights ✊🏿",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.diversity.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.diversity.dropna(axis=0)]),
                     title="Diversity 🌈",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.autonomy.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.autonomy.dropna(axis=0)]),
                     title="Autonomy 🕊️",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.human_formation.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.human_formation.dropna(axis=0)]),
                     title="Human Formation 📚",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.human_centeredness.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.human_centeredness.dropna(axis=0)]),
                     title="Human-Centeredness 👨‍👨‍👦‍👦",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.intellectual_property.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.intellectual_property.dropna(axis=0)]),
                     title="Intellectual Property 🧠",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.fairness.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.fairness.dropna(axis=0)]),
                     title="Fairness ⚖️",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.labor_rights.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.labor_rights.dropna(axis=0)]),
                     title="Labor Rights 👷",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.cooperation.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.cooperation.dropna(axis=0)]),
                     title="Cooperation 🤝",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.privacy.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.privacy.dropna(axis=0)]),
                     title="Privacy 🔒",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.reliability.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.reliability.dropna(axis=0)]),
                     title="Reliability 💪",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.sustainability.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.sustainability.dropna(axis=0)]),
                     title="Sustainability ♻️",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.transparency.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.transparency.dropna(axis=0)]),
                     title="Transparency 🕵",
                 ),
                 dbc.AccordionItem(
-                    [dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
-                     for x in df.truthfulness.dropna(axis=0)],
+                    tuple([dcc.Markdown(f"{x}", className='modal-body-text-style', style={'font-size': FONT_SIZE})
+                           for x in df.truthfulness.dropna(axis=0)]),
                     title="Truthfulness 🤥",
                 ),
             ],
@@ -1561,11 +1566,7 @@ modal_divergence = html.Div(
             scrollable=True,
             is_open=False,
         ),
-    ], style={
-        'margin-top': '10px',
-        'margin-bottom': '5px',
-        'display': 'inline-block'},
-
+    ],
 )
 
 offcanvas = html.Div(
@@ -1580,38 +1581,30 @@ offcanvas = html.Div(
             placement='end',
             is_open=False,
             style={'width': '100vw', 'text-align': 'justify',
-                   'font-size': 20,
+                   'font-size': FONT_SIZE,
                    'text-justify': 'inter-word'}
         ),
-    ], style={'display': 'inline-block', 'margin-left': '15px'}
+    ],
+    style={'display': 'inline-block', 'margin-left': '10px'}
 )
 
 download_data = html.Div([
     dbc.Button([html.I(className="bi bi-download"), '  Data'], id='btn_data',
                outline=True, color='light', style={'font-weight': 'bold'}),
     dcc.Download(id="download-data")
-], style={
-    'margin-right': '5px',
-    'margin-left': '5px',
-    'display': 'inline-block'})
+], style=DOWNLOAD_BUTTON)
 
 download_html = html.Div([
     dbc.Button([html.I(className="bi bi-download"), '  HTML'], id='btn_html',
                outline=True, color='light', style={'font-weight': 'bold'}),
     dcc.Download(id="download-html")
-], style={
-    'margin-right': '5px',
-    'margin-left': '5px',
-    'display': 'inline-block'})
+], style=DOWNLOAD_BUTTON)
 
 download_png = html.Div([
     dbc.Button([html.I(className="bi bi-download"), '  PNG'], id='btn_png',
                outline=True, color='light', style={'font-weight': 'bold'}),
     dcc.Download(id="download-png")
-], style={
-    'margin-right': '5px',
-    'margin-left': '5px',
-    'display': 'inline-block'})
+], style=DOWNLOAD_BUTTON)
 
 badges = html.Span([
     dbc.Badge([html.I(className="bi bi-heart-fill"), "  Open-Source"], href="https://github.com/Nkluge-correa/",
@@ -1630,18 +1623,15 @@ app.layout = dbc.Container(
         html.Div([dcc.Markdown('# `Worldwide AI Ethics`', className='title-style'),
                   html.Img(src=dash.get_asset_url(
                       'globe.svg'), height="50px", className='title-icon-style')],
-                 style={'text-align': 'center',
-                        'margin-top': '25px',
-                        'margin-bottom': '20px'}),
+                 className='title-div'),
         html.Div([
             html.Div([
                 dcc.Markdown('''
                 _Worldwide AI Ethics is a systematic literature review done by AIRES researchers at PUCRS. Building on the work done by other meta-analysts, this study presents a systematic review of 200 documents related to AI ethics and governance, presenting a collection of typologies used to classify our sample, all condensed into an interactive, freely accessible online tool._
-                ''', style={'text-align': 'center', 'font-weight': 'bold'})
-            ], style={'max-width': '800px'}),
-        ], style={'width': '100%', 'display': 'flex', 'justify-content': 'center'}),
-        html.Div([modal_article], style={
-                 'textAlign': 'center', 'margin-top': '20px', 'margin-bottom': '15px'}),
+                ''', className='page-intro')
+            ], className='page-intro-inner-div'),
+        ], className='page-intro-outer-div'),
+        html.Div([modal_article], className='middle-toggles'),
         dbc.Row([
             dbc.Col([
                     table,
@@ -1651,7 +1641,8 @@ app.layout = dbc.Container(
                     dbc.Col([
                         modal_map,
                         dcc.Graph(id='map', figure=fig2, config={
-                                  'displayModeBar': False})
+                                  'displayModeBar': False},
+                                  className='graph-div')
                     ], md=12),
                 ]),
                 html.Br(),
@@ -1659,7 +1650,8 @@ app.layout = dbc.Container(
                     dbc.Col([
                         modal_institution,
                         dcc.Graph(id='institution', figure=fig3,
-                                  config={'displayModeBar': False})
+                                  config={'displayModeBar': False},
+                                  className='graph-div')
                     ], md=12),
                 ]),
                 html.Br(),
@@ -1667,32 +1659,37 @@ app.layout = dbc.Container(
                     dbc.Col([
                         modal_gender,
                         dcc.Graph(id='gender', figure=fig4,
-                                  config={'displayModeBar': False})
+                                  config={'displayModeBar': False},
+                                  className='graph-div')
                     ], md=4),
                     dbc.Col([
                         html.Div([modal_principles, offcanvas]),
                         dcc.Graph(id='principles', figure=fig5,
-                                  config={'displayModeBar': False})
+                                  config={'displayModeBar': False},
+                                  className='graph-div')
                     ], md=8),
-                ], style={}),
+                ]),
                 html.Br(),
                 dbc.Row([
                     dbc.Col([
                         modal_years,
                         dcc.Graph(id='years', figure=fig6, config={
-                                  'displayModeBar': False})
+                                  'displayModeBar': False},
+                                  className='graph-div')
                     ], md=12),
                 ], style={'margin-top': '15px'}),
                 dbc.Row([
                     dbc.Col([
                         modal_nature,
                         dcc.Graph(id='nature', figure=fig7,
-                                  config={'displayModeBar': False})
+                                  config={'displayModeBar': False},
+                                  className='graph-div')
                     ], md=3),
                     dbc.Col([
                         modal_regulation,
                         dcc.Graph(id='regulation', figure=fig8,
-                                  config={'displayModeBar': False})
+                                  config={'displayModeBar': False},
+                                  className='graph-div')
                     ], md=3),
                     dbc.Col([
                         modal_normative,
@@ -1702,7 +1699,8 @@ app.layout = dbc.Container(
                     dbc.Col([
                         modal_impact,
                         dcc.Graph(id='impact', figure=fig10,
-                                  config={'displayModeBar': False})
+                                  config={'displayModeBar': False},
+                                  className='graph-div')
                     ], md=3),
                 ], style={'margin-top': '15px'}),
 
@@ -1715,10 +1713,8 @@ app.layout = dbc.Container(
             ], md=12, style={'textAlign': 'center', 'margin-top': '20px'})
         ]),
         html.Div([
-            html.Div([badges], style={'text-align': 'center'}),
-        ], style={'width': '100%', 'display': 'flex',
-                  'justify-content': 'center', 'margin-bottom': '20px',
-                  'margin-top': '20px'}),
+            html.Div([badges], className='badges'),
+        ], className='badges-div'),
     ])
 
 
