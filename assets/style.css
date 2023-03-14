@@ -52,21 +52,6 @@ a:active {
 
 /* Pages */
 
-.icon-button {
-  border: none;
-  font-weight: bold;
-  margin-left: 5px;
-  margin-top: 20px;
-  width: 100%;
-  text-align: left;
-  text-decoration: none;
-}
-
-.icon-button:hover {
-  color: #f4f5f5;
-  cursor: pointer;
-}
-
 .title-style {
   display: inline-block;
   vertical-align: middle;
@@ -147,6 +132,21 @@ a:active {
 
 .graph-div {
   margin-bottom: 10px
+}
+
+.icon-button {
+  border: none;
+  font-weight: bold;
+  margin-left: 5px;
+  margin-top: 20px;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+}
+
+.icon-button:hover {
+  color: #f4f5f5;
+  cursor: pointer;
 }
 
 
