@@ -1,7 +1,17 @@
 
 def toggle_modal(n1, n2, is_open):
     """
-    Opens the simple modals across the pages.
+    Toggles the visibility of the simple modal window.
+
+    Args:
+    ---------
+        n1 (bool): A flag to check if the first modal is open or closed.
+        n2 (bool): A flag to check if the second modal is open or closed.
+        is_open (bool): A flag to check if the modal is currently open or not.
+
+    Returns:
+    ---------
+        bool: The updated value of the `is_open` flag after toggling the modal window.
     """
     if n1 or n2:
         return not is_open
