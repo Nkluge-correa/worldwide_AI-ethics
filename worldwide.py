@@ -182,7 +182,7 @@ def display_principle_gram(value):
     "_{principles_definition}_"
     """
 
-    principle_df = pd.read_parquet(f"data/{principles_dict[value]}")
+    principle_df = pd.read_parquet(f"data/{principles_dict[value]}.parquet")
 
     principle_fig = px.bar(principle_df, x='Top four-grams', y='Word Count',
                            color='Word Count', color_continuous_scale='oryel')

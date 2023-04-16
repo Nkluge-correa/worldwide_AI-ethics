@@ -16,7 +16,7 @@ STYLE_BUTTON = {'border': 0, 'font-weight': 'bold'}
 CLOSE_BUTTON = 'primary'
 FONT_SIZE_HEADER = '1.5rem'
 
-documents_dive = pd.read_parquet('data/documents_dive')
+documents_dive = pd.read_parquet('data/documents_dive.parquet')
 
 modal_article = html.Div(
     [
@@ -131,7 +131,7 @@ modal_article = html.Div(
     ],
 )
 
-df = pd.read_parquet('data/titles_abstracts')
+df = pd.read_parquet('data/titles_abstracts.parquet')
 
 df = pd.DataFrame({
     'Documents': tuple([f'[{df.document_title[i]}]({df.document_url[i]})' for i in range(len(df.document_title))]),
@@ -605,7 +605,7 @@ modal_impact = html.Div(
 )
 
 
-df = pd.read_parquet('data/principle_definition')
+df = pd.read_parquet('data/principle_definition.parquet')
 
 accordion = html.Div(
     [

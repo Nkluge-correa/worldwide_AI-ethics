@@ -9,7 +9,7 @@ LARGE_FONT_SIZE = 18
 FONT_SIZE = '1rem'
 FONT_SIZE_HEADER = '1.5rem'
 
-df = pd.read_parquet('data/arxiv_submissions')
+df = pd.read_parquet('data/arxiv_submissions.parquet')
 
 fig = go.Figure()
 for column in df.columns:
@@ -55,7 +55,7 @@ fig.update_layout(
     margin={'r': 0, 't': 30, 'l': 0, 'b': 0}
 )
 
-df = pd.read_parquet('data/arxiv_submissions_cs')
+df = pd.read_parquet('data/arxiv_submissions_cs.parquet')
 
 fig1 = go.Figure()
 for column in df.columns:
@@ -101,13 +101,11 @@ fig1.update_layout(
     margin={'r': 0, 't': 30, 'l': 0, 'b': 0}
 )
 
-df = pd.read_parquet('data/countries')
+df = pd.read_parquet('data/countries.parquet')
 
 with open('data/countries_in_dataset.pickle', 'rb') as fp:
     countries = pickle.load(fp)
     fp.close()
-
-df = pd.read_parquet('data/countries')
 
 fig2 = go.Figure(go.Choroplethmapbox(geojson=countries, locations=tuple(df.code), z=tuple(df.n_of_publications),
                                      colorscale="oryel", zmin=0, zmax=12, showscale=False,
@@ -128,7 +126,7 @@ fig2.update_layout(
     plot_bgcolor='rgba(0,0,0,0)',
 )
 
-df = pd.read_parquet('data/institutions')
+df = pd.read_parquet('data/institutions.parquet')
 
 fig3 = go.Figure(go.Bar(
     x=tuple(df.n_of_publications),
@@ -171,7 +169,7 @@ fig3.update_layout(
     plot_bgcolor='rgba(0,0,0,0)',
 )
 
-df = pd.read_parquet('data/gender')
+df = pd.read_parquet('data/gender.parquet')
 
 fig4 = go.Figure(go.Bar(
     x=tuple(['<b>'+elem+'</b>' for elem in df.authors]),
@@ -215,7 +213,7 @@ fig4.update_layout(
     bargroupgap=0.8
 )
 
-df = pd.read_parquet('data/principles')
+df = pd.read_parquet('data/principles.parquet')
 
 fig5 = go.Figure(go.Bar(
     x=tuple(df.n_of_citations),
@@ -256,7 +254,7 @@ fig5.update_layout(
     plot_bgcolor='rgba(0,0,0,0)',
 )
 
-df = pd.read_parquet('data/Accountability_gram')
+df = pd.read_parquet('data/Accountability_gram.parquet')
 
 fig_a = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
@@ -271,7 +269,7 @@ fig_a.update_layout(
     yaxis_title=None
 )
 
-df = pd.read_parquet('data/time_line')
+df = pd.read_parquet('data/time_line.parquet')
 
 fig6 = go.Figure(data=go.Bar(x=tuple(df.years), y=tuple(df.n_of_published_documents),
                              marker=dict(color=COLOR_GRAPHS_HEX), name=" ",
@@ -306,7 +304,7 @@ fig6.update_layout(
     hoverlabel=dict(font_size=14),
 )
 
-df = pd.read_parquet('data/document_nature')
+df = pd.read_parquet('data/document_nature.parquet')
 
 fig7 = go.Figure(go.Bar(
     x=tuple(['<b>'+elem+'</b>' for elem in df.document_nature]),
@@ -351,7 +349,7 @@ fig7.update_layout(
     bargroupgap=0.8
 )
 
-df = pd.read_parquet('data/document_regulation')
+df = pd.read_parquet('data/document_regulation.parquet')
 
 fig8 = go.Figure(go.Bar(
     x=tuple(['<b>'+elem+'</b>' for elem in df.document_regulation]),
@@ -396,7 +394,7 @@ fig8.update_layout(
     bargroupgap=0.8
 )
 
-df = pd.read_parquet('data/document_normative')
+df = pd.read_parquet('data/document_normative.parquet')
 
 fig9 = go.Figure(go.Bar(
     x=tuple(['<b>'+elem+'</b>' for elem in df.document_normative]),
@@ -441,7 +439,7 @@ fig9.update_layout(
     bargroupgap=0.8
 )
 
-df = pd.read_parquet('data/document_impact')
+df = pd.read_parquet('data/document_impact.parquet')
 
 fig10 = go.Figure(go.Bar(
     x=tuple(['<b>'+elem+'</b>' for elem in df.document_impact]),
