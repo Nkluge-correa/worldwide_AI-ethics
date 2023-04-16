@@ -27,19 +27,19 @@ app.layout = dbc.Container(
     children=[
         html.Div([dcc.Markdown('# `Worldwide AI Ethics`', className='title-style'),
                   html.Img(src=dash.get_asset_url(
-                      'globe.svg'), height="50px", className='title-icon-style')],
+                      'globe.gif'), height="80px", className='title-icon-style')],
                  className='title-div'),
         html.Div([
             html.Div([
                 dcc.Markdown('''
-                _Worldwide AI Ethics is a systematic literature review done by AIRES researchers at PUCRS. Building on the work done by other meta-analysts, this study presents a systematic review of 200 documents related to AI ethics and governance, presenting a collection of typologies used to classify our sample, all condensed into an interactive, freely accessible online tool._
-                ''', className='page-intro')
+                Worldwide AI Ethics is a systematic literature review done by AIRES researchers at PUCRS. Building on the work done by other meta-analysts, this study presents a systematic review of 200 documents related to AI ethics and governance, presenting a collection of typologies used to classify our sample, all condensed into an interactive, freely accessible online tool.                ''', className='page-intro')
             ], className='page-intro-inner-div'),
         ], className='page-intro-outer-div'),
         html.Div([modal_article], className='middle-toggles'),
         dbc.Row([
             dbc.Col([
-                    table,
+                    html.Div(table, style={
+                             "border-style": "solid", "border-color": "#696b6f"}),
                     ], md=2,  className='hidden-mobile'),
             dbc.Col([
                 dbc.Row([

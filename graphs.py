@@ -1,3 +1,4 @@
+import os
 import pickle
 import pandas as pd
 import plotly.express as px
@@ -31,6 +32,7 @@ fig.update_layout(
             size=12,
             color='white',
         ),
+        fixedrange=True,
     ),
     yaxis=dict(
         showgrid=True,
@@ -43,6 +45,7 @@ fig.update_layout(
             size=12,
             color='white',
         ),
+        fixedrange=True,
     ),
     title='<b><i>Arxiv Submissions History (2009 to 2021)</i><b>',
     template='plotly_dark',
@@ -77,6 +80,7 @@ fig1.update_layout(
             size=12,
             color='white',
         ),
+        fixedrange=True,
     ),
     yaxis=dict(
         showgrid=True,
@@ -89,6 +93,7 @@ fig1.update_layout(
             size=12,
             color='white',
         ),
+        fixedrange=True,
     ),
     title='<b><i>Arxiv Submissions History in CS (2009 to 2021)</i><b>',
     template='plotly_dark',
@@ -103,6 +108,36 @@ fig1.update_layout(
 
 df = pd.read_parquet('data/countries.parquet')
 
+
+fig2 = go.Figure(data=go.Choropleth(
+    locations=tuple(df.code),
+    z=tuple(df.n_of_publications),
+    text=tuple(df.countries),
+    colorscale='oryel',
+    showscale=False,
+    autocolorscale=False,
+    reversescale=False,
+    marker_line_color='darkgray',
+    marker_line_width=0.5,
+    colorbar=dict(tickfont=dict(size=40))
+))
+
+fig2.update_layout(
+    title="<b><i>Publications by Country</i></b>",
+    template='plotly_dark',
+    geo=dict(
+        showframe=False,
+        showcoastlines=False,
+        projection_type='equirectangular',
+        bgcolor='rgba(0,0,0,0)'
+    ),
+    margin=dict(l=0, r=0, b=0, t=30,),
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    dragmode=False
+)
+
+"""
 with open('data/countries_in_dataset.pickle', 'rb') as fp:
     countries = pickle.load(fp)
     fp.close()
@@ -112,7 +147,8 @@ fig2 = go.Figure(go.Choroplethmapbox(geojson=countries, locations=tuple(df.code)
                                      marker_opacity=0.5, marker_line_width=0))
 
 fig2.update_layout(
-    mapbox_style="carto-darkmatter",
+    mapbox_style="dark",
+    mapbox_accesstoken=os.environ.get('MAPBOX_ACCESSTOKEN'),
     mapbox_zoom=1.2,
     mapbox_center={"lat": 0., "lon": 0.},
     geo=dict(bgcolor='rgba(0,0,0,0)'),
@@ -125,6 +161,7 @@ fig2.update_layout(
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
 )
+"""
 
 df = pd.read_parquet('data/institutions.parquet')
 
@@ -148,7 +185,8 @@ fig3.update_layout(
         showgrid=True,
         showline=False,
         showticklabels=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     xaxis=dict(
         visible=True,
@@ -156,7 +194,8 @@ fig3.update_layout(
         showline=False,
         showticklabels=True,
         showgrid=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
 
     margin=dict(
@@ -197,7 +236,8 @@ fig4.update_layout(
         showgrid=True,
         showline=False,
         showticklabels=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     xaxis=dict(
         visible=True,
@@ -205,7 +245,8 @@ fig4.update_layout(
         showline=False,
         showticklabels=True,
         showgrid=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -240,14 +281,16 @@ fig5.update_layout(
         showgrid=True,
         showline=False,
         showticklabels=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     xaxis=dict(
         zeroline=False,
         showline=False,
         showticklabels=True,
         showgrid=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     margin=dict(l=0, r=0, b=0, t=30,),
     paper_bgcolor='rgba(0,0,0,0)',
@@ -288,6 +331,7 @@ fig6.update_layout(
         tickfont=dict(
             size=12,
         ),
+        fixedrange=True,
     ),
     yaxis=dict(
         showgrid=True,
@@ -298,6 +342,7 @@ fig6.update_layout(
         tickfont=dict(
             size=12,
         ),
+        fixedrange=True,
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -333,7 +378,8 @@ fig7.update_layout(
         showgrid=True,
         showline=False,
         showticklabels=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     xaxis=dict(
         visible=True,
@@ -341,7 +387,8 @@ fig7.update_layout(
         showline=False,
         showticklabels=True,
         showgrid=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -378,7 +425,8 @@ fig8.update_layout(
         showgrid=True,
         showline=False,
         showticklabels=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     xaxis=dict(
         visible=True,
@@ -386,7 +434,8 @@ fig8.update_layout(
         showline=False,
         showticklabels=True,
         showgrid=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -423,7 +472,8 @@ fig9.update_layout(
         showgrid=True,
         showline=False,
         showticklabels=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     xaxis=dict(
         visible=True,
@@ -431,7 +481,8 @@ fig9.update_layout(
         showline=False,
         showticklabels=True,
         showgrid=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -468,7 +519,8 @@ fig10.update_layout(
         showgrid=True,
         showline=False,
         showticklabels=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     xaxis=dict(
         visible=True,
@@ -476,7 +528,8 @@ fig10.update_layout(
         showline=False,
         showticklabels=True,
         showgrid=True,
-        tickfont=dict(size=12)
+        tickfont=dict(size=12),
+        fixedrange=True,
     ),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
