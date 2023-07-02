@@ -28,7 +28,7 @@ dash-bootstrap-components
 ```latex
 @article{correa2022worldwide,
   title={Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance},
-  author={Corr{\^e}a, Nicholas Kluge and Galv{\~a}o, Camila and Santos, James William and Del Pino, Carolina and Pinto, Edson Pontes and Barbosa, Camila and Massmann, Diogo and Mambrini, Rodrigo and Galv{\~a}o, Luiza and Terem, Edmund},
+  author={Corr{\^e}a, Nicholas Kluge and Galv{\~a}o, Camila and Santos, James William and Del Pino, Carolina and Pinto, Edson Pontes and Barbosa, Camila and Massmann, Diogo and Mambrini, Rodrigo and Galv{\~a}o, Luiza and Terem, Edmund and Oliveira, Nythamar},
   journal={arXiv preprint arXiv:2206.11922},
   year={2022}
 }
