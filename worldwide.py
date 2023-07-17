@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 from dash import dcc, html, Output, Input, State, callback
 
 from toggle import toggle_modal
-from graphs import fig, fig1, fig2, fig3, fig4, fig5, fig6, fig7, fig8, fig9, fig10
+from graphs import fig2, fig3, fig4, fig5, fig6, fig7, fig8, fig9, fig10
 
 from worldwide_elements import principles_definition_dict, principles_dict
 from worldwide_elements import modal_article, documents_dive, table, modal_map
