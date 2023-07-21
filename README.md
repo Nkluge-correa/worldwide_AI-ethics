@@ -1,5 +1,7 @@
 # Worldwide AI Ethics: a review of _200_ guidelines and recommendations for AI governance 🌐
 
+[![DOI](https://zenodo.org/badge/533441174.svg)](https://zenodo.org/badge/latestdoi/533441174)
+
 In the last decade, a great number of organizations have produced documents intended to standardize, in the normative sense, and promote guidance to our recent and rapid AI development. However, _the full content and divergence of ideas presented in these documents have not yet been analyzed, except for a few meta-analyses and critical reviews of the field._ In this work, we seek to expand on the work done by past researchers and create a **tool for better data visualization of the contents and nature of these documents.** We also provide our critical analysis of the results acquired by the application of our tool into a sample size of _200_ documents.
 
 _[Full article here.](https://arxiv.org/abs/2206.11922)_
