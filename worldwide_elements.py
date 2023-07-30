@@ -47,13 +47,13 @@ modal_article = html.Div(
                         '''As in past works, this analysis also suffers from a small sample. Our work represents a mere fraction of what our true global landscape on this matter is. Some of the main limitations we encountered during our work are:''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),
                     dcc.Markdown(
                         '''
-                        - The limited scope of languages we were able to interpret represents a language bias, potentially excluding relevant perspectives.
-                        - Publication bias is also a concern, as the focus on published guidelines may overlook valuable insights from ongoing discussions in other forms of media. 
-                        - The "guideline" scope excludes the academic work being done worldwide (i.e., we did not consider academic papers on AI Ethics).
-                        - The study's temporal scope limits our understanding of past dynamics and trends in AI ethics that predate our window of analysis. 
-                        - Methodological limitations, such as data collection techniques and analysis frameworks, can influence the results and interpretations. 
-                        - The study may lack contextual information, failing to address the deeper social, cultural, and political aspects surrounding AI ethics discussions. 
-                        - Ethical considerations, particularly related to gender representation and bias, require further exploration. Our limited "male/female" analysis of gender distribution hides many problems related to gender inequality. 
+                        - The limited scope of languages we could interpret represents a language bias, potentially excluding relevant perspectives.
+                        - Publication bias is also a concern, as the focus on published guidelines may overlook valuable insights from ongoing discussions in other forms of media.
+                        - The "guideline" scope excludes the academic work done worldwide (i.e., we did not consider academic papers on AI Ethics).
+                        - The study's time window limits our understanding of past dynamics and trends in AI ethics that predate our window of analysis.
+                        - Methodological limitations, such as data collection techniques and analysis frameworks, can influence the results and interpretations.
+                        - The study may lack contextual information, failing to address the deeper social, cultural, and political aspects surrounding AI ethics.
+                        - While name-based analyses are generally considered sound practices, gender prediction methods still exhibit an error rate that we were unable to address. These are also limited in capturing non-binary gender accounts and fail to cover cases of self-declaration (e.g., genderfluid, queer, or transgender).
                         ''', className='modal-body-text-style', style={'font-size': FONT_SIZE}), html.Br(),                    
                     dcc.Markdown(
                         '## `Explore the Worldwide Dataset` 🔬', style={'font-weight': 'bold'}), html.Br(),
@@ -447,15 +447,15 @@ modal_nature = html.Div(
                     dcc.Markdown('''
                     ### `Descriptive` 
                     
-                    - "_Descriptive documents take the effort of presenting factual definitions related to AI technologies. These definitions serve to contextualize "what we mean" when we talk about AI._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_Descriptive documents take the effort of presenting definitions related to AI technologies. These definitions serve to contextualize "what we mean" when we talk about AI._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Normative` 
                     
-                    - "_Normative documents present norms, ethical principles, recommendations, and imperative affirmations about what such technologies should be used/developed for_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_Normative documents present norms, ethical principles, recommendations, and imperative affirmations about what such technologies should be used/developed for._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Practical` 
                     
-                    - "_Practical documents present development tools to implement ethical principles and norms, be they qualitative (e.g., Self-assessment surveys) or quantitative (e.g., Debiasing Algorithms for ML models)._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_Practical documents present development tools to implement ethical principles and norms._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''Regarding the previously defined typological categories, when looking at the document's Nature/Content, we found that the majority of our sample is from the normative type (96%), which a third of the time also presents descriptive contents (55.5%), and more rarely, practical implementations (2%).''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''It is a curious phenomenon that only a little more than half of the documents define their subject of interest. More so if we acknowledge that there is no consensual definition of what "_Artificial Intelligence_" is and what is not. There are many interpretations and contesting definitions, which may prove to be a challenge for regulating organizations. For example, if you choose to define AI as only "_systems that can learn_," you will leave outside your scope of regulation an entire family of systems that do not learn (rule-based systems) but can still act "intelligently" and autonomously.''',
@@ -498,15 +498,15 @@ modal_regulation = html.Div(
                     dcc.Markdown('''
                     ### `Government-Regulation` 
                      
-                    - "_This category is designed to encompass documents made by governmental institutions to regulate the use and development of AI, strictly (Legally binding horizontal regulations) or softly (Legally non-binding guidelines)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_We designed this category to encompass documents made by governmental institutions. These documents propose that States should regulate the use and development of AI strictly (Legally binding horizontal regulations) or softly (Legally non-binding guidelines)._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Self-Regulation/Voluntary Self-Commitment` 
                     
-                    - "_This category is designed to encompass documents made by private organizations and other bodies that defend a form of Self-Regulation governed by the AI industry itself. It also encompasses voluntary self-commitment made by independent organizations (NGOs, Professional Associations, etc.)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_We designed this category to encompass documents made by private organizations and other bodies. These documents defend a form of Self-Regulation governed by the AI industry itself. It also encompasses voluntary self-commitment made by independent organizations._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Recommendation` 
                     
-                    - "_This category is designed to encompass documents that only suggest possible forms of governance and ethical principles that should guide organizations seeking to use, develop, or regulate AI technologies_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_We designed this category to encompass documents that only suggest possible forms of governance and ethical principles that should guide organizations seeking to use, develop, or regulate AI technologies._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''When we look at the form of regulation proposed by the documents of our sample, more than half (56%) are only recommendations to different AI stakeholders, while 24% possess self-regulatory/voluntary self-commitment style guidelines and only 20% propose a form of regulation administered by a given state/country.''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                 ]),
@@ -544,11 +544,11 @@ modal_normative = html.Div(
                     dcc.Markdown('''
                     ### `Legally non-binding guidelines` 
                     
-                    - "_These documents propose an approach that intertwines AI principles with recommended practices for companies and other entities (i.e., soft law solutions)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_These documents propose an approach that intertwines AI principles with recommended practices for companies and other entities._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Legally binding horizontal regulations`
                     
-                    - "_These documents propose an approach that focuses on regulating specific uses of AI on legally binding horizontal regulations, like mandatory requirements and prohibitions_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_These documents propose an approach that focuses on regulating specific uses of AI through legally binding regulations, such as mandatory requirements and prohibitions._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''When we look at the form of regulation proposed by the documents of our sample, more than half (56%) are only recommendations to different AI stakeholders, while 24% possess self-regulatory/voluntary self-commitment style guidelines and only 20% propose a form of regulation administered by a given state/country.''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''This lack of convergence to a more "government-based" form of regulation reflects in the normative strength of these documents, where the vast majority (98%) only serve as "soft laws," i.e., guidelines that do not entail any form of a legal obligation, while only 4.5% propose stricter regulation. Since only governmental institutions can create legally binding norms (other institutions lack this power), and they produced only 24% of our sample, some may argue that this imbalance lies in this fact. However, by filtering only the documents produced by governmental institutions, the disproportion does not go away, with only 18.7% of samples proposing legally binding forms of regulation. The countries on the front of this still weak trend are Canada, Germany, and the United Kingdom, with Australia, Norway, and the USA coming right behind. ''',
@@ -589,15 +589,15 @@ modal_impact = html.Div(
                     dcc.Markdown('''
                     ### `Short-Termism` 
                     
-                    - "_We designed this category to encompass documents in which the scope of impact and preoccupation focus mainly on current/short-term problems, like algorithmic discrimination, algorithmic opacity, privacy, legal accountability, etc_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_We designed this category to encompass documents in which the scope of impact and preoccupation focus mainly on current/short-term problems, like algorithmic discrimination, algorithmic opacity, privacy, legal accountability, etc._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Long-Termism` 
                     
-                    - "_We designed this category to encompass documents in which the scope of impact and preoccupation focus mainly on future/long-term problems, like problems we may come to face with future AI systems. Since such technologies are not yet a reality, we can classify these risks as hypothetical or, at best, uncertain_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_We designed this category to encompass documents in which the scope of impact and preoccupation focus mainly on future/long-term problems, like problems we may face with future AI systems. Since such technologies are not yet a reality, we can classify these risks as hypothetical or, at best, uncertain._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''
                     ### `Short-Termism & Long-Termism` 
                     
-                    - "_We designed this category to encompass documents in which the scope of impact is both short and long-term, i.e., they present a "mid-term" scope of preoccupation. These documents address issues related to the Short-Termism category while also pointing out the mid/long-term impacts of our current AI adoption (e.g., AI interfering in democratic processes, autonomous weapons, existential risks, environmental sustainability, labor displacement, and the need for updating our educational systems)_."''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
+                    - "_We designed this category to encompass documents in which the scope of impact is short and long-term, i.e., they present a "mid-term" scope of preoccupation. These documents address issues related to the Short-Termism category while also pointing out the mid/long-term impacts of our current AI adoption (e.g., AI interfering in democratic processes, autonomous weapons, existential risks, environmental sustainability, labor displacement, and the need for updating our educational systems)._"''', className='modal-body-text-style', style={'font-size': FONT_SIZE}),
                     dcc.Markdown('''Looking at the totality of our sample size, we see that short-term (47%) and "_mid-term_" (i.e., short-term & long-term = 52%) prevail over more long-term preoccupations (2%). When we filter our sample by impact scope and institution type, it seems to us that private corporations think more about the short-term (33%), governmental institutions about the short/long-term (28%), and academic (66%) and non-profit organizations (33%) with the long-term impacts of AI technologies.''',
                                  className='modal-body-text-style', style={'font-size': FONT_SIZE})
                 ]),
