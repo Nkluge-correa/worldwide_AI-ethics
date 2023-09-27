@@ -12,6 +12,8 @@ _[Full article here.](https://arxiv.org/abs/2206.11922)_
 
 Here you can find the source code used to create our _Worldwide AI Ethics_ dashboard. This panel was created using the [Dash](https://dash.plotly.com/dash-enterprise) library. All the tables that feed our dashboard (`data_en.rar`), images (`png_files.rar`), and HTML-Plotly graphs (`html_files.rar`) are available in the `data` folder (in `csv` and `parquet`). Auxiliary notebooks for creating the graphs (`make_graphs.ipynb`) and processing the text data(`principle_mining.ipynb`) are also available. We also make available the notebook we used to infer the gender of all authors in our sample (`gender_infer.ipynb`), and the notebook to create the `geojson` file that sets the boundaries of the polygons on the `Mapbox`. To render the dash app in your browser, simply run the `worldwide.py` script.
 
+You can also find a Power BI version of our dashboard in [this link]().
+
 ## Requirements 🛠️
 
 ```bash
