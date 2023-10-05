@@ -1,5 +1,3 @@
-import os
-import pickle
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -8,7 +6,6 @@ COLOR_GRAPH_RGB = 'rgba(172, 50, 75, 1.0)'
 COLOR_GRAPHS_HEX = '#923146'
 LARGE_FONT_SIZE = 18
 FONT_SIZE = '1rem'
-FONT_SIZE_HEADER = '1.5rem'
 
 df = pd.read_parquet('data/arxiv_submissions.parquet')
 
@@ -136,32 +133,6 @@ fig2.update_layout(
     plot_bgcolor='rgba(0,0,0,0)',
     dragmode=False
 )
-
-"""
-with open('data/countries_in_dataset.pickle', 'rb') as fp:
-    countries = pickle.load(fp)
-    fp.close()
-
-fig2 = go.Figure(go.Choroplethmapbox(geojson=countries, locations=tuple(df.code), z=tuple(df.n_of_publications),
-                                     colorscale="oryel", zmin=0, zmax=12, showscale=False,
-                                     marker_opacity=0.5, marker_line_width=0))
-
-fig2.update_layout(
-    mapbox_style="dark",
-    mapbox_accesstoken=os.environ.get('MAPBOX_ACCESSTOKEN'),
-    mapbox_zoom=1.2,
-    mapbox_center={"lat": 0., "lon": 0.},
-    geo=dict(bgcolor='rgba(0,0,0,0)'),
-    title="<b><i>Publications by Country</i></b>",
-    font_color='white',
-    hoverlabel=dict(bgcolor='black', font_size=20),
-    margin=dict(l=0, r=0, b=0, t=30, pad=4,
-                autoexpand=True),
-    legend=dict(font_size=LARGE_FONT_SIZE),
-    paper_bgcolor='rgba(0,0,0,0)',
-    plot_bgcolor='rgba(0,0,0,0)',
-)
-"""
 
 df = pd.read_parquet('data/institutions.parquet')
 
@@ -315,9 +286,18 @@ fig_a.update_layout(
 df = pd.read_parquet('data/time_line.parquet')
 
 fig6 = go.Figure(data=go.Bar(x=tuple(df.years), y=tuple(df.n_of_published_documents),
+                             text=tuple(df.n_of_published_documents),
                              marker=dict(color=COLOR_GRAPHS_HEX), name=" ",
                              hoverlabel=dict(namelength=-1),
-                             hovertemplate='<b>Nº of Publications</b>: %{y} <extra></extra>', showlegend=False))
+                             hovertemplate='<extra></extra>', showlegend=False))
+
+fig6.update_traces(textposition='outside')
+
+fig6.add_trace(go.Scatter(x=df.years, y=df.n_of_published_documents, mode='lines+markers',
+                                name='',
+                                line=dict(color='rgba(172, 50, 75, 0.5)'),
+                                connectgaps=True,
+                                hovertemplate='<extra></extra>', showlegend=False))
 
 fig6.update_layout(
     title="<b><i>Publication Timeline</i></b>",

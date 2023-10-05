@@ -8,24 +8,30 @@ _[Full article here.](https://arxiv.org/abs/2206.11922)_
 
 ## Dash Template 🐱‍💻
 
-<img src="assets/globe.gif" width=300 >
-
 Here you can find the source code used to create our _Worldwide AI Ethics_ dashboard. This panel was created using the [Dash](https://dash.plotly.com/dash-enterprise) library. All the tables that feed our dashboard (`data_en.rar`), images (`png_files.rar`), and HTML-Plotly graphs (`html_files.rar`) are available in the `data` folder (in `csv` and `parquet`). Auxiliary notebooks for creating the graphs (`make_graphs.ipynb`) and processing the text data(`principle_mining.ipynb`) are also available. We also make available the notebook we used to infer the gender of all authors in our sample (`gender_infer.ipynb`), and the notebook to create the `geojson` file that sets the boundaries of the polygons on the `Mapbox`. To render the dash app in your browser, simply run the `worldwide.py` script.
 
 You can also find a Power BI version of our dashboard in [this link](https://nkluge-correa.github.io/worldwide_AI-ethics/).
 
-## Requirements 🛠️
+## Installation ⚙️
 
-```bash
+1. Clone the repository: `git clone https://github.com/Nkluge-correa/worldwide_AI-ethics.git`
+2. Install the required packages: `pip install -r requirements.txt`
 
-dash
-pandas
-urllib3
-unidecode
-scikit-learn
-dash-bootstrap-components
+## Usage 🕹️
 
-```
+1. Run the application: `python app.py`
+2. Open a web browser and navigate to `http://localhost:8050`
+3. Have fun using it! 🤗
+
+> Note: This repository is ready for deployment in [`Heroku`](https://www.heroku.com/). Just connect the repo to your Heroku app.
+
+## Contributing 🤝
+
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature-name`
+3. Make changes and commit: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Submit a pull request
 
 ## Cite as 🤗
 
