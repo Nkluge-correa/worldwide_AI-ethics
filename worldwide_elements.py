@@ -109,11 +109,15 @@ modal_article = html.Div(
 
                     ````markdown
 
-                    @article{correa2022worldwide,
-                        title={Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance},
+                    @article{correa2023worldwide,
                         author={Corr{\^e}a, Nicholas Kluge and Galv{\~a}o, Camila and Santos, James William and Del Pino, Carolina and Pinto, Edson Pontes and Barbosa, Camila and Massmann, Diogo and Mambrini, Rodrigo and Galv{\~a}o, Luiza and Terem, Edmund and Oliveira, Nythamar},
-                        journal={arXiv preprint arXiv:2206.11922},
-                        year={2022}
+                        title={Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance},
+                        journal={Patterns},
+                        year={2023},
+                        month={October},
+                        volume={4},
+                        number={10},
+                        doi={10.1016/j.patter.2023.100857}
                     }
                     ````
                     ''', id="cite_worldwide", className='modal-body-text-style'), html.Br(),
@@ -123,7 +127,7 @@ modal_article = html.Div(
                                       color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
                             dbc.Badge([html.I(className="bi bi-bar-chart-fill"), "  Power BI Version"], href="https://nkluge-correa.github.io/worldwide_AI-ethics/",
                                       color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
-                            dbc.Badge([html.I(className="bi bi-file-pdf-fill"), "  Full Article"], href="https://doi.org/10.48550/arXiv.2206.11922",
+                            dbc.Badge([html.I(className="bi bi-file-pdf-fill"), "  Full Article"], href="https://doi.org/10.1016/j.patter.2023.100857",
                                       color="dark", className="text-decoration-none", style={'margin-right': '5px'}),
                         ])
                     ], style={'text-align': 'center'}),

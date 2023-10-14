@@ -36,10 +36,14 @@ You can also find a Power BI version of our dashboard in [this link](https://nkl
 ## Cite as 🤗
 
 ```latex
-@article{correa2022worldwide,
-  title={Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance},
+@article{correa2023worldwide,
   author={Corr{\^e}a, Nicholas Kluge and Galv{\~a}o, Camila and Santos, James William and Del Pino, Carolina and Pinto, Edson Pontes and Barbosa, Camila and Massmann, Diogo and Mambrini, Rodrigo and Galv{\~a}o, Luiza and Terem, Edmund and Oliveira, Nythamar},
-  journal={arXiv preprint arXiv:2206.11922},
-  year={2022}
+  title={Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance},
+  journal={Patterns},
+  year={2023},
+  month={October},
+  volume={4},
+  number={10},
+  doi={10.1016/j.patter.2023.100857}
 }
 ```
