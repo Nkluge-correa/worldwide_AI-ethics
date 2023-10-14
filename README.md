@@ -4,7 +4,7 @@
 
 The utilization of artificial intelligence (AI) applications has experienced tremendous growth in recent years, bringing forth numerous benefits and conveniences. However, this expansion has also provoked ethical concerns, such as privacy breaches, algorithmic discrimination, security and reliability issues, transparency, and other unintended consequences. To determine whether a global consensus exists regarding the ethical principles that should govern AI applications and to contribute to the formation of future regulations, this paper conducts a meta-analysis of 200 governance policies and ethical guidelines for AI usage published by public bodies, academic institutions, private companies, and civil society organizations worldwide. **We identified at least 17 resonating principles prevalent in the policies and guidelines of our dataset, released as an open-source database and tool**. We present the limitations of performing a global scale analysis study paired with a critical analysis of our findings, presenting areas of consensus that should be incorporated into future regulatory efforts.
 
-_[Full article here.](https://arxiv.org/abs/2206.11922)_
+_[Full article here.](https://doi.org/10.1016/j.patter.2023.100857)_
 
 ## Dash Template 🐱‍💻
 
