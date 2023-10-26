@@ -1,22 +1,381 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-  body {
-  overflow: hidden; /* Hide scrollbars */
-}
-  
-  </style>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="Worldwide AI Ethics is a systematic literature review done by AIRES researchers at PUCRS. Building on the work done by other meta-analysts, this study presents a systematic review of 200 AI Ethics guidelines.">
+  <meta property="og:title" content="Worldwide AI Ethics"/>
+  <meta property="og:description" content="Worldwide AI Ethics is a systematic literature review done by AIRES researchers at PUCRS. Building on the work done by other meta-analysts, this study presents a systematic review of 200 AI Ethics guidelines."/>
+  <meta property="og:url" content="https://nkluge-correa.github.io/worldwide_AI-ethics/"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/images/banner.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="Worldwide AI Ethics">
+  <meta name="twitter:description" content="Worldwide AI Ethics is a systematic literature review done by AIRES researchers at PUCRS. Building on the work done by other meta-analysts, this study presents a systematic review of 200 AI Ethics guidelines.">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/banner.png">
+  <meta name="twitter:card" content="Worldwide AI Ethics is a systematic literature review done by AIRES researchers at PUCRS. Building on the work done by other meta-analysts, this study presents a systematic review of 200 AI Ethics guidelines.">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="artificial intelligence, machine learning, ethics, ethics of artificial intelligence, guidelines">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Worldwide AI Ethics</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
 </head>
-
 <body>
-  <iframe title="AIRES Worldwide AI Ethics" 
-    src="https://app.powerbi.com/view?r=eyJrIjoiYTU0YjQ4Y2YtZGYxYy00NDBkLTk3YWYtZTgxNWNlMTRmMzA2IiwidCI6IjZhYTQ1YTIyLWY0N2MtNDVkYy05Njg3LTk5NTMxY2I2YTVmOSJ9" 
-    frameborder="0" 
-    allowFullScreen="true"
-    style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
-  </iframe>
 
-</body>
 
-</html>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://nkluge-correa.github.io/" target="_blank">Nicholas Kluge</a><sup>1,2</sup>,</span>
+                <span class="author-block">
+                  <a href="https://www.researchgate.net/profile/Camila-Galvao-3" target="_blank">Camila Galvão</a><sup>2</sup>,</span>
+                  <span class="author-block">
+                    <a href="https://www.researchgate.net/profile/James-Santos-10" target="_blank">James William Santos</a><sup>2</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://www.researchgate.net/profile/Carolina-Del-Pino-Carvalho" target="_blank">Carolina Del Pino</a><sup>2</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://www.linkedin.com/in/esplaw/" target="_blank">Edson Pontes Pinto</a><sup>2</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://www.researchgate.net/profile/Camila-Palhares-Barbosa" target="_blank">Camila Palhares Barbosa</a><sup>2</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://www.researchgate.net/profile/Diogo-Massmann" target="_blank">Diogo Fernando Massmann</a><sup>2</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://www.linkedin.com/in/rodrigomambrini/" target="_blank">Rodrigo Mambrini</a><sup>2</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://www.researchgate.net/scientific-contributions/Luiza-Galvao-2224659172" target="_blank">Luiza Galvão</a><sup>2</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://www.linkedin.com/in/edmund-terem-b565701b2/" target="_blank">Edmund Terem</a><sup>3</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://www.researchgate.net/profile/Nythamar-De-Oliveira" target="_blank">Nythamar Fernandes De Oliveira</a><sup>2</sup>
+                  </span>
+                  
+                  
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <br>
+                    <span class="author-block">AI Robotics Ethics Society<br>PUC-RS Chapter</span>
+                    <span class="eql-cntrb"><small><br><sup>1</sup>University of Bonn</small></span>
+                    <span class="eql-cntrb"><small><br><sup>2</sup>PUC-RS</small></span>
+                    <span class="eql-cntrb"><small><br><sup>3</sup>University of Johannesburg</small></span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- Arxiv PDF link -->
+                      <span class="link-block">
+                        <a href="https://doi.org/10.1016/j.patter.2023.100857" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                     <!-- Supplementary PDF link -->
+                     <span class="link-block">
+                      <a href="https://doi.org/10.1016/j.patter.2023.100854" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Meet the authors</span>
+                    </a>
+                  </span>
+
+                    <!-- ArXiv link -->
+                    <span class="link-block">
+                      <a href="https://arxiv.org/abs/2206.11922" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                      </span>
+                      <span>arXiv</span>
+                    </a>
+                  </span>
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/Nkluge-correa/worldwide_AI-ethics" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <br>
+
+                <!-- Extra -->
+                <span class="link-block">
+                  <a href="dashboard.html" target="_blank"
+                  class="exPERternal-link button is-normal is-rounded is-dark">
+                  <span>Dashboard</span>
+                </a>
+              </span>
+
+              <!-- Extra -->
+              <span class="link-block">
+                <a href="tsne.html" target="_blank"
+                class="exPERternal-link button is-normal is-rounded is-dark">
+                <span>Embeddings</span>
+              </a>
+            </span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video poster="" id="tree" autoplay controls muted loop height="100%">
+        <!-- Your video here -->
+        <source src="static/videos/banner_video.mp4"
+        type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        Our paper, "Worldwide AI Ethics", constitutes a meta-analysis of AI guidelines conducted by the AI Ethics Robotics Society, a non-profit organization dedicated to promoting awareness and conducting research on ethical inquiries concerning intelligent and autonomous systems. This research stems from our curiosity about comprehending the global landscape surrounding the normative discourse centered on AI. 
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            The utilization of artificial intelligence (AI) applications has experienced tremendous growth in recent years, bringing forth numerous benefits and conveniences. However, this expansion has also provoked ethical concerns, such as privacy breaches, algorithmic discrimination, security and reliability issues, transparency, and other unintended consequences. To determine whether a global consensus exists regarding the ethical principles that should govern AI applications and to contribute to the formation of future regulations, this paper conducts a meta-analysis of 200 governance policies and ethical guidelines for AI usage published by public bodies, academic institutions, private companies, and civil society organizations worldwide. We identified at least 17 resonating principles prevalent in the policies and guidelines of our dataset, released as an open source database and tool. We present the limitations of performing a global-scale analysis study paired with a critical analysis of our findings, presenting areas of consensus that should be incorporated into future regulatory efforts.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+       <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/demo1.png" alt="An image of a dashboard containing multiple graphs."
+        style="width: 60vw; height: 60vh; display: block; margin-left: auto; margin-right: auto;">
+        <h2 class="subtitle has-text-centered">
+          Explore our dataset in our <a href="dashboard.html" target="_blank">dashboard</a>.
+        </h2>
+      </div>
+
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/demo2.png" alt="Several colored points scatered in 3 dimensional space."
+        style="width: 60vw; height: 60vh; display: block; margin-left: auto; margin-right: auto;">
+        <h2 class="subtitle has-text-centered">
+         Investigate the <a href="tsne.html" target="_blank">embedding space</a> of the ethical principles mentioned in Worldwide AI Ethics.
+       </h2>
+     </div>
+
+     <div class="item">
+      <!-- Your image here -->
+      <img src="static/images/demo3.png" alt="Several colored points scatered in 3 dimensional space."
+      style="width: 40vw; height: 60vh; display: block; margin-left: auto; margin-right: auto;">
+      <h2 class="subtitle has-text-centered">
+        Analize the <a href="distance-matrix.html" target="_blank">distance</a> from every embedding cluster.
+     </h2>
+   </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+
+
+
+<!-- Youtube video -->
+
+<!--
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+
+      <h2 class="title is-3">Video Presentation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          
+          <div class="publication-video">
+
+            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+<!-- End youtube video -->
+
+
+<!-- Video carousel -->
+
+<!--
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Another Carousel</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <video poster="" id="video1" autoplay controls muted loop height="100%">
+
+            <source src="static/videos/carousel1.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <video poster="" id="video2" autoplay controls muted loop height="100%">
+
+            <source src="static/videos/carousel2.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <video poster="" id="video3" autoplay controls muted loop height="100%">\
+
+            <source src="static/videos/carousel3.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+<!-- End video carousel -->
+
+
+
+
+
+
+<!-- Paper poster -->
+
+<!--
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title">Paper</h2>
+
+      <iframe  src="static/pdfs/manuscript.pdf" width="100%" height="550">
+          </iframe>
+        
+      </div>
+    </div>
+  </section>
+-->
+
+<!--End paper poster -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>
+        @article{correa2023worldwide,
+          author={Corr{\^e}a, Nicholas Kluge and Galv{\~a}o, Camila and Santos, James William and Del Pino, Carolina and Pinto, Edson Pontes and Barbosa, Camila and Massmann, Diogo and Mambrini, Rodrigo and Galv{\~a}o, Luiza and Terem, Edmund and Oliveira, Nythamar},
+          title={Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance},
+          journal={Patterns},
+          year={2023},
+          month={October},
+          volume={4},
+          number={10},
+          doi={10.1016/j.patter.2023.100857}
+        }
+      </code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p style="text-align: center;">
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            <br>
+            This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>

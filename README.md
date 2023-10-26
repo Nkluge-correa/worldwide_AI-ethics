@@ -1,23 +1,21 @@
-# Worldwide AI Ethics: a review of _200_ guidelines and recommendations for AI governance 🌐
-
-[![DOI](https://zenodo.org/badge/533441174.svg)](https://zenodo.org/badge/latestdoi/533441174)
+<h2 style="text-align:center"> Worldwide AI Ethics: a review of 200 guidelines and recommendations for AI governance </h2>
 
 The utilization of artificial intelligence (AI) applications has experienced tremendous growth in recent years, bringing forth numerous benefits and conveniences. However, this expansion has also provoked ethical concerns, such as privacy breaches, algorithmic discrimination, security and reliability issues, transparency, and other unintended consequences. To determine whether a global consensus exists regarding the ethical principles that should govern AI applications and to contribute to the formation of future regulations, this paper conducts a meta-analysis of 200 governance policies and ethical guidelines for AI usage published by public bodies, academic institutions, private companies, and civil society organizations worldwide. **We identified at least 17 resonating principles prevalent in the policies and guidelines of our dataset, released as an open-source database and tool**. We present the limitations of performing a global scale analysis study paired with a critical analysis of our findings, presenting areas of consensus that should be incorporated into future regulatory efforts.
 
-_[Full article here.](https://doi.org/10.1016/j.patter.2023.100857)_
+<p style="text-align: center;">
+<a href="https://doi.org/10.1016/j.patter.2023.100857" target="_blank">Full article here.</a>
+</p>
 
-## Dash Template 🐱‍💻
+### Dash Template 🐱‍💻
 
 Here you can find the source code used to create our _Worldwide AI Ethics_ dashboard. This panel was created using the [Dash](https://dash.plotly.com/dash-enterprise) library. All the tables that feed our dashboard (`data_en.rar`), images (`png_files.rar`), and HTML-Plotly graphs (`html_files.rar`) are available in the `data` folder (in `csv` and `parquet`). Auxiliary notebooks for creating the graphs (`make_graphs.ipynb`) and processing the text data(`principle_mining.ipynb`) are also available. We also make available the notebook we used to infer the gender of all authors in our sample (`gender_infer.ipynb`), and the notebook to create the `geojson` file that sets the boundaries of the polygons on the `Mapbox`. To render the dash app in your browser, simply run the `worldwide.py` script.
 
-You can also find a Power BI version of our dashboard in [this link](https://nkluge-correa.github.io/worldwide_AI-ethics/).
-
-## Installation ⚙️
+### Installation ⚙️
 
 1. Clone the repository: `git clone https://github.com/Nkluge-correa/worldwide_AI-ethics.git`
 2. Install the required packages: `pip install -r requirements.txt`
 
-## Usage 🕹️
+### Usage 🕹️
 
 1. Run the application: `python app.py`
 2. Open a web browser and navigate to `http://localhost:8050`
@@ -25,7 +23,7 @@ You can also find a Power BI version of our dashboard in [this link](https://nkl
 
 > Note: This repository is ready for deployment in [`Heroku`](https://www.heroku.com/). Just connect the repo to your Heroku app.
 
-## Contributing 🤝
+### Contributing 🤝
 
 1. Fork the repository
 2. Create a new branch: `git checkout -b feature-name`
