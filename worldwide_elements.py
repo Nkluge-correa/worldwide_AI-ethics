@@ -306,7 +306,7 @@ modal_gender = html.Div(
 with open('data/principles_definition_dict.pickle', 'rb') as fp:
     principles_definition_dict = pickle.load(fp)
     fp.close()
-
+    
 with open('data/principles_dict.pickle', 'rb') as fp:
     principles_dict = pickle.load(fp)
     fp.close()
@@ -447,11 +447,11 @@ modal_nature = html.Div(
                     dcc.Markdown('''
                     ### Descriptive 
                     
-                    - "_Descriptive documents take the effort of presenting definitions related to AI technologies. These definitions serve to contextualize "what we mean" when we talk about AI._"''', className='modal-body-text-style'),
+                    - "_Descriptive documents take the effort of presenting definitions related to AI technologies. These definitions contextualize "what we mean" when we talk about AI._"''', className='modal-body-text-style'),
                     dcc.Markdown('''
                     ### Normative 
                     
-                    - "_Normative documents present norms, ethical principles, recommendations, and imperative affirmations about what such technologies should be used/developed for._"''', className='modal-body-text-style'),
+                    - "_Normative documents present norms, ethical principles, recommendations, and imperative affirmations about what such technologies should be used or developed for._"''', className='modal-body-text-style'),
                     dcc.Markdown('''
                     ### Practical 
                     
@@ -498,16 +498,15 @@ modal_regulation = html.Div(
                     dcc.Markdown('''
                     ### Government-Regulation
                      
-                    - "_We designed this category to encompass documents made by governmental institutions. These documents propose that States should regulate the use and development of AI strictly (Legally binding horizontal regulations) or softly (Legally non-binding guidelines)._"''', className='modal-body-text-style'),
+                    - "_This category encompasses documents made by governmental institutions. These documents propose that states regulate the use and development of AI strictly (legally binding horizontal regulations) or softly (legally non-binding guidelines)._"''', className='modal-body-text-style'),
                     dcc.Markdown('''
                     ### Self-Regulation/Voluntary Self-Commitment 
                     
-                    - "_We designed this category to encompass documents made by private organizations and other bodies. These documents defend a form of Self-Regulation governed by the AI industry itself. It also encompasses voluntary self-commitment made by independent organizations._"''', className='modal-body-text-style'),
+                    - "_This category encompasses documents made by private organizations and other bodies. These documents defend a form of self-regulation governed by the AI industry, including any voluntary self-commitment made by independent organizations._"''', className='modal-body-text-style'),
                     dcc.Markdown('''
                     ### Recommendation 
                     
-                    - "_We designed this category to encompass documents that only suggest possible forms of governance and ethical principles that should guide organizations seeking to use, develop, or regulate AI technologies._"''', className='modal-body-text-style'),
-                    dcc.Markdown('''When we look at the form of regulation proposed by the documents of our sample, more than half (56%) are only recommendations to different AI stakeholders, while 24% possess self-regulatory/voluntary self-commitment style guidelines and only 20% propose a form of regulation administered by a given state/country.''',
+                    - "_This category encompasses documents that only suggest possible forms of governance and ethical principles that should guide organizations seeking to use, develop, or regulate AI technologies._"''',
                                  className='modal-body-text-style'),
                 ]),
                 dbc.ModalFooter(
@@ -546,7 +545,7 @@ modal_normative = html.Div(
                     
                     - "_These documents propose an approach that intertwines AI principles with recommended practices for companies and other entities._"''', className='modal-body-text-style'),
                     dcc.Markdown('''
-                    ### Legally binding horizontal regulations
+                    ### Legally binding regulations
                     
                     - "_These documents propose an approach that focuses on regulating specific uses of AI through legally binding regulations, such as mandatory requirements and prohibitions._"''', className='modal-body-text-style'),
                     dcc.Markdown('''When we look at the form of regulation proposed by the documents of our sample, more than half (56%) are only recommendations to different AI stakeholders, while 24% possess self-regulatory/voluntary self-commitment style guidelines and only 20% propose a form of regulation administered by a given state/country.''',
@@ -589,15 +588,15 @@ modal_impact = html.Div(
                     dcc.Markdown('''
                     ### Short-Termism 
                     
-                    - "_We designed this category to encompass documents in which the scope of impact and preoccupation focus mainly on current/short-term problems, like algorithmic discrimination, algorithmic opacity, privacy, legal accountability, etc._"''', className='modal-body-text-style'),
+                    - "_This category encompasses documents in which the scope of impact and preoccupation focus mainly on current or short-term problems, like algorithmic discrimination, algorithmic opacity, privacy, legal accountability, etc._"''', className='modal-body-text-style'),
                     dcc.Markdown('''
                     ### Long-Termism 
                     
-                    - "_We designed this category to encompass documents in which the scope of impact and preoccupation focus mainly on future/long-term problems, like problems we may face with future AI systems. Since such technologies are not yet a reality, we can classify these risks as hypothetical or, at best, uncertain._"''', className='modal-body-text-style'),
+                    - "_This category encompasses documents in which the scope of impact and preoccupation focus mainly on future or long-term problems. Since such technologies are not yet a reality, we can classify these risks as hypothetical or, at best, uncertain._"''', className='modal-body-text-style'),
                     dcc.Markdown('''
                     ### Short-Termism & Long-Termism 
                     
-                    - "_We designed this category to encompass documents in which the scope of impact is short and long-term, i.e., they present a "mid-term" scope of preoccupation. These documents address issues related to the Short-Termism category while also pointing out the mid/long-term impacts of our current AI adoption (e.g., AI interfering in democratic processes, autonomous weapons, existential risks, environmental sustainability, labor displacement, and the need for updating our educational systems)._"''', className='modal-body-text-style'),
+                    - "_This category encompasses documents in which the scope of impact is short and long-term, i.e., they present a "mid-term" scope of preoccupation. These documents address issues related to the short-termism category while also pointing out the mid/long-term impacts of our current AI adoption (e.g., AI interfering in democratic processes, autonomous weapons, existential risks, environmental sustainability, labor displacement, and the need for updating our educational systems)._"''', className='modal-body-text-style'),
                     dcc.Markdown('''Looking at the totality of our sample size, we see that short-term (47%) and "_mid-term_" (i.e., short-term & long-term = 52%) prevail over more long-term preoccupations (2%). When we filter our sample by impact scope and institution type, it seems to us that private corporations think more about the short-term (33%), governmental institutions about the short/long-term (28%), and academic (66%) and non-profit organizations (33%) with the long-term impacts of AI technologies.''',
                                  className='modal-body-text-style')
                 ]),
