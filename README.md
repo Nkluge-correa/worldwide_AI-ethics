@@ -34,3 +34,11 @@ The generated plots are available on our [website](https://nkluge-correa.github.
   doi={10.1016/j.patter.2023.100857}
 }
 ```
+
+## Funding
+
+This research was funded by RAIES ([Rede de Inteligência Artificial Ética e Segura](https://www.raies.org/)). RAIES is a project supported by FAPERGS ([Fundação de Amparo à Pesquisa do Estado do Rio Grande do Sul](https://fapergs.rs.gov.br/inicial)) and CNPq ([Conselho Nacional de Desenvolvimento Científico e Tecnológico](https://www.gov.br/cnpq/)).
+
+## License
+
+Worldwide AI Ethics is licensed under the CC-BY-NC license, Version 4.0. See the [LICENSE](LICENSE) file for more details.
