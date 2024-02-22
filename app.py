@@ -13,7 +13,7 @@ app = dash.Dash(__name__,
                     },
                     {
                         "name": "description",
-                        "content": "Worldwide AI Ethics Dashboard.",
+                        "content": "Worldwide AI Ethics (WAIE) is a systematic literature review done by AIRES researchers at PUCRS.",
                     },
                     {
                         "name": "viewport",
@@ -25,11 +25,11 @@ app = dash.Dash(__name__,
                     },
                     {
                         "property": "og:title",
-                        "content": "Worldwide AI Ethics Dashboard."
+                        "content": "Worldwide AI Ethics (WAIE) is a systematic literature review done by AIRES researchers at PUCRS."
                     },
                     {
                         "property": "og:description",
-                        "content": "Worldwide AI Ethics Dashboard.",
+                        "content": "Worldwide AI Ethics (WAIE) is a systematic literature review done by AIRES researchers at PUCRS.",
                     },
                     {
                         "property": "og:image",
@@ -37,11 +37,11 @@ app = dash.Dash(__name__,
                     },
                     {
                         "property": "twitter:title",
-                        "content": "Worldwide AI Ethics Dashboard."
+                        "content": "Worldwide AI Ethics (WAIE) is a systematic literature review done by AIRES researchers at PUCRS.d."
                     },
                     {
                         "property": "twitter:description",
-                        "content": "Worldwide AI Ethics Dashboard."
+                        "content": "Worldwide AI Ethics (WAIE) is a systematic literature review done by AIRES researchers at PUCRS."
                     },
                     {
                         "property": "twitter:image",
@@ -79,7 +79,7 @@ sidebar = html.Div(
         ),
         html.Div(
             html.P(
-                "Copyright © 2023, Nkluge-correa.",
+                "Copyright © 2024, Nkluge-correa.",
                 style={'color': '#f4f5f5'}), style={'position': 'fixed', 'bottom': '0'})
     ],
     className="nav-bar",

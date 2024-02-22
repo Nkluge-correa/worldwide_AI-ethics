@@ -1,3 +1,5 @@
+import json
+import collections
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -7,17 +9,57 @@ COLOR_GRAPHS_HEX = '#923146'
 LARGE_FONT_SIZE = 18
 FONT_SIZE = '1rem'
 
+# All countries in WAIE
+countries_in_waie = {
+    'Argentina': 'ARG',
+    'Australia': 'AUS',
+    'Austria': 'AUT',
+    'Belgium': 'BEL',
+    'Brazil': 'BRA',
+    'Canada': 'CAN',
+    'China': 'CHN',
+    'Colombia': 'COL',
+    'Denmark': 'DNK',
+    'Finland': 'FIN',
+    'France': 'FRA',
+    'Germany': 'DEU',
+    'Hungary': 'HUN',
+    'Iceland': 'ISL',
+    'India': 'IND',
+    'Italy': 'ITA',
+    'Japan': 'JPN',
+    'Lithuania': 'LTU',
+    'Luxembourg': 'LUX',
+    'Netherlands': 'NLD',
+    'New Zealand': 'NZL',
+    'Norway': 'NOR',
+    'Russia': 'RUS',
+    'Singapore': 'SGP',
+    'South Africa': 'ZAF',
+    'South Korea': 'KOR',
+    'Spain': 'ESP',
+    'Sweden': 'SWE',
+    'Switzerland': 'CHE',
+    'Turkey': 'TUR',
+    'United Arab Emirates': 'ARE',
+    'United Kingdom': 'GBR',
+    'United States of America': 'USA'
+}
+
+with open('data/data_processed.json') as f:
+    data = json.load(f)
+
 df = pd.read_parquet('data/arxiv_submissions.parquet')
 
-fig = go.Figure()
+arxiv = go.Figure()
 for column in df.columns:
-    fig.add_trace(go.Scatter(x=df.index, y=df[column],
+    arxiv.add_trace(go.Scatter(x=df.index, y=df[column],
                              line=dict(width=3), name=column, mode='lines',
                              hoverlabel=dict(namelength=-1),
                              hovertemplate=column + ': %{y} <extra></extra>',
                              showlegend=True))
 
-fig.update_layout(
+arxiv.update_layout(
     xaxis=dict(
         showline=True,
         showgrid=False,
@@ -57,15 +99,15 @@ fig.update_layout(
 
 df = pd.read_parquet('data/arxiv_submissions_cs.parquet')
 
-fig1 = go.Figure()
+arxiv_cs = go.Figure()
 for column in df.columns:
-    fig1.add_trace(go.Scatter(x=df.index, y=df[column],
+    arxiv_cs.add_trace(go.Scatter(x=df.index, y=df[column],
                               line=dict(width=3), name=column, mode='lines',
                               hoverlabel=dict(namelength=-1),
                               hovertemplate=column + ': %{y} <extra></extra>',
                               showlegend=True))
 
-fig1.update_layout(
+arxiv_cs.update_layout(
     xaxis=dict(
         showline=True,
         showgrid=False,
@@ -103,13 +145,14 @@ fig1.update_layout(
     margin={'r': 0, 't': 30, 'l': 0, 'b': 0}
 )
 
-df = pd.read_parquet('data/countries.parquet')
+plot_data=collections.Counter(
+    [item for sublist in [d['country'] if isinstance(d['country'], list) else [d['country']] for d in data] for item in sublist]
+)
 
-
-fig2 = go.Figure(data=go.Choropleth(
-    locations=tuple(df.code),
-    z=tuple(df.n_of_publications),
-    text=tuple(df.countries),
+countries = go.Figure(data=go.Choropleth(
+    locations=tuple(countries_in_waie.values()),
+    z=tuple([plot_data[country] for country in countries_in_waie.keys()]),
+    text=tuple(countries_in_waie.keys()),
     colorscale='oryel',
     showscale=False,
     autocolorscale=False,
@@ -119,7 +162,7 @@ fig2 = go.Figure(data=go.Choropleth(
     colorbar=dict(tickfont=dict(size=40))
 ))
 
-fig2.update_layout(
+countries.update_layout(
     title="<b><i>Publications by Country</i></b>",
     template='plotly_dark',
     geo=dict(
@@ -134,12 +177,15 @@ fig2.update_layout(
     dragmode=False
 )
 
-df = pd.read_parquet('data/institutions.parquet')
+plot_data=collections.Counter(
+    [item for sublist in [d['institution_type'] if isinstance(d['institution_type'], list) else [d['institution_type']] for d in data] for item in sublist]
+)
+plot_data = dict(sorted(plot_data.items(), key=lambda item: item[1]))
 
-fig3 = go.Figure(go.Bar(
-    x=tuple(df.n_of_publications),
-    y=tuple(['<b>'+elem+'</b>' for elem in df.institution_type]),
-    text=tuple(df.n_of_publications),
+institutions = go.Figure(go.Bar(
+    x=tuple(plot_data.values()),
+    y=tuple(['<b>'+elem+'</b>' for elem in plot_data.keys()]),
+    text=tuple(plot_data.values()),
     orientation='h',
     hovertemplate="%{y}: %{x} <extra></extra>",
     marker=dict(
@@ -148,7 +194,7 @@ fig3 = go.Figure(go.Bar(
             color=COLOR_GRAPH_RGB,
             width=1))))
 
-fig3.update_layout(
+institutions.update_layout(
     title="<b><i>Publications by Institutions</i></b>",
     template='plotly_dark',
     hoverlabel=dict(font_size=18),
@@ -179,12 +225,15 @@ fig3.update_layout(
     plot_bgcolor='rgba(0,0,0,0)',
 )
 
-df = pd.read_parquet('data/gender.parquet')
+number_of_male_authors = [item for sublist in [d['number_of_male_authors'] if isinstance(d['number_of_male_authors'], list) else [d['number_of_male_authors']] for d in data] for item in sublist]
+number_of_male_authors = sum([int(x) for x in number_of_male_authors if x != "Unspecified" and x != ""])
+number_of_female_authors = [item for sublist in [d['number_of_female_authors'] if isinstance(d['number_of_female_authors'], list) else [d['number_of_female_authors']] for d in data] for item in sublist]
+number_of_female_authors = sum([int(x) for x in number_of_female_authors if x != "Unspecified" and x != ""])
 
-fig4 = go.Figure(go.Bar(
-    x=tuple(['<b>'+elem+'</b>' for elem in df.authors]),
-    y=tuple(df.number_of_authors),
-    text=tuple(df.number_of_authors),
+authors = go.Figure(go.Bar(
+    x=tuple(["<b>Female Authors</b>", "<b>Male Authors</b>"]),
+    y=tuple([number_of_female_authors, number_of_male_authors]),
+    text=tuple([number_of_female_authors, number_of_male_authors]),
     width=(0.8, 0.8),
     hovertemplate="%{y}: %{x} <extra></extra>",
     marker=dict(
@@ -193,7 +242,7 @@ fig4 = go.Figure(go.Bar(
             color=COLOR_GRAPH_RGB,
             width=1))))
 
-fig4.update_layout(
+authors.update_layout(
     title={
         'text': "<b><i>Gender Distribution</i></b>",
         'y': 1.,
@@ -225,12 +274,15 @@ fig4.update_layout(
     bargroupgap=0.8
 )
 
-df = pd.read_parquet('data/principles.parquet')
+plot_data = collections.Counter(
+    principle for item in data for principle, value in item["principles"].items() if value
+)
+plot_data = dict(sorted(plot_data.items(), key=lambda item: item[1]))
 
-fig5 = go.Figure(go.Bar(
-    x=tuple(df.n_of_citations),
-    y=tuple(['<b>'+elem+'</b>' for elem in df.principles]),
-    text=tuple(df.n_of_citations),
+principles = go.Figure(go.Bar(
+    x=tuple(plot_data.values()),
+    y=tuple(['<b>'+elem+'</b>' for elem in plot_data.keys()]),
+    text=tuple(plot_data.values()),
     orientation='h',
     hovertemplate="%{y}: %{x} <extra></extra>",
     marker=dict(
@@ -239,7 +291,7 @@ fig5 = go.Figure(go.Bar(
             color=COLOR_GRAPH_RGB,
             width=1))))
 
-fig5.update_layout(
+principles.update_layout(
     title={
         'text': "<b><i>Principle's Distribution</i></b>",
         'y': 1.,
@@ -268,12 +320,12 @@ fig5.update_layout(
     plot_bgcolor='rgba(0,0,0,0)',
 )
 
-df = pd.read_parquet('data/Accountability_gram.parquet')
+df = pd.read_parquet('data/n-grams/Accountability_gram.parquet')
 
-fig_a = px.bar(df, x='Top four-grams', y='Word Count',
+accountability_gram = px.bar(df, x='Top four-grams', y='Word Count',
                color='Word Count', color_continuous_scale='oryel')
 
-fig_a.update_layout(
+accountability_gram.update_layout(
     template='plotly_dark',
     hoverlabel=dict(font_size=LARGE_FONT_SIZE),
     paper_bgcolor='rgba(0,0,0,0)',
@@ -283,23 +335,26 @@ fig_a.update_layout(
     yaxis_title=None
 )
 
-df = pd.read_parquet('data/time_line.parquet')
+plot_data = collections.Counter(
+    [item for sublist in [d['year_of_publication'] if isinstance(d['year_of_publication'], list) else [d['year_of_publication']] for d in data] for item in sublist]
+)
+plot_data = dict(sorted(plot_data.items(), key=lambda item: item[0]))
 
-fig6 = go.Figure(data=go.Bar(x=tuple(df.years), y=tuple(df.n_of_published_documents),
-                             text=tuple(df.n_of_published_documents),
+timeline = go.Figure(data=go.Bar(x=tuple(plot_data.keys()), y=tuple(plot_data.values()),
+                             text=tuple(plot_data.values()),
                              marker=dict(color=COLOR_GRAPHS_HEX), name=" ",
                              hoverlabel=dict(namelength=-1),
                              hovertemplate='<extra></extra>', showlegend=False))
 
-fig6.update_traces(textposition='outside')
+timeline.update_traces(textposition='outside')
 
-fig6.add_trace(go.Scatter(x=df.years, y=df.n_of_published_documents, mode='lines+markers',
+timeline.add_trace(go.Scatter(x=tuple(plot_data.keys()), y=tuple(plot_data.values()), mode='lines+markers',
                                 name='',
                                 line=dict(color='rgba(172, 50, 75, 0.5)'),
                                 connectgaps=True,
                                 hovertemplate='<extra></extra>', showlegend=False))
 
-fig6.update_layout(
+timeline.update_layout(
     title="<b><i>Publication Timeline</i></b>",
     template='plotly_dark',
     margin=dict(l=0, r=0, b=0, t=30,),
@@ -329,12 +384,15 @@ fig6.update_layout(
     hoverlabel=dict(font_size=14),
 )
 
-df = pd.read_parquet('data/document_nature.parquet')
+plot_data = collections.Counter(
+    [item for sublist in [d['document_nature'] if isinstance(d['document_nature'], list) else [d['document_nature']] for d in data] for item in sublist]
+)
+plot_data = dict(sorted(plot_data.items(), key=lambda item: item[1]))
 
-fig7 = go.Figure(go.Bar(
-    x=tuple(['<b>'+elem+'</b>' for elem in df.document_nature]),
-    y=tuple(df.n_of_documents),
-    text=tuple(df.n_of_documents),
+nature = go.Figure(go.Bar(
+    x=tuple(['<b>'+elem+'</b>' for elem in plot_data.keys()]),
+    y=tuple(plot_data.values()),
+    text=tuple(plot_data.values()),
     orientation='v',
     hovertemplate="%{x}: %{y} <extra></extra>",
     width=(0.5, 0.5, 0.5),
@@ -344,7 +402,7 @@ fig7 = go.Figure(go.Bar(
             color=COLOR_GRAPH_RGB,
             width=1))))
 
-fig7.update_layout(
+nature.update_layout(
     title={
         'text': "<b><i>Nature/Content</i></b>",
         'y': 1.,
@@ -376,12 +434,15 @@ fig7.update_layout(
     bargroupgap=0.8
 )
 
-df = pd.read_parquet('data/document_regulation.parquet')
+plot_data = collections.Counter(
+    [item for sublist in [d['document_regulation'] if isinstance(d['document_regulation'], list) else [d['document_regulation']] for d in data] for item in sublist]
+)   
+plot_data = dict(sorted(plot_data.items(), key=lambda item: item[1]))
 
-fig8 = go.Figure(go.Bar(
-    x=tuple(['<b>'+elem+'</b>' for elem in df.document_regulation]),
-    y=tuple(df.n_of_documents),
-    text=tuple(df.n_of_documents),
+regulation = go.Figure(go.Bar(
+    x=tuple(['<b>'+elem+'</b>' for elem in plot_data.keys()]),
+    y=tuple(plot_data.values()),
+    text=tuple(plot_data.values()),
     orientation='v',
     hovertemplate="%{x}: %{y} <extra></extra>",
     width=(0.5, 0.5, 0.5),
@@ -391,7 +452,7 @@ fig8 = go.Figure(go.Bar(
             color=COLOR_GRAPH_RGB,
             width=1))))
 
-fig8.update_layout(
+regulation.update_layout(
     title={
         'text': "<b><i>Regulation</i></b>",
         'y': 1.,
@@ -423,12 +484,15 @@ fig8.update_layout(
     bargroupgap=0.8
 )
 
-df = pd.read_parquet('data/document_normative.parquet')
+plot_data = collections.Counter(
+    [item for sublist in [d['document_normative'] if isinstance(d['document_normative'], list) else [d['document_normative']] for d in data] for item in sublist]
+)
+plot_data = dict(sorted(plot_data.items(), key=lambda item: item[1]))
 
-fig9 = go.Figure(go.Bar(
-    x=tuple(['<b>'+elem+'</b>' for elem in df.document_normative]),
-    y=tuple(df.n_of_documents),
-    text=tuple(df.n_of_documents),
+normative = go.Figure(go.Bar(
+    x=tuple(['<b>'+elem+'</b>' for elem in plot_data.keys()]),
+    y=tuple(plot_data.values()),
+    text=tuple(plot_data.values()),
     orientation='v',
     hovertemplate="%{x}: %{y} <extra></extra>",
     width=(0.5, 0.5, 0.5),
@@ -438,7 +502,7 @@ fig9 = go.Figure(go.Bar(
             color=COLOR_GRAPH_RGB,
             width=1))))
 
-fig9.update_layout(
+normative.update_layout(
     title={
         'text': "<b><i>Normative Strength</i></b>",
         'y': 1.,
@@ -470,12 +534,15 @@ fig9.update_layout(
     bargroupgap=0.8
 )
 
-df = pd.read_parquet('data/document_impact.parquet')
+plot_data = collections.Counter(
+    [item for sublist in [d['document_impact'] if isinstance(d['document_impact'], list) else [d['document_impact']] for d in data] for item in sublist]
+)
+plot_data = dict(sorted(plot_data.items(), key=lambda item: item[1]))
 
-fig10 = go.Figure(go.Bar(
-    x=tuple(['<b>'+elem+'</b>' for elem in df.document_impact]),
-    y=tuple(df.n_of_documents),
-    text=tuple(df.n_of_documents),
+impact = go.Figure(go.Bar(
+    x=tuple(['<b>'+elem+'</b>' for elem in plot_data.keys()]),
+    y=tuple(plot_data.values()),
+    text=tuple(plot_data.values()),
     orientation='v',
     hovertemplate="%{x}: %{y} <extra></extra>",
     width=(0.5, 0.5, 0.5),
@@ -485,7 +552,7 @@ fig10 = go.Figure(go.Bar(
             color=COLOR_GRAPH_RGB,
             width=1))))
 
-fig10.update_layout(
+impact.update_layout(
     title={
         'text': "<b><i>Impact Scope</i></b>",
         'y': 1.,

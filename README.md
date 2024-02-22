@@ -8,15 +8,22 @@
 
 The utilization of artificial intelligence (AI) applications has experienced tremendous growth in recent years, bringing forth numerous benefits and conveniences. However, this expansion has also provoked ethical concerns, such as privacy breaches, algorithmic discrimination, security and reliability issues, transparency, and other unintended consequences. To determine whether a global consensus exists regarding the ethical principles that should govern AI applications and to contribute to the formation of future regulations, this paper conducts a meta-analysis of 200 governance policies and ethical guidelines for AI usage published by public bodies, academic institutions, private companies, and civil society organizations worldwide. **We identified at least 17 resonating principles prevalent in the policies and guidelines of our dataset, released as an open-source database and tool**. We present the limitations of performing a global scale analysis study paired with a critical analysis of our findings, presenting areas of consensus that should be incorporated into future regulatory efforts.
 
-## Dash Template 🐱‍💻
+## Dash Template
 
-Here you can find the source code used to create our _Worldwide AI Ethics_ dashboard. This panel was created using the [Dash](https://dash.plotly.com/dash-enterprise) library. All the tables that feed our dashboard (`data_en.rar`), images (`png_files.rar`), and HTML-Plotly graphs (`html_files.rar`) are available in the `data` folder (in `csv` and `parquet`). Auxiliary notebooks for creating the graphs (`make_graphs.ipynb`) and processing the text data(`principle_mining.ipynb`) are also available. We also make available the notebook we used to infer the gender of all authors in our sample (`gender_infer.ipynb`), and the notebook to create the `geojson` file that sets the boundaries of the polygons on the `Mapbox`. To render the dash app in your browser, simply run the `worldwide.py` script.
+Here, you can find the source code for the [Dash](https://dash.plotly.com/dash-enterprise) version of our WAIE dashboard. All the sources that feed our dashboard (`data.rar`), images (`png_files.rar`), and HTML-Plotly graphs (`html_files.rar`) are available in the [`data`](data) folder.
 
-## Worldwide AI Ethics Embeddings: _visualizing normative principles in vector space_
+To render the dash app in your browser, install the [requirements](requirements.txt) and run the `app.py` script.
+
+Auxiliary notebooks and scripts for processing the text data are:
+
+- `parse-raw-data.py`: This script pareses the raw table ([`data_raw.parquet`](data/data_raw.parquet)) into a formated json file. This is used to feed most of the graphs and functionalities of the dashboard.
+- `principle_mining.ipynb`: This notebook processes the principles and creates the n-gram plots. All n-gram tables are in [`data/n-grams`](data/n-grams).
+
+## Worldwide AI Ethics Embeddings: visualizing normative principles in vector space
 
 In the `waie-embeddings`, you can find one of the first spin-offs of our study.
 
-After curating a dataset with 1400+ definitions across 17 ethical principles in AI (the Worldwide AI Ethics dataset), we leverage OpenAI's `text-embedding-ada-002` to perform a different kind of analysis. In short, we have transformed these definitions into vectors so we can visualize them in 3D space using PCA and t-SNE.
+After curating a dataset with 1400+ definitions across 17 ethical principles in AI (the Worldwide AI Ethics dataset), we leverage OpenAI's `text-embedding-ada-002` to perform a different analysis. In short, we have transformed these definitions into vectors to visualize them in 3D space using PCA and t-SNE. You can find the notebook we used to run this analysis [here](waie-embeddings/evaluate_embbedings.ipynb) (embedding data can be found in the [`waie-embeddings/data`](waie-embeddings/data) folder).
 
 The generated plots are available on our [website](https://nkluge-correa.github.io/worldwide_AI-ethics/).
 

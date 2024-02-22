@@ -1,13 +1,13 @@
 import dash
-import time
 import pandas as pd
 import plotly.express as px
 import dash_bootstrap_components as dbc
 from dash import dcc, html, Output, Input, State, callback
 
-from toggle import toggle_modal
 from badges import badges
-from graphs import fig2, fig3, fig4, fig5, fig6, fig7, fig8, fig9, fig10
+from toggle import toggle_modal
+from graphs import countries, institutions, authors, principles
+from graphs import timeline, nature, regulation, normative, impact
 
 from worldwide_elements import principles_definition_dict, principles_dict
 from worldwide_elements import modal_article, documents_dive, table, modal_map
@@ -30,7 +30,8 @@ layout = html.Div(
         html.Div([
             html.Div([
                 dcc.Markdown('''
-                Worldwide AI Ethics is a systematic literature review done by AIRES researchers at PUCRS. Building on the work done by other meta-analysts, this study presents a systematic review of 200 AI Ethics guidelines.''', className='page-intro')
+                Worldwide AI Ethics (WAIE) is a systematic literature review done by AIRES researchers at PUCRS. Building on the work done by other meta-analysts, \
+                    this study presents a systematic review of 200 AI Ethics guidelines.''', className='page-intro')
             ], className='page-intro-inner-div'),
         ], className='page-intro-outer-div'),
         html.Div([modal_article], className='middle-toggles'),
@@ -43,7 +44,7 @@ layout = html.Div(
                 dbc.Row([
                     dbc.Col([
                         modal_map,
-                        dcc.Graph(id='map', figure=fig2, config={
+                        dcc.Graph(id='map', figure=countries, config={
                                   'displayModeBar': False},
                                   className='graph-div')
                     ], md=12),
@@ -52,7 +53,7 @@ layout = html.Div(
                 dbc.Row([
                     dbc.Col([
                         modal_institution,
-                        dcc.Graph(id='institution', figure=fig3,
+                        dcc.Graph(id='institution', figure=institutions,
                                   config={'displayModeBar': False},
                                   className='graph-div')
                     ], md=12),
@@ -61,13 +62,13 @@ layout = html.Div(
                 dbc.Row([
                     dbc.Col([
                         modal_gender,
-                        dcc.Graph(id='gender', figure=fig4,
+                        dcc.Graph(id='gender', figure=authors,
                                   config={'displayModeBar': False},
                                   className='graph-div')
                     ], md=4),
                     dbc.Col([
                         html.Div([modal_principles, offcanvas_principles]),
-                        dcc.Graph(id='principles', figure=fig5,
+                        dcc.Graph(id='principles', figure=principles,
                                   config={'displayModeBar': False},
                                   className='graph-div')
                     ], md=8),
@@ -76,7 +77,7 @@ layout = html.Div(
                 dbc.Row([
                     dbc.Col([
                         modal_years,
-                        dcc.Graph(id='years', figure=fig6, config={
+                        dcc.Graph(id='years', figure=timeline, config={
                                   'displayModeBar': False},
                                   className='graph-div')
                     ], md=12),
@@ -84,24 +85,24 @@ layout = html.Div(
                 dbc.Row([
                     dbc.Col([
                         modal_nature,
-                        dcc.Graph(id='nature', figure=fig7,
+                        dcc.Graph(id='nature', figure=nature,
                                   config={'displayModeBar': False},
                                   className='graph-div')
                     ], md=3),
                     dbc.Col([
                         modal_regulation,
-                        dcc.Graph(id='regulation', figure=fig8,
+                        dcc.Graph(id='regulation', figure=regulation,
                                   config={'displayModeBar': False},
                                   className='graph-div')
                     ], md=3),
                     dbc.Col([
                         modal_normative,
-                        dcc.Graph(id='normative', figure=fig9,
+                        dcc.Graph(id='normative', figure=normative,
                                   config={'displayModeBar': False})
                     ], md=3),
                     dbc.Col([
                         modal_impact,
-                        dcc.Graph(id='impact', figure=fig10,
+                        dcc.Graph(id='impact', figure=impact,
                                   config={'displayModeBar': False},
                                   className='graph-div')
                     ], md=3),
@@ -109,6 +110,59 @@ layout = html.Div(
 
             ], md=10),
         ], style={'margin-left': '5px'}),
+        html.Br(),
+        dbc.Row([
+                    html.Div([dcc.Markdown('## Explore the WAIE Dataset', className='title-style'),],
+                        className='title-div'),
+                    html.Br(),
+                    dcc.Dropdown(id='documents',
+                                 options=tuple([x["document_name"] for x in documents_dive]),
+                                 value="""An Open Letter to the Global South: Bring the 'rest' in (Uma Carta Aberta ao Sul Global: Tragam o “resto” para dentro)""", 
+                                 clearable=False,
+                                 style={'margin-top': '10px'}
+                                 ), html.Br(),
+                    dbc.Row([
+                        dbc.Col([
+                            dcc.Loading(type='circle', color='#dc3d87', children=[
+                                dbc.Card([
+                                    dbc.CardHeader("Details",
+                                                   className='card-header-style', ),
+                                    dbc.CardBody([
+                                        dcc.Markdown(''' ''', id='document-details',
+                                                     className='card-body-style', ),
+                                    ]),
+
+                                ], color='#32383e', outline=False, inverse=True, className='card-style')
+                            ])
+                        ], md=4),
+                        dbc.Col([
+                            dcc.Loading(type='circle', color='#dc3d87', children=[
+                                dbc.Card([
+                                    dbc.CardHeader("Abstract",
+                                                   className='card-header-style', ),
+                                    dbc.CardBody([
+                                        dcc.Markdown('', id='document-abstract',
+                                                     className='card-body-style', ),
+                                    ]),
+
+                                ], color='#32383e', outline=True, inverse=True, className='card-style')
+                            ])
+                        ], md=4),
+                        dbc.Col([
+                            dcc.Loading(type='circle', color='#dc3d87', children=[
+                                dbc.Card([
+                                    dbc.CardHeader("Principles",
+                                                   className='card-header-style',),
+                                    dbc.CardBody([
+                                        dcc.Markdown('', id='document-principles',
+                                                     className='card-body-style',),
+                                    ]),
+
+                                ], color='#32383e', outline=True, inverse=True, className='card-style')
+                            ])
+                        ], md=4),
+                    ], justify='center'), html.Br(),
+        ]),
         html.Br(),
         dbc.Row([
             dbc.Col([
@@ -142,24 +196,30 @@ def toggle_abstract(n1, n2, is_open):
     Input('documents', 'value'),
 )
 def display_documents_dive(value):
-    time.sleep(1)
 
-    info_document = documents_dive.loc[value]
+    document = [d for d in documents_dive if d.get("document_name") == value][0]
     document_details = f'''
-    Name of the Document: {info_document.document_name}.\n
-    Origin: {info_document.country}.\n
-    Institution: {info_document.institutions}.\n
-    Document Size: {info_document.document_size}.\n
-    Gender Distribution: {info_document.authors_gender}.\n
-    Document Nature: {info_document.document_nature}.\n
-    Type of Regulation Proposed: {info_document.document_regulation}.\n
-    Normative Strength: {info_document.document_normative}.\n
-    Impact Scope: {info_document.document_impact}.\n
+    Name of the Document: [{document['document_name']}]({document['document_url']}).\n
+    Origin: {document['country']} ({document['world_region']}).\n
+    Institution: {document['institution']} ({', '.join(map(str, document['institution_type'])) if isinstance(document['institution_type'], list) else str(document['institution_type'])}).\n
+    Document Size: {document['document_size']}.\n
+    Gender Distribution: M : {document['number_of_male_authors']} | F : {document['number_of_female_authors']}.\n
+    Document Nature: {', '.join(map(str, document['document_nature'])) if isinstance(document['document_nature'], list) else str(document['document_nature'])}.\n
+    Type of Regulation Proposed: {document['document_regulation']}.\n
+    Normative Strength: {', '.join(map(str, document['document_normative'])) if isinstance(document['document_normative'], list) else str(document['document_normative'])}.\n
+    Impact Scope: {document['document_impact']}.\n
     '''
 
+    principles = ""
+    for p, d in document['principles_definition'].items():
+        if d:
+            principles += f"- **{p}**: _{d}_\n"
+        else:
+            pass
+
     return (document_details,
-            info_document.document_abstract,
-            info_document.principles_definition)
+            document['abstract'],
+            principles)
 
 
 @callback(
@@ -170,7 +230,6 @@ def display_documents_dive(value):
     Input('principle', 'value'),
 )
 def display_principle_gram(value):
-    time.sleep(1)
 
     principles_definition = principles_definition_dict[value]
 
@@ -181,7 +240,7 @@ def display_principle_gram(value):
     """
 
     principle_df = pd.read_parquet(
-        f"data/{principles_dict[value]}.parquet")
+        f"data/n-grams/{principles_dict[value]}.parquet")
 
     principle_fig = px.bar(principle_df, x='Top four-grams', y='Word Count',
                            color='Word Count', color_continuous_scale='oryel')
@@ -314,7 +373,7 @@ def toggle_impact(n1, n2, is_open):
 )
 def func(n_clicks):
     return dcc.send_file(
-        'data/data_en.rar')
+        'data/data.rar')
 
 
 @callback(

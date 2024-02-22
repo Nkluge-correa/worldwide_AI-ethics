@@ -6,8 +6,8 @@ from badges import badges
 
 dash.register_page(__name__,
                    path='/',
-                   title='AIRES Playground 🎮',
-                   name='AIRES Playground 🎮')
+                   title='Worldwide AI Ethics 🌎🌍🌏',
+                   name='Worldwide AI Ethics 🌎🌍🌏')
 
 layout = html.Div(
     [
